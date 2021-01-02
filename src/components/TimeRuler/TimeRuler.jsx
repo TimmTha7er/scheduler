@@ -1,17 +1,7 @@
 const TimeRuler = () => {
-  const items = [];
-  const start = 0;
-  const end = 24;
-
-  for (let idx = start; idx < end; idx++) {
-    if (idx < 10) {
-      items.push(`0${idx}:00`);
-    } else {
-      items.push(`${idx}:00`);
-    }
-  }
-
-  // console.log(items);
+  const timeList = Array(24).fill().map((item, idx) => {
+    return idx < 10 ? `0${idx}:00` : `${idx}:00`;
+  });
 
   return (
     <div className='time-ruler'>
@@ -20,7 +10,7 @@ const TimeRuler = () => {
         <div className='time-ruler__empty-row'></div>
       </div>
       <div className='time-ruler__cells'>
-        {items.map((item, idx) => {
+        {timeList.map((item, idx) => {
           return (
             <div key={idx} className='time-ruler__cell'>
               <div className='time-ruler__time'>{item}</div>

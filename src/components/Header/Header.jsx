@@ -1,14 +1,17 @@
 import GridNav from '../GridNav/GridNav.jsx';
 import DatePicker from '../DatePicker/DatePicker.jsx';
 
-const Header = () => {
+const Header = ({ selectedMonth, selectedYear }) => {
   return (
     <header className='header'>
       <div className='header__selected-date'>
-        <div className='header__selected-month'>декабрь</div>
-        <div className='header__selected-year'>2020</div>
+        <div className='header__selected-month'>{selectedMonth}</div>
+        <div className='header__selected-year'>{selectedYear}</div>
       </div>
-      {/* <DatePicker></DatePicker> */}
+      <DatePicker
+        selectedMonth={selectedMonth}
+        selectedYear={selectedYear}
+      ></DatePicker>
       <GridNav></GridNav>
     </header>
   );

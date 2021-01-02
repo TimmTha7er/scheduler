@@ -9,13 +9,13 @@ import '../scss/index.scss';
 function App() {
   return (
     <div className='container'>
-      <Header></Header>
+      <Header selectedMonth={'январь'} selectedYear={2020}></Header>
       <main className='main'>
         <Day></Day>
 
         {/* <CreatePopup></CreatePopup> */}
         {/* <DeletePopup></DeletePopup> */}
-        {/* <PreviewPopup></PreviewPopup> */}
+        {/* <PreviewPopup eventTitle='Название события' eventDescr='Описание события тря ля ля'></PreviewPopup> */}
       </main>
     </div>
   );
