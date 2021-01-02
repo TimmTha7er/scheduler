@@ -1,0 +1,79 @@
+.delete-popup {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 480px;
+  padding: 20px 22px 24px;
+  text-align: left;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 10px 20px -5px rgba(0, 0, 0, 0.4);
+  background-color: #fff;
+  z-index: 33;
+
+  &__title {
+    font-size: 20px;
+    margin: 0 0 25px;
+    font-weight: 700;
+  }
+
+  &__text {
+    font-size: 15px;
+  }
+
+  &__footer {
+    display: flex;
+    padding-top: 30px;
+    justify-content: flex-end;
+  }
+
+  &__btn {
+    color: #000;
+    font-size: 15px;
+    border: 0;
+    outline: 0;
+    min-width: 100px;
+    margin-left: 10px;
+    padding: 10px 30px;
+    border-radius: 5px;
+    background-color: #e6e6e6;
+    cursor: pointer;
+    transition: transform 0.1s ease-out, background-color 0.15s linear;
+
+    &:hover {
+      background-color: #e2e2e2;
+    }
+
+    &_action {
+      background-color: #ffcc00;
+
+      &:hover {
+        background-color: #f5c609;
+      }
+    }
+
+    &:active {
+      transform: scale(0.97);
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .delete-popup {
+    width: 97%;
+    padding: 20px 20px 24px;
+
+    // &__footer {
+    //   flex-direction: column;
+    // }
+
+    &__btn {
+      margin-left: 0;
+      width: 100%;
+      margin-bottom: 10px;
+
+      &:first-child{
+        margin-right: 10px;
+      }
+    }
+  }
+}

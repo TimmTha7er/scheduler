@@ -1,0 +1,242 @@
+.datepicker {
+  position: absolute;
+  top: 65px;
+  left: 25px;
+  max-width: 285px;
+  padding: 14px 24px 14px 24px;
+  z-index: 21;
+  // opacity: 0;
+
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 10px 20px -5px rgba(0, 0, 0, 0.4);
+  background-color: #fff;
+
+  font-size: 13px;
+  text-align: center;
+
+  &:hover {
+    .datepicker__month-navigation {
+      opacity: 1;
+    }
+  }
+
+  &__header {
+    position: relative;
+    padding-top: 8px;
+  }
+
+  &__month-navigation {
+    position: absolute;
+    border: 0;
+    // display: block;
+    // padding: 5px;
+    background: 0 0;
+    font-size: 22px;
+    cursor: pointer;
+    user-select: none;
+    z-index: 1;
+    // opacity: 0;
+    transition: opacity 0.15s ease-out;
+
+    &:before {
+      margin: 0;
+      font-weight: 700;
+    }
+
+    &:hover {
+      opacity: 0.5 !important;
+    }
+
+    &_previous {
+      left: -5px;
+      top: 4px;
+    }
+
+    &_next {
+      right: -5px;
+      top: 4px;
+    }
+  }
+
+  &__selected-date {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 400;
+    margin: 1px 0 12px 0;
+  }
+
+  &__selected-month {
+    margin-right: 8px;
+    cursor: pointer;
+    transition: color 0.15s ease-out;
+
+    &:hover {
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  &__selected-year {
+    cursor: pointer;
+    transition: color 0.15s ease-out;
+
+    &:hover {
+      color: rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  &__month-dropdown {
+    position: absolute;
+    left: 54px;
+    top: 23px;
+
+    background: #fff;
+    font-size: 15px;
+    font-weight: 400;
+
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1),
+      0 10px 20px -5px rgba(0, 0, 0, 0.4);
+    z-index: 10;
+    cursor: pointer;
+  }
+
+  &__month-name {
+    line-height: 28px;
+    padding: 0 18px;
+    transition: background-color 0.15s ease-out;
+
+    &:hover {
+      background-color: #ffeba0;
+    }
+
+    &_selected {
+      background-color: #ffeba0;
+    }
+  }
+
+  &__year-dropdown {
+    position: absolute;
+    left: 120px;
+    top: 23px;
+
+    background: #fff;
+    font-size: 15px;
+    font-weight: 400;
+
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1),
+      0 10px 20px -5px rgba(0, 0, 0, 0.4);
+    z-index: 10;
+    cursor: pointer;
+  }
+
+  &__year-option {
+    line-height: 28px;
+    padding: 0 18px;
+    transition: background-color 0.15s ease-out;
+
+    &:hover {
+      background-color: #ffeba0;
+    }
+
+    &_selected {
+      background-color: #ffeba0;
+    }
+  }
+
+  &__navigation {
+    cursor: pointer;
+    user-select: none;
+
+    &:before {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    &_years-upcoming {
+    }
+    &_years-previous {
+    }
+  }
+
+  &__day-names {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__day-name {
+    width: 26px;
+    height: 26px;
+    padding: 7px;
+    color: rgba(0, 0, 0, 0.5);
+    user-select: none;
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  &__month {
+  }
+
+  &__week {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__day {
+    width: 35px;
+    height: 35px;
+    padding: 10px;
+    color: rgb(0, 0, 0);
+    font-weight: 700;
+    border-radius: 50%;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.15s ease-out, color 0.15s ease-out;
+
+    &:hover {
+      background: #e6e6e6;
+    }
+
+    &_outside-month {
+      font-weight: 300;
+      color: rgba(0, 0, 0, 0.3);
+    }
+
+    &_weekend {
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    &_selected {
+      background: #e6e6e6;
+    }
+
+    &_today {
+      background: #f33;
+      color: #fff;
+
+      &:hover {
+        background: rgba(255, 51, 51, 0.7);
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .datepicker {
+    &__month-dropdown {
+      left: 44%;
+      transform: translate(-50%, 0%);
+    }
+
+    &__year-dropdown {
+      left: 58%;
+      transform: translate(-50%, 0%);
+    }
+  }
+}
+

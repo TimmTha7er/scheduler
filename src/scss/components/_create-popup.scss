@@ -1,0 +1,160 @@
+.create-popup {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 520px;
+  padding: 14px 20px 14px 20px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 10px 20px -5px rgba(0, 0, 0, 0.4);
+  background-color: #fff;
+  z-index: 21;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 34px;
+  }
+
+  &__title {
+    font-size: 22px;
+    line-height: 32px;
+    font-weight: bold;
+  }
+
+  &__close {
+    font-size: 32px;
+    cursor: pointer;
+    opacity: 0.3;
+    transition: opacity 0.15s ease-out;
+    margin-right: -5px;
+
+    &:before {
+      margin: 0;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 0px 5px 120px;
+  }
+}
+
+.form {
+  &__label {
+    color: #999;
+    font-size: 14px;
+    width: 100px;
+    padding-top: 7px;
+    padding-right: 10px;
+    user-select: none;
+  }
+
+  &__input {
+    font-size: 14px;
+    width: 100%;
+    color: #000;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    transition: border-color 0.15s ease-out, border-width 0.15s ease-out,
+      outline-color 0.25s ease-out;
+
+    &:hover {
+      border-color: rgba(0, 0, 0, 0.5);
+    }
+
+    &:focus {
+      border-color: transparent;
+      outline: solid 2px #ffdb4d;
+    }
+  }
+
+  &__textarea {
+    resize: vertical;
+    min-height: 90px;
+    height: 90px;
+    font-size: 14px;
+    width: 100%;
+    color: #000;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    transition: border-color 0.15s ease-out, border-width 0.15s ease-out,
+      outline-color 0.25s ease-out;
+
+    &:hover {
+      border-color: rgba(0, 0, 0, 0.5);
+    }
+
+    &:focus {
+      border-color: transparent;
+      outline: solid 2px #ffdb4d;
+    }
+  }
+
+  &__field {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  &__btn {
+    font-size: 15px;
+    min-width: 120px;
+    line-height: 32px;
+    border: none;
+    color: #000;
+    border-radius: 3px;
+    background-color: #ffdb4d;
+    transition: background-color 0.1s ease-out 0s;
+
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f8d54b;
+    }
+    &:active {
+      background-color: #ebcc4f;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .create-popup {
+    width: 97%;
+
+    &__header {
+      padding-bottom: 15px;
+    }
+
+    &__footer {
+      padding: 10px 0 5px 0px
+    }
+   
+  }
+
+  .form {
+    &__field {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      margin-bottom: 15px;
+    }
+
+    &__label {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .form {
+    &__btn {
+      padding-left: 0;
+      width: 100%;
+    }
+  }
+}
