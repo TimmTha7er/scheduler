@@ -3,6 +3,7 @@
 // ----------------------------------------------
 .header {
   // display: flex;
+  position: relative;
   padding-top: 25px;
   padding-bottom: 5px;
   display: flex;
@@ -29,6 +30,7 @@
   &__selected-month {
     margin-right: 8px;
     cursor: pointer;
+    user-select: none;
     // transition: color 0.15s ease-out;
 
     &::first-letter {
@@ -38,6 +40,7 @@
 
   &__selected-year {
     cursor: pointer;
+    user-select: none;
 
     // &:hover {
     //   color: rgba(0, 0, 0, 0.5);

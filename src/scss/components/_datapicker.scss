@@ -1,7 +1,7 @@
 .datepicker {
   position: absolute;
-  top: 65px;
-  left: 25px;
+  top: 70px;
+  left: 10px;
   max-width: 285px;
   padding: 14px 24px 14px 24px;
   z-index: 21;
@@ -67,9 +67,11 @@
   }
 
   &__selected-month {
+    display: inline-block;
     margin-right: 8px;
     cursor: pointer;
     transition: color 0.15s ease-out;
+    user-select: none;
 
     &:hover {
       color: rgba(0, 0, 0, 0.5);
@@ -81,8 +83,10 @@
   }
 
   &__selected-year {
+    display: inline-block;
     cursor: pointer;
     transition: color 0.15s ease-out;
+    user-select: none;
 
     &:hover {
       color: rgba(0, 0, 0, 0.5);

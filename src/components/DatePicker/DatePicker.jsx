@@ -1,27 +1,35 @@
-// import React from 'react';
-const monthList = [
-  'январь',
-  'февраль',
-  'март',
-  'апрель',
-  'май',
-  'июнь',
-  'июль',
-  'август',
-  'сентябрь',
-  'октябрь',
-  'ноябрь',
-  'декабрь',
-];
+import { useState, useRef, useEffect } from 'react';
+import YearDropdown from './YearDropdown';
+import MonthDropdown from './MonthDropdown';
 
-const dayList = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
+const daysList = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
 
 const DatePicker = ({ selectedMonth, selectedYear }) => {
-  const startYear = selectedYear - 5;
-  const endYear = selectedYear + 5;
-  const yearList = Array(endYear - startYear + 1)
-    .fill()
-    .map((item, idx) => endYear - idx);
+  const [visibleMonthDropdown, setVisibleMonthDropdown] = useState(false);
+  const [visibleYearDropdown, setVisibleYearDropdown] = useState(false);
+  const monthRef = useRef();
+  const yearRef = useRef();
+
+  useEffect(() => {
+    document.body.addEventListener('click', handleOutsideClick);
+  }, []);
+
+  const handleOutsideClick = (e) => {
+    if (!e.path.includes(monthRef.current)) {
+      setVisibleMonthDropdown(false);
+    }
+    if (!e.path.includes(yearRef.current)) {
+      setVisibleYearDropdown(false);
+    }
+  };
+
+  const onSelectedMonthClick = () => {
+    setVisibleMonthDropdown((prevState) => !prevState);
+  };
+
+  const onSelectedYearClick = () => {
+    setVisibleYearDropdown((prevState) => !prevState);
+  };
 
   return (
     <div className='datepicker header__datepicker'>
@@ -36,45 +44,33 @@ const DatePicker = ({ selectedMonth, selectedYear }) => {
         ></button>
 
         <div className='datepicker__selected-date'>
-          <div className='datepicker__selected-month'>декабрь</div>
-          <div className='datepicker__selected-year'>2020</div>
+          <div ref={monthRef} className='datepicker__selected-month-wrap'>
+            <span
+              className='datepicker__selected-month'
+              onClick={onSelectedMonthClick}
+            >
+              {selectedMonth}
+            </span>
 
-          <div className='datepicker__month-dropdown'>
-            {monthList.map((item, idx) => {
-              const className =
-                item === selectedMonth
-                  ? 'datepicker__month-name datepicker__month-name_selected'
-                  : 'datepicker__month-name';
-              return (
-                <div key={idx} className={className}>
-                  {item}
-                </div>
-              );
-            })}
+            {visibleMonthDropdown && (
+              <MonthDropdown selectedMonth={selectedMonth}></MonthDropdown>
+            )}
           </div>
+          <div ref={yearRef} className='datepicker__selected-year-wrap'>
+            <span
+              onClick={onSelectedYearClick}
+              className='datepicker__selected-year'
+            >
+              {selectedYear}
+            </span>
 
-          <div className='datepicker__year-dropdown'>
-            <div className='datepicker__year-option'>
-              <a className='datepicker__navigation datepicker__navigation_years-upcoming icon icon-up-open-big'></a>
-            </div>
-            {yearList.map((item, idx) => {
-              const className =
-                item === selectedYear
-                  ? 'datepicker__year-option datepicker__year-option_selected'
-                  : 'datepicker__year-option';
-              return (
-                <div key={idx} className={className}>
-                  {item}
-                </div>
-              );
-            })}
-            <div className='datepicker__year-option'>
-              <a className='datepicker__navigation datepicker__navigation_years-previous icon icon-down-open-big'></a>
-            </div>
+            {visibleYearDropdown && (
+              <YearDropdown selectedYear={selectedYear}></YearDropdown>
+            )}
           </div>
         </div>
         <div className='datepicker__day-names'>
-          {dayList.map((item, idx) => {
+          {daysList.map((item, idx) => {
             return (
               <div key={idx} className='datepicker__day-name'>
                 {item}

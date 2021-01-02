@@ -1,5 +1,5 @@
 const TimeRuler = () => {
-  const timeList = Array(24).fill().map((item, idx) => {
+  const timesList = Array(24).fill().map((item, idx) => {
     return idx < 10 ? `0${idx}:00` : `${idx}:00`;
   });
 
@@ -10,7 +10,7 @@ const TimeRuler = () => {
         <div className='time-ruler__empty-row'></div>
       </div>
       <div className='time-ruler__cells'>
-        {timeList.map((item, idx) => {
+        {timesList.map((item, idx) => {
           return (
             <div key={idx} className='time-ruler__cell'>
               <div className='time-ruler__time'>{item}</div>
