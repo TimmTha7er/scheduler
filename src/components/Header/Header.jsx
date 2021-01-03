@@ -8,6 +8,11 @@ const Header = ({ selectedMonth, selectedYear }) => {
 
   useEffect(() => {
     document.body.addEventListener('click', handleOutsideClick);
+
+    return () => {
+      // ???
+      setVisibleDatePicker(false);
+    };
   }, []);
 
   const handleOutsideClick = (e) => {

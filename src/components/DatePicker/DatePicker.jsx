@@ -1,6 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import YearDropdown from './YearDropdown';
 import MonthDropdown from './MonthDropdown';
+import buildCalendar from "./buildCalendar";
+import moment from 'moment';
+import classNames from 'classnames';
 
 const daysList = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
 
@@ -10,8 +13,75 @@ const DatePicker = ({ selectedMonth, selectedYear }) => {
   const monthRef = useRef();
   const yearRef = useRef();
 
+  // calendar
+  // ---------------------------
+  const [calendar, setCalendar] = useState([]);
+  const [value, setValue] = useState(moment());
+
+  const today = moment();
+
+
+  useEffect(() => {
+    setCalendar(buildCalendar(value));
+  }, [value]);
+
+
+  // const isSelected = (day) => {
+  //   return value.isSame(day, 'day');
+  // } 
+
+  // const beforeToday = (day) => {
+  //   return day.isBefore(new Date(), 'day');
+  // } 
+
+  // const afterToday = (day) => {
+  //   return day.isAfter(new Date(), 'day');
+  // } 
+
+  // const isToday = (day) => {
+  //   return day.isSame(new Date(), 'day');
+  // } 
+
+  const currYear = () => {
+    return value.format('YYYY');
+  }
+
+  const currMonthName = () => {
+    return value.format('MMMM');
+  }
+
+  const prevMonth = () => {
+    return value.clone().subtract(1, 'month');
+  }
+
+  const nextMonth = () => {
+    return value.clone().add(1, 'month');
+  }
+
+  const onBtnPrevClick = () => {
+    setValue(prevMonth());
+  }
+
+  const onBtnNextClick = () => {
+    setValue(nextMonth());
+  }
+
+  
+  // const currMonth = () => {
+  //   return value.clone().format('YYYY');
+  // }
+
+  // ---------------------------
+  // calendar
+
   useEffect(() => {
     document.body.addEventListener('click', handleOutsideClick);
+
+    return () => {
+      // ???
+      setVisibleMonthDropdown(false);
+      setVisibleYearDropdown(false);
+    };
   }, []);
 
   const handleOutsideClick = (e) => {
@@ -31,14 +101,18 @@ const DatePicker = ({ selectedMonth, selectedYear }) => {
     setVisibleYearDropdown((prevState) => !prevState);
   };
 
+  console.log('value', value);
+
   return (
     <div className='datepicker header__datepicker'>
       <div className='datepicker__header'>
         <button
+          onClick={onBtnPrevClick}
           type='button'
           className='datepicker__month-navigation datepicker__month-navigation_previous icon icon-left-open-big'
         ></button>
         <button
+        onClick={onBtnNextClick}
           type='button'
           className='datepicker__month-navigation datepicker__month-navigation_next icon icon-right-open-big'
         ></button>
@@ -49,7 +123,7 @@ const DatePicker = ({ selectedMonth, selectedYear }) => {
               className='datepicker__selected-month'
               onClick={onSelectedMonthClick}
             >
-              {selectedMonth}
+              {currMonthName()}
             </span>
 
             {visibleMonthDropdown && (
@@ -61,7 +135,7 @@ const DatePicker = ({ selectedMonth, selectedYear }) => {
               onClick={onSelectedYearClick}
               className='datepicker__selected-year'
             >
-              {selectedYear}
+              {currYear()}
             </span>
 
             {visibleYearDropdown && (
@@ -80,66 +154,30 @@ const DatePicker = ({ selectedMonth, selectedYear }) => {
         </div>
       </div>
       <div className='datepicker__month'>
-        <div className='datepicker__week'>
-          <div className='datepicker__day datepicker__day_outside-month'>
-            30
+        {calendar.map((week, idx) => (
+          <div key={idx} className='datepicker__week'>
+            {week.map((day, idx) => {
+              const className = classNames({
+                'datepicker__day_selected': value.isSame(day, 'day'),
+                'datepicker__day_today': today.isSame(day, 'day'),
+                'datepicker__day_weekend':
+                  day.format('dd') === 'вс' || day.format('dd') === 'сб',
+                'datepicker__day_outside-month':
+                  day.isAfter(value, 'month') || day.isBefore(value, 'month'),
+              });
+
+              return (
+                <div
+                  onClick={() => setValue(day)}
+                  key={idx}
+                  className={`datepicker__day ${className}`}
+                >
+                  {day.format('D')}
+                </div>
+              );
+            })}
           </div>
-          <div className='datepicker__day'>1</div>
-          <div className='datepicker__day'>2</div>
-          <div className='datepicker__day'>3</div>
-          <div className='datepicker__day'>4</div>
-          <div className='datepicker__day datepicker__day_weekend'>5</div>
-          <div className='datepicker__day datepicker__day_weekend'>6</div>
-        </div>
-        <div className='datepicker__week'>
-          <div className='datepicker__day'>7</div>
-          <div className='datepicker__day'>8</div>
-          <div className='datepicker__day'>9</div>
-          <div className='datepicker__day'>10</div>
-          <div className='datepicker__day'>11</div>
-          <div className='datepicker__day datepicker__day_weekend'>12</div>
-          <div className='datepicker__day datepicker__day_weekend'>13</div>
-        </div>
-        <div className='datepicker__week'>
-          <div className='datepicker__day'>14</div>
-          <div className='datepicker__day'>15</div>
-          <div className='datepicker__day'>16</div>
-          <div className='datepicker__day'>17</div>
-          <div className='datepicker__day'>18</div>
-          <div className='datepicker__day datepicker__day_weekend'>19</div>
-          <div className='datepicker__day datepicker__day_weekend'>20</div>
-        </div>
-        <div className='datepicker__week'>
-          <div className='datepicker__day'>21</div>
-          <div className='datepicker__day'>22</div>
-          <div className='datepicker__day'>23</div>
-          <div className='datepicker__day'>24</div>
-          <div className='datepicker__day'>25</div>
-          <div className='datepicker__day datepicker__day_weekend'>26</div>
-          <div className='datepicker__day datepicker__day_weekend'>27</div>
-        </div>
-        <div className='datepicker__week'>
-          <div className='datepicker__day datepicker__day_selected'>28</div>
-          <div className='datepicker__day datepicker__day_selected datepicker__day_today'>
-            29
-          </div>
-          <div className='datepicker__day'>30</div>
-          <div className='datepicker__day'>31</div>
-          <div className='datepicker__day datepicker__day_outside-month'>1</div>
-          <div className='datepicker__day datepicker__day_outside-month'>2</div>
-          <div className='datepicker__day datepicker__day_outside-month'>3</div>
-        </div>
-        <div className='datepicker__week'>
-          <div className='datepicker__day datepicker__day_outside-month'>4</div>
-          <div className='datepicker__day datepicker__day_outside-month'>5</div>
-          <div className='datepicker__day datepicker__day_outside-month'>6</div>
-          <div className='datepicker__day datepicker__day_outside-month'>7</div>
-          <div className='datepicker__day datepicker__day_outside-month'>8</div>
-          <div className='datepicker__day datepicker__day_outside-month'>9</div>
-          <div className='datepicker__day datepicker__day_outside-month'>
-            10
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );

@@ -106,6 +106,7 @@
       0 10px 20px -5px rgba(0, 0, 0, 0.4);
     z-index: 10;
     cursor: pointer;
+    user-select: none;
   }
 
   &__month-name {
@@ -135,6 +136,7 @@
       0 10px 20px -5px rgba(0, 0, 0, 0.4);
     z-index: 10;
     cursor: pointer;
+    user-select: none;
   }
 
   &__year-option {
@@ -243,4 +245,3 @@
     }
   }
 }
-
