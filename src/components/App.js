@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './Header/Header.jsx';
 import Day from './Day/Day.jsx';
 import CreatePopup from './CreatePopup/CreatePopup.jsx';
@@ -8,21 +8,20 @@ import moment from 'moment';
 import 'moment/locale/ru';
 import '../scss/index.scss';
 
-function App() {
-  // moment.locale('ru');
-  console.log('день недели', moment().format('dd'));
-  // console.log('начало месяца', moment().startOf('month'));
-  // console.log('конец месяца', moment().endOf('month'));
+import { connect } from 'react-redux';
+
+function App(props) {
+  const [date, setDate] = useState(moment());
 
   // console.log(
-  //   'начало месяца c начала недели ))',
-  //   moment().startOf('month').startOf('week')
+  //   'date',
+  //   date
+  //     .locale('ru', { week: { dow: 2 } })
+  //     .localeData()
+  //     .weekdaysShort()
   // );
 
-  // console.log(
-  //   'конец месяца и конец недели ))',
-  //   moment().endOf('month').endOf('week')
-  // );
+  console.log('props', props);
 
   return (
     <div className='container'>
@@ -38,4 +37,12 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  console.log('state', state.datePicker.date);
+
+  return { date: state.datePicker.date };
+};
+
+const mapDistatchToProps = {};
+
+export default connect(mapStateToProps, mapDistatchToProps)(App);

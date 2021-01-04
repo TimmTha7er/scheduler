@@ -59,10 +59,12 @@ const DatePicker = ({ selectedMonth, selectedYear }) => {
   }
 
   const onBtnPrevClick = () => {
+    // setCalendar(buildCalendar(prevMonth()));
     setValue(prevMonth());
   }
 
   const onBtnNextClick = () => {
+    // setCalendar(buildCalendar(nextMonth()));
     setValue(nextMonth());
   }
 
