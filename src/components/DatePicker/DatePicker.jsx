@@ -1,13 +1,15 @@
 import { useState, useRef, useEffect } from 'react';
 import YearDropdown from './YearDropdown';
 import MonthDropdown from './MonthDropdown';
-import buildCalendar from "./buildCalendar";
-import moment from 'moment';
+import buildCalendar from './buildCalendar';
+// import moment from 'moment';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
+import { setDate, setVisible } from '../../redux/actions';
 
 const daysList = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
 
-const DatePicker = ({ selectedMonth, selectedYear }) => {
+const DatePicker = ({ date, setDate, setVisible }) => {
   const [visibleMonthDropdown, setVisibleMonthDropdown] = useState(false);
   const [visibleYearDropdown, setVisibleYearDropdown] = useState(false);
   const monthRef = useRef();
@@ -16,59 +18,55 @@ const DatePicker = ({ selectedMonth, selectedYear }) => {
   // calendar
   // ---------------------------
   const [calendar, setCalendar] = useState([]);
-  const [value, setValue] = useState(moment());
-
-  const today = moment();
-
+  const [value, setValue] = useState(date);
+  const today = date;
 
   useEffect(() => {
     setCalendar(buildCalendar(value));
   }, [value]);
 
-
   // const isSelected = (day) => {
   //   return value.isSame(day, 'day');
-  // } 
+  // }
 
   // const beforeToday = (day) => {
   //   return day.isBefore(new Date(), 'day');
-  // } 
+  // }
 
   // const afterToday = (day) => {
   //   return day.isAfter(new Date(), 'day');
-  // } 
+  // }
 
   // const isToday = (day) => {
   //   return day.isSame(new Date(), 'day');
-  // } 
+  // }
 
   const currYear = () => {
     return value.format('YYYY');
-  }
+  };
 
   const currMonthName = () => {
     return value.format('MMMM');
-  }
+  };
 
   const prevMonth = () => {
     return value.clone().subtract(1, 'month');
-  }
+  };
 
   const nextMonth = () => {
     return value.clone().add(1, 'month');
-  }
+  };
 
   const onBtnPrevClick = () => {
     // setCalendar(buildCalendar(prevMonth()));
     setValue(prevMonth());
-  }
+  };
 
   const onBtnNextClick = () => {
     // setCalendar(buildCalendar(nextMonth()));
     setValue(nextMonth());
-  }
+  };
 
-  
   // const currMonth = () => {
   //   return value.clone().format('YYYY');
   // }
@@ -103,7 +101,24 @@ const DatePicker = ({ selectedMonth, selectedYear }) => {
     setVisibleYearDropdown((prevState) => !prevState);
   };
 
-  console.log('value', value);
+  // console.log('value', value);
+
+  const onDayClick = (day) => () => {
+    console.log(day);
+    setValue(day);
+    setDate(day);
+    setVisible(false);
+  };
+
+  const onChangeMonth = (month) => {
+    setValue(month);
+    onSelectedMonthClick();
+  };
+
+  const onChangeYear = (year) => {
+    setValue(year);
+    onSelectedYearClick();
+  };
 
   return (
     <div className='datepicker header__datepicker'>
@@ -114,7 +129,7 @@ const DatePicker = ({ selectedMonth, selectedYear }) => {
           className='datepicker__month-navigation datepicker__month-navigation_previous icon icon-left-open-big'
         ></button>
         <button
-        onClick={onBtnNextClick}
+          onClick={onBtnNextClick}
           type='button'
           className='datepicker__month-navigation datepicker__month-navigation_next icon icon-right-open-big'
         ></button>
@@ -129,7 +144,10 @@ const DatePicker = ({ selectedMonth, selectedYear }) => {
             </span>
 
             {visibleMonthDropdown && (
-              <MonthDropdown selectedMonth={selectedMonth}></MonthDropdown>
+              <MonthDropdown
+                onChangeMonth={onChangeMonth}
+                date={value}
+              ></MonthDropdown>
             )}
           </div>
           <div ref={yearRef} className='datepicker__selected-year-wrap'>
@@ -141,7 +159,10 @@ const DatePicker = ({ selectedMonth, selectedYear }) => {
             </span>
 
             {visibleYearDropdown && (
-              <YearDropdown selectedYear={selectedYear}></YearDropdown>
+              <YearDropdown
+                onChangeYear={onChangeYear}
+                date={value}
+              ></YearDropdown>
             )}
           </div>
         </div>
@@ -160,9 +181,9 @@ const DatePicker = ({ selectedMonth, selectedYear }) => {
           <div key={idx} className='datepicker__week'>
             {week.map((day, idx) => {
               const className = classNames({
-                'datepicker__day_selected': value.isSame(day, 'day'),
-                'datepicker__day_today': today.isSame(day, 'day'),
-                'datepicker__day_weekend':
+                datepicker__day_selected: value.isSame(day),
+                datepicker__day_today: today.isSame(day, 'day'),
+                datepicker__day_weekend:
                   day.format('dd') === 'вс' || day.format('dd') === 'сб',
                 'datepicker__day_outside-month':
                   day.isAfter(value, 'month') || day.isBefore(value, 'month'),
@@ -170,7 +191,7 @@ const DatePicker = ({ selectedMonth, selectedYear }) => {
 
               return (
                 <div
-                  onClick={() => setValue(day)}
+                  onClick={onDayClick(day)}
                   key={idx}
                   className={`datepicker__day ${className}`}
                 >
@@ -185,4 +206,15 @@ const DatePicker = ({ selectedMonth, selectedYear }) => {
   );
 };
 
-export default DatePicker;
+const mapStateToProps = (state) => {
+  // console.log('state', state.datePicker.date);
+
+  return { date: state.datePicker.date };
+};
+
+const mapDistatchToProps = {
+  setDate: setDate,
+  setVisible: setVisible,
+};
+
+export default connect(mapStateToProps, mapDistatchToProps)(DatePicker);

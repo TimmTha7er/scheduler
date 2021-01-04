@@ -1,6 +1,8 @@
 const buildCalendar = (value) => {
   const startDay = value.clone().startOf('month').startOf('week');
-  const endDay = value.clone().endOf('month').endOf('week');
+  // const endDay = value.clone().endOf('month').endOf('week');
+  const endDay = startDay.clone().add(5, 'week');
+  
   const day = startDay.clone().subtract(1, 'day');
   const calendar = [];
 

@@ -1,27 +1,30 @@
 import { useState } from 'react';
 
-const createYearsList = (year) => {
-  const startYear = year - 5;
-  const endYear = year + 5;
+const buildYearsList = (value) => {
+  const startYear = value.clone().add(5, 'year');
+  const endYear = value.clone().subtract(5, 'year');
 
-  const yearsList = Array(endYear - startYear + 1)
-    .fill()
-    .map((item, idx) => endYear - idx);
+  const year = startYear.clone().add(1, 'year');
+  const yearsList = [];
+
+  while (year.isAfter(endYear, 'year')) {
+    yearsList.push(year.subtract(1, 'year').clone());
+  }
 
   return yearsList;
 };
 
-const YearDwopdown = ({ selectedYear }) => {
+const YearDwopdown = ({ date, onChangeYear }) => {
   const [yearsList, setYearsList] = useState({
-    years: createYearsList(selectedYear),
-    middle: selectedYear,
+    years: buildYearsList(date),
+    middle: date,
   });
-  const [activeYear, setActiveYear] = useState(selectedYear);
+  const [activeYear, setActiveYear] = useState(date);
 
   const onBtnUpClick = () => {
     setYearsList((state) => {
-      const newMiddle = state.middle + 1;
-      const newYearsList = createYearsList(newMiddle);
+      const newMiddle = state.middle.clone().add(1, 'year');
+      const newYearsList = buildYearsList(newMiddle);
 
       return { years: newYearsList, middle: newMiddle };
     });
@@ -29,8 +32,8 @@ const YearDwopdown = ({ selectedYear }) => {
 
   const onBtnDownClick = () => {
     setYearsList((state) => {
-      const newMiddle = state.middle - 1;
-      const newYearsList = createYearsList(newMiddle);
+      const newMiddle = state.middle.clone().subtract(1, 'year');
+      const newYearsList = buildYearsList(newMiddle);
 
       return { years: newYearsList, middle: newMiddle };
     });
@@ -38,7 +41,8 @@ const YearDwopdown = ({ selectedYear }) => {
 
   const onYearClick = (year) => () => {
     setActiveYear(year);
-    setYearsList({ years: createYearsList(year), middle: year });
+    setYearsList({ years: buildYearsList(year), middle: year });
+    onChangeYear(year);
   };
 
   return (
@@ -47,13 +51,12 @@ const YearDwopdown = ({ selectedYear }) => {
         <a className='datepicker__navigation datepicker__navigation_years-upcoming icon icon-up-open-big'></a>
       </div>
       {yearsList.years.map((item, idx) => {
-        const className =
-          item === activeYear
-            ? 'datepicker__year-option datepicker__year-option_selected'
-            : 'datepicker__year-option';
+        const className = item.isSame(activeYear, 'year')
+          ? 'datepicker__year-option datepicker__year-option_selected'
+          : 'datepicker__year-option';
         return (
           <div onClick={onYearClick(item)} key={idx} className={className}>
-            {item}
+            {item.format('YYYY')}
           </div>
         );
       })}

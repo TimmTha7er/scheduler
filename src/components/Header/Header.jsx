@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import GridNav from '../GridNav/GridNav.jsx';
 import DatePicker from '../DatePicker/DatePicker.jsx';
+import { connect } from 'react-redux';
+import { setVisible } from '../../redux/actions';
 
-const Header = ({ selectedMonth, selectedYear }) => {
-  const [visibleDatePicker, setVisibleDatePicker] = useState(false);
+const Header = ({ selectedMonth, selectedYear, isVisible, setVisible }) => {
   const datePickerRef = useRef();
 
   useEffect(() => {
@@ -11,37 +12,44 @@ const Header = ({ selectedMonth, selectedYear }) => {
 
     return () => {
       // ???
-      setVisibleDatePicker(false);
+      // setVisible(false);
     };
   }, []);
 
   const handleOutsideClick = (e) => {
     if (!e.path.includes(datePickerRef.current)) {
-      setVisibleDatePicker(false);
+      setVisible(false);
     }
   };
 
   const onSelectedDateClick = () => {
-    setVisibleDatePicker((prevState) => !prevState);
+    setVisible(!isVisible);
   };
 
   return (
-    <header ref={datePickerRef} className='header'>
-      <div onClick={onSelectedDateClick} className='header__selected-date'>
-        <div className='header__selected-month'>{selectedMonth}</div>
-        <div className='header__selected-year'>{selectedYear}</div>
+    <header className='header'>
+      <div ref={datePickerRef} className='header__wrap'>
+        <div onClick={onSelectedDateClick} className='header__selected-date'>
+          <div className='header__selected-month'>{selectedMonth}</div>
+          <div className='header__selected-year'>{selectedYear}</div>
+        </div>
+        {isVisible && <DatePicker></DatePicker>}
       </div>
-
-      {visibleDatePicker && (
-        <DatePicker
-          selectedMonth={selectedMonth}
-          selectedYear={selectedYear}
-        ></DatePicker>
-      )}
 
       <GridNav></GridNav>
     </header>
   );
 };
 
-export default Header;
+const mapStateToProps = ({ datePicker: { date, isVisible } }) => {
+  const selectedMonth = date.format('MMMM');
+  const selectedYear = date.format('YYYY');
+
+  return { selectedMonth, selectedYear, isVisible };
+};
+
+const mapDistatchToProps = {
+  setVisible: setVisible,
+};
+
+export default connect(mapStateToProps, mapDistatchToProps)(Header);

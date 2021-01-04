@@ -4,14 +4,11 @@ import Day from './Day/Day.jsx';
 import CreatePopup from './CreatePopup/CreatePopup.jsx';
 import DeletePopup from './DeletePopup/DeletePopup.jsx';
 import PreviewPopup from './PreviewPopup/PreviewPopup.jsx';
-import moment from 'moment';
-import 'moment/locale/ru';
+
 import '../scss/index.scss';
 
-import { connect } from 'react-redux';
-
 function App(props) {
-  const [date, setDate] = useState(moment());
+  // const [date, setDate] = useState(moment());
 
   // console.log(
   //   'date',
@@ -21,11 +18,9 @@ function App(props) {
   //     .weekdaysShort()
   // );
 
-  console.log('props', props);
-
   return (
     <div className='container'>
-      <Header selectedMonth={'январь'} selectedYear={2020}></Header>
+      <Header></Header>
       <main className='main'>
         <Day></Day>
 
@@ -37,12 +32,4 @@ function App(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  console.log('state', state.datePicker.date);
-
-  return { date: state.datePicker.date };
-};
-
-const mapDistatchToProps = {};
-
-export default connect(mapStateToProps, mapDistatchToProps)(App);
+export default App;

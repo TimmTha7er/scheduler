@@ -9,7 +9,7 @@ const Day = () => {
         <TimeRuler></TimeRuler>
       </div>
       <div className='day__right-col'>
-        <DayGrid selectedMonthDay="29" selectedWeedDay="вт"></DayGrid>
+        <DayGrid></DayGrid>
       </div>
     </div>
   );

@@ -1,3 +1,5 @@
+import { connect } from 'react-redux';
+
 const DayGrid = ({ selectedMonthDay, selectedWeedDay }) => {
   return (
     <div className='daygrid'>
@@ -23,4 +25,13 @@ const DayGrid = ({ selectedMonthDay, selectedWeedDay }) => {
   );
 };
 
-export default DayGrid;
+const mapStateToProps = ({ datePicker: { date } }) => {
+  const selectedMonthDay = date.format('D');
+  const selectedWeedDay = date.format('ddd');
+
+  return { selectedMonthDay, selectedWeedDay };
+};
+
+const mapDistatchToProps = {};
+
+export default connect(mapStateToProps, mapDistatchToProps)(DayGrid);
