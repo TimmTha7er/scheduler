@@ -1,4 +1,27 @@
-const DeletePopup = () => {
+import { connect } from 'react-redux';
+import {
+  setPreviewPopupVisible,
+  setDeletePopupVisible,
+  deleteEvent,
+} from '../../redux/actions';
+
+const DeletePopup = ({
+  setDeletePopupVisible,
+  setPreviewPopupVisible,
+  deleteEvent,
+  date,
+}) => {
+  const onBtnСonfirmClick = () => {
+    console.log('delete');
+    setPreviewPopupVisible(false);
+    deleteEvent(date);
+    setDeletePopupVisible(false);
+  };
+
+  const onBtnCancelClick = () => {
+    setDeletePopupVisible(false);
+  };
+
   return (
     <div className='delete-popup'>
       <div className='delete-popup__title'>Удаление события</div>
@@ -6,8 +29,13 @@ const DeletePopup = () => {
         Вы действительно хотите удалить событие?
       </div>
       <div className='delete-popup__footer'>
-        <button className='delete-popup__btn'>Отмена</button>
-        <button className='delete-popup__btn delete-popup__btn_action'>
+        <button onClick={onBtnCancelClick} className='delete-popup__btn'>
+          Отмена
+        </button>
+        <button
+          onClick={onBtnСonfirmClick}
+          className='delete-popup__btn delete-popup__btn_action'
+        >
           Да
         </button>
       </div>
@@ -15,4 +43,14 @@ const DeletePopup = () => {
   );
 };
 
-export default DeletePopup;
+const mapStateToProps = ({ datePicker: { date } }) => {
+  return { date };
+};
+
+const mapDistatchToProps = {
+  setDeletePopupVisible,
+  setPreviewPopupVisible,
+  deleteEvent,
+};
+
+export default connect(mapStateToProps, mapDistatchToProps)(DeletePopup);

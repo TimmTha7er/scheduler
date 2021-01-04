@@ -84,6 +84,7 @@
     border: 1px solid rgba(0, 0, 0, 0.2);
     transition: border-color 0.15s ease-out, border-width 0.15s ease-out,
       outline-color 0.25s ease-out;
+    white-space: pre-line;
 
     &:hover {
       border-color: rgba(0, 0, 0, 0.5);
@@ -131,9 +132,8 @@
     }
 
     &__footer {
-      padding: 10px 0 5px 0px
+      padding: 10px 0 5px 0px;
     }
-   
   }
 
   .form {
