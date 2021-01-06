@@ -14,7 +14,7 @@ const buildYearsList = (value) => {
   return yearsList;
 };
 
-const YearDwopdown = ({ date, onChangeYear }) => {
+const YearDwopdown = ({ date, onChangeYear, onSelectedYearClick }) => {
   const [yearsList, setYearsList] = useState({
     years: buildYearsList(date),
     middle: date,
@@ -43,6 +43,7 @@ const YearDwopdown = ({ date, onChangeYear }) => {
     setActiveYear(year);
     setYearsList({ years: buildYearsList(year), middle: year });
     onChangeYear(year);
+    onSelectedYearClick();
   };
 
   return (

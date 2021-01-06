@@ -22,7 +22,8 @@ const Header = ({ selectedMonth, selectedYear, isVisible, setVisible }) => {
     }
   };
 
-  const onSelectedDateClick = () => {
+  const onSelectedDateClick = (e) => {
+    // console.log('e', e);
     setVisible(!isVisible);
   };
 

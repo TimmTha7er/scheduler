@@ -3,6 +3,7 @@
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 1px 0 1px rgba(0, 0, 0, 0.05),
     0 4px 6px 0 rgba(0, 0, 0, 0.05);
   margin-bottom: 12px;
+  user-select: none;
 
   &__btn {
     font-size: 17px;

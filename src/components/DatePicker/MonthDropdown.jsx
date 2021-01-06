@@ -1,19 +1,4 @@
 import { useState } from 'react';
-// import moment from 'moment';
-// const monthsList = [
-//   'январь',
-//   'февраль',
-//   'март',
-//   'апрель',
-//   'май',
-//   'июнь',
-//   'июль',
-//   'август',
-//   'сентябрь',
-//   'октябрь',
-//   'ноябрь',
-//   'декабрь',
-// ];
 
 const buildMonthsList = (value) => {
   const startMonth = value.clone().startOf('year');
@@ -29,13 +14,14 @@ const buildMonthsList = (value) => {
   return monthsList;
 };
 
-const MonthDropdown = ({ date, onChangeMonth }) => {
+const MonthDropdown = ({ date, onChangeMonth, onSelectedMonthClick }) => {
   const [activeMonth, setActiveMonth] = useState(date);
   const monthsList = buildMonthsList(date);
 
   const onMonthClick = (month) => () => {
     setActiveMonth(month);
     onChangeMonth(month);
+    onSelectedMonthClick();
   };
 
   return (

@@ -25,16 +25,11 @@ const CreatePopup = ({
   };
   const onDescrChange = (e) => {
     setDescr(e.target.value);
-    // console.log(e.target.value);
   };
 
   const onSubmitClick = (e) => {
     e.preventDefault();
-
     const ttitle = title.trim() === '' ? 'Без названия' : title;
-    // const ddescr = descr.replace(/(?:\r\n|\r|\n)/g, '<br/>');
-    // console.log();
-    // setDescr(descr.replace(/(?:\r\n|\r|\n)/g, '<br />'));
     createEvent({ title: ttitle, descr: descr });
     setCreatePopupVisible(false);
   };
