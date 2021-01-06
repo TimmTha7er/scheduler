@@ -206,10 +206,8 @@ const DatePicker = ({ date, setDate, setVisible }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  // console.log('state', state.datePicker.date);
-
-  return { date: state.datePicker.date };
+const mapStateToProps = ({ datePicker: { date } }) => {
+  return { date };
 };
 
 const mapDistatchToProps = {

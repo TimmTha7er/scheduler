@@ -48,6 +48,13 @@
       //   opacity: 1;
       // }
     }
+
+    &_selected {
+      background-color: rgba(72, 135, 225, 0.15);
+      border: 1px solid rgba(36, 68, 113, 0.4);
+      // background-color: #FFDB4D;
+
+    }
   }
 }
 
@@ -64,4 +71,8 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   cursor: pointer;
+
+  &_selected{
+    border: 1px solid rgba(36, 68, 113, 0.4);
+  }
 }

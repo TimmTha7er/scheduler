@@ -2,10 +2,11 @@ import { connect } from 'react-redux';
 import CreatePopup from '../CreatePopup/CreatePopup.jsx';
 import PreviewPopup from '../PreviewPopup/PreviewPopup.jsx';
 import DeletePopup from '../DeletePopup/DeletePopup.jsx';
+// import EditPopup from '../EditPopup/EditPopup.jsx';
 import {
   setCreatePopupVisible,
   setPreviewPopupVisible,
-  setDate,
+  setRowDate,
 } from '../../redux/actions';
 
 const buildDayGrid = (date) => {
@@ -26,26 +27,34 @@ const DayGrid = ({
   selectedMonthDay,
   selectedWeedDay,
   date,
+  rowDate,
   isCreatePopupVisible,
   isPreviewPopupVisible,
   isDeletePopupVisible,
+  // isEditPopupVisible,
   setCreatePopupVisible,
   setPreviewPopupVisible,
-  setDate,
+  setRowDate,
   events,
 }) => {
   const dayGrid = buildDayGrid(date);
 
-  const onRowClick = (time) => () => {
-    // console.log('time', time);
-    setDate(time);
-    setCreatePopupVisible(true);
+  const onRowClick = (time) => (e) => {
+    if (!isCreatePopupVisible && !isPreviewPopupVisible) {
+      // e.target.classList.add('daygrid__row_selected');
+      setRowDate(time);
+      setCreatePopupVisible(true);
+    }
   };
 
   const onEventClick = (time) => () => {
-    setDate(time);
-    setPreviewPopupVisible(true);
+    if (!isCreatePopupVisible) {
+      setRowDate(time);
+      setPreviewPopupVisible(true);
+    }
   };
+
+  console.log('events', events);
 
   return (
     <div className='daygrid'>
@@ -63,12 +72,23 @@ const DayGrid = ({
       {isCreatePopupVisible && <CreatePopup></CreatePopup>}
       {isPreviewPopupVisible && <PreviewPopup></PreviewPopup>}
       {isDeletePopupVisible && <DeletePopup></DeletePopup>}
+      {/* {isEditPopupVisible && <EditPopup></EditPopup>} */}
 
       <div className='daygrid__rows'>
         {dayGrid.map((item, idx) => {
+          const selectedRow = item.isSame(rowDate)
+            ? 'daygrid__row_selected'
+            : '';
+          const selectedEvent = item.isSame(rowDate)
+            ? 'grid-event_selected'
+            : '';
+
           const row = events[item] ? (
             <div key={idx} className='daygrid__row'>
-              <div onClick={onEventClick(item)} className='grid-event'>
+              <div
+                onClick={onEventClick(item)}
+                className={`grid-event ${selectedEvent}`}
+              >
                 {events[item].title}
               </div>
             </div>
@@ -76,7 +96,7 @@ const DayGrid = ({
             <div
               onClick={onRowClick(item)}
               key={idx}
-              className='daygrid__row'
+              className={`daygrid__row ${selectedRow}`}
             ></div>
           );
 
@@ -88,13 +108,14 @@ const DayGrid = ({
 };
 
 const mapStateToProps = ({
-  datePicker: {
-    date,
+  datePicker: { date },
+  popups: {
     isCreatePopupVisible,
     isPreviewPopupVisible,
     isDeletePopupVisible,
-    events,
+    // isEditPopupVisible,
   },
+  grid: { rowDate, events },
 }) => {
   const selectedMonthDay = date.format('D');
   const selectedWeedDay = date.format('ddd');
@@ -103,9 +124,11 @@ const mapStateToProps = ({
     selectedMonthDay,
     selectedWeedDay,
     date,
+    rowDate,
     isCreatePopupVisible,
     isPreviewPopupVisible,
     isDeletePopupVisible,
+    // isEditPopupVisible,
     events,
   };
 };
@@ -113,7 +136,7 @@ const mapStateToProps = ({
 const mapDistatchToProps = {
   setCreatePopupVisible,
   setPreviewPopupVisible,
-  setDate,
+  setRowDate,
 };
 
 export default connect(mapStateToProps, mapDistatchToProps)(DayGrid);

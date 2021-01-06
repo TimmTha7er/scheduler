@@ -1,5 +1,5 @@
 .create-popup {
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -119,6 +119,9 @@
     }
     &:active {
       background-color: #ebcc4f;
+    }
+    &:focus {
+      outline: 2px solid #bba23f;
     }
   }
 }

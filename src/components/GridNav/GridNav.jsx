@@ -1,23 +1,43 @@
 import { connect } from 'react-redux';
-import { setNextDay, setPrevDay, setToday } from '../../redux/actions';
+import { setDate } from '../../redux/actions';
+import moment from 'moment';
+import 'moment/locale/ru';
 
-const GridNav = ({ setNextDay, setPrevDay, setToday }) => {
+const GridNav = ({ setDate, date }) => {
+  const onPrevBtnClick = () => {
+    const prevDay = date.clone().subtract(1, 'day');
+
+    setDate(prevDay);
+  };
+
+  const onTodayBtnClick = () => {
+    const today = moment();
+
+    setDate(today);
+  };
+
+  const onNextBtnClick = () => {
+    const nextDay = date.clone().add(1, 'day');
+
+    setDate(nextDay);
+  };
+
   return (
     <div className='gridnav header__gridnav'>
       <button
-        onClick={() => setPrevDay()}
+        onClick={onPrevBtnClick}
         className='gridnav__btn gridnav__btn_prev icon icon-left-open-big'
         title='Предыдущий период'
       ></button>
       <button
-        onClick={() => setToday()}
+        onClick={onTodayBtnClick}
         className='gridnav__btn gridnav__btn_today'
       >
         Сегодня
       </button>
 
       <button
-        onClick={() => setNextDay()}
+        onClick={onNextBtnClick}
         className='gridnav__btn gridnav__btn_next  icon icon-right-open-big'
         title='Следующий период'
       ></button>
@@ -26,16 +46,11 @@ const GridNav = ({ setNextDay, setPrevDay, setToday }) => {
 };
 
 const mapStateToProps = ({ datePicker: { date } }) => {
-  const selectedMonthDay = date.format('D');
-  const selectedWeedDay = date.format('ddd');
-
-  return { selectedMonthDay, selectedWeedDay };
+  return { date };
 };
 
 const mapDistatchToProps = {
-  setNextDay,
-  setPrevDay,
-  setToday,
+  setDate,
 };
 
 export default connect(mapStateToProps, mapDistatchToProps)(GridNav);

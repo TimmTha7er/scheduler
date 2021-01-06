@@ -1,12 +1,9 @@
+export { setDate, setVisible, initialDate } from './datePicker';
+
 export {
-  setDate,
-  setVisible,
-  setPrevDay,
-  setNextDay,
-  setToday,
   setCreatePopupVisible,
-	setPreviewPopupVisible,
-	setDeletePopupVisible,
-	createEvent,
-	deleteEvent
-} from './datePicker';
+  setPreviewPopupVisible,
+  setDeletePopupVisible,
+} from './popups';
+
+export { createEvent, deleteEvent, setRowDate } from './grid';

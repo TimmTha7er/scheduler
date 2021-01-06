@@ -1,8 +1,9 @@
-import { useState } from 'react';
 import { connect } from 'react-redux';
 import {
   setPreviewPopupVisible,
   setDeletePopupVisible,
+  setCreatePopupVisible,
+  setEditPopupVisible,
 } from '../../redux/actions';
 
 const PreviewPopup = ({
@@ -10,6 +11,7 @@ const PreviewPopup = ({
   eventDescr,
   setPreviewPopupVisible,
   setDeletePopupVisible,
+  setCreatePopupVisible,
 }) => {
   const onBtnCancelClick = () => {
     setPreviewPopupVisible(false);
@@ -19,8 +21,9 @@ const PreviewPopup = ({
     setDeletePopupVisible(true);
   };
 
-  const onBtnEditClick = () => () => {
+  const onBtnEditClick = () => {
     setPreviewPopupVisible(false);
+    setCreatePopupVisible(true);
   };
 
   return (
@@ -32,7 +35,15 @@ const PreviewPopup = ({
           className='preview-popup__close icon icon-cancel-1'
         ></div>
       </div>
-      <div className='preview-popup__descr'>{eventDescr}</div>
+      <div className='preview-popup__descr'>
+        {eventDescr.split('\n').map((item, idx) => {
+          return (
+            <span className='preview-popup__descr-item' key={idx}>
+              {item}
+            </span>
+          );
+        })}
+      </div>
       <div className='preview-popup__footer'>
         <div className='action-bar'>
           <button
@@ -49,10 +60,8 @@ const PreviewPopup = ({
   );
 };
 
-const mapStateToProps = ({ datePicker: { date, events } }) => {
-  const event = events[date];
-  const eventTitle = event.title;
-  const eventDescr = event.descr;
+const mapStateToProps = ({ grid: { rowDate, events } }) => {
+  const { title: eventTitle, descr: eventDescr } = events[rowDate];
 
   return { eventTitle, eventDescr };
 };
@@ -60,6 +69,7 @@ const mapStateToProps = ({ datePicker: { date, events } }) => {
 const mapDistatchToProps = {
   setPreviewPopupVisible,
   setDeletePopupVisible,
+  setCreatePopupVisible,
 };
 
 export default connect(mapStateToProps, mapDistatchToProps)(PreviewPopup);

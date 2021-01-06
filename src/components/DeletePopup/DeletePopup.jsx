@@ -9,12 +9,11 @@ const DeletePopup = ({
   setDeletePopupVisible,
   setPreviewPopupVisible,
   deleteEvent,
-  date,
+  rowDate,
 }) => {
   const onBtnСonfirmClick = () => {
-    console.log('delete');
     setPreviewPopupVisible(false);
-    deleteEvent(date);
+    deleteEvent(rowDate);
     setDeletePopupVisible(false);
   };
 
@@ -43,8 +42,8 @@ const DeletePopup = ({
   );
 };
 
-const mapStateToProps = ({ datePicker: { date } }) => {
-  return { date };
+const mapStateToProps = ({ grid: { rowDate } }) => {
+  return { rowDate };
 };
 
 const mapDistatchToProps = {

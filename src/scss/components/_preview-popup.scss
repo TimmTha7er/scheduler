@@ -1,5 +1,5 @@
 .preview-popup {
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -40,6 +40,13 @@
 
   &__descr {
     font-size: 15px;
+    max-height: 120px;
+    overflow-y: overlay;
+  }
+
+  &__descr-item {
+    display: block;
+    margin-bottom: 3px;
   }
 
   &__footer {
