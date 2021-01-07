@@ -7,3 +7,5 @@ export {
 } from './popups';
 
 export { createEvent, deleteEvent, setRowDate } from './grid';
+
+export { toggleRangeVisible, setRange } from './range';

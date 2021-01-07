@@ -53,7 +53,6 @@
       background-color: rgba(72, 135, 225, 0.15);
       border: 1px solid rgba(36, 68, 113, 0.4);
       // background-color: #FFDB4D;
-
     }
   }
 }
@@ -65,14 +64,18 @@
   color: rgb(36, 68, 113);
   background-color: rgba(72, 135, 225, 0.25);
   height: 100%;
-  // text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  cursor: pointer;
+  
+  &__inner {
+    max-width: 240px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: horizontal;
+    overflow: hidden;
+    cursor: pointer;
+  }
 
-  &_selected{
+  &_selected {
     border: 1px solid rgba(36, 68, 113, 0.4);
   }
 }

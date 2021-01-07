@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import CreatePopup from '../CreatePopup/CreatePopup.jsx';
-import PreviewPopup from '../PreviewPopup/PreviewPopup.jsx';
-import DeletePopup from '../DeletePopup/DeletePopup.jsx';
+// import CreatePopup from '../CreatePopup/CreatePopup.jsx';
+// import PreviewPopup from '../PreviewPopup/PreviewPopup.jsx';
+// import DeletePopup from '../DeletePopup/DeletePopup.jsx';
 // import EditPopup from '../EditPopup/EditPopup.jsx';
 import {
   setCreatePopupVisible,
@@ -30,7 +30,7 @@ const DayGrid = ({
   rowDate,
   isCreatePopupVisible,
   isPreviewPopupVisible,
-  isDeletePopupVisible,
+  // isDeletePopupVisible,
   // isEditPopupVisible,
   setCreatePopupVisible,
   setPreviewPopupVisible,
@@ -69,9 +69,9 @@ const DayGrid = ({
         </div>
       </div>
 
-      {isCreatePopupVisible && <CreatePopup></CreatePopup>}
+      {/* {isCreatePopupVisible && <CreatePopup></CreatePopup>}
       {isPreviewPopupVisible && <PreviewPopup></PreviewPopup>}
-      {isDeletePopupVisible && <DeletePopup></DeletePopup>}
+      {isDeletePopupVisible && <DeletePopup></DeletePopup>} */}
       {/* {isEditPopupVisible && <EditPopup></EditPopup>} */}
 
       <div className='daygrid__rows'>
@@ -89,7 +89,7 @@ const DayGrid = ({
                 onClick={onEventClick(item)}
                 className={`grid-event ${selectedEvent}`}
               >
-                {events[item].title}
+                <span className='grid-event__inner'>{events[item].title}</span>
               </div>
             </div>
           ) : (
@@ -112,11 +112,12 @@ const mapStateToProps = ({
   popups: {
     isCreatePopupVisible,
     isPreviewPopupVisible,
-    isDeletePopupVisible,
+    // isDeletePopupVisible,
     // isEditPopupVisible,
   },
   grid: { rowDate, events },
 }) => {
+  console.log('date', date);
   const selectedMonthDay = date.format('D');
   const selectedWeedDay = date.format('ddd');
 
@@ -127,7 +128,7 @@ const mapStateToProps = ({
     rowDate,
     isCreatePopupVisible,
     isPreviewPopupVisible,
-    isDeletePopupVisible,
+    // isDeletePopupVisible,
     // isEditPopupVisible,
     events,
   };

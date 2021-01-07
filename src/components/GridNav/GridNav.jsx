@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setDate } from '../../redux/actions';
+// import { setDate } from '../../redux/actions';
 import moment from 'moment';
 import 'moment/locale/ru';
 
@@ -50,7 +50,7 @@ const mapStateToProps = ({ datePicker: { date } }) => {
 };
 
 const mapDistatchToProps = {
-  setDate,
+  // setDate,
 };
 
 export default connect(mapStateToProps, mapDistatchToProps)(GridNav);

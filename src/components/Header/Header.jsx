@@ -1,10 +1,17 @@
 import { useRef, useEffect } from 'react';
 import GridNav from '../GridNav/GridNav.jsx';
 import DatePicker from '../DatePicker/DatePicker.jsx';
+import RangeBtn from '../RangeBtn/RangeBtn.jsx';
 import { connect } from 'react-redux';
-import { setVisible } from '../../redux/actions';
+import { setVisible, setDate } from '../../redux/actions';
 
-const Header = ({ selectedMonth, selectedYear, isVisible, setVisible }) => {
+const Header = ({
+  selectedMonth,
+  selectedYear,
+  isVisible,
+  setVisible,
+  setDate,
+}) => {
   const datePickerRef = useRef();
 
   useEffect(() => {
@@ -22,22 +29,23 @@ const Header = ({ selectedMonth, selectedYear, isVisible, setVisible }) => {
     }
   };
 
-  const onSelectedDateClick = (e) => {
-    // console.log('e', e);
+  const onSelectedDateClick = () => {
     setVisible(!isVisible);
   };
 
   return (
     <header className='header'>
-      <div ref={datePickerRef} className='header__wrap'>
+      <div ref={datePickerRef} className='header__date-wrap'>
         <div onClick={onSelectedDateClick} className='header__selected-date'>
           <div className='header__selected-month'>{selectedMonth}</div>
           <div className='header__selected-year'>{selectedYear}</div>
         </div>
-        {isVisible && <DatePicker></DatePicker>}
+        {isVisible && <DatePicker setDate={setDate}></DatePicker>}
       </div>
-
-      <GridNav></GridNav>
+      <div className='header__btns-wrap'>
+        <GridNav setDate={setDate}></GridNav>
+        <RangeBtn></RangeBtn>
+      </div>
     </header>
   );
 };
@@ -50,7 +58,8 @@ const mapStateToProps = ({ datePicker: { date, isVisible } }) => {
 };
 
 const mapDistatchToProps = {
-  setVisible: setVisible,
+  setVisible,
+  setDate,
 };
 
 export default connect(mapStateToProps, mapDistatchToProps)(Header);

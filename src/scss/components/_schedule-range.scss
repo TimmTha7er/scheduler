@@ -1,4 +1,8 @@
 .schedule-range {
+  border: solid 1px #e5e5e5;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
+  padding: 30px;
+
   &__day {
     display: flex;
     justify-content: flex-start;
@@ -53,11 +57,28 @@
     }
   }
 
+  &__event-title {
+    // white-space: nowrap;
+    flex: 1;
+  }
+
+  &__title-inner {
+    max-width: 340px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: horizontal;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
   &__time {
+    white-space: nowrap;
     color: #999;
   }
 
   &__circle {
+    flex-shrink: 0;
     width: 12px;
     height: 12px;
     color: rgb(72, 135, 225);
@@ -69,6 +90,7 @@
   }
 
   &__date-range {
+    position: relative;
     display: flex;
     align-items: center;
     padding: 10px 15px;
@@ -82,6 +104,7 @@
 
   &__input {
     // height: 32px;
+    font-size: 15px;
     border: 0;
     box-sizing: border-box;
     outline: 0;
@@ -100,6 +123,52 @@
     &:focus {
       border-color: transparent;
       outline: solid 2px #ffdb4d;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .schedule-range {
+    padding: 15px;
+
+    &__title-inner {
+      max-width: 240px;
+    }
+
+    &__label {
+      margin-bottom: 10px;
+    }
+
+    &__day {
+      flex-direction: column;
+    }
+
+    &__date-range {
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    &__input {
+      margin: 0;
+    }
+
+    &__dash {
+      display: block;
+      margin-left: 80px;
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .schedule-range {
+    &__title-inner {
+      max-width: 140px;
+    }
+
+    &__circle {
+      margin-right: 15px;
+      margin-left: 15px;
     }
   }
 }

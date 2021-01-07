@@ -1,4 +1,6 @@
 import { connect } from 'react-redux';
+import { setPreviewPopupVisible, setRowDate, setRange } from '../../redux/actions';
+import DatePicker from '../DatePicker/DatePicker.jsx';
 
 const buildRange = (events, startDay, endDay) => {
   // console.log('startDay', startDay);
@@ -22,42 +24,65 @@ const buildRange = (events, startDay, endDay) => {
     }
 
     if (dayEvents.length > 0) {
-      range.push(dayEvents);
+      range.push({ day: dayEvents, time: day.clone() });
       dayEvents = [];
     }
 
     day.add(1, 'day');
   }
 
-
   // console.log('range', range);
 
   return range;
 };
 
-const ScheduleRange = ({ date, events }) => {
-  const start = date.clone().subtract(1, 'week');
-  const end = date.clone().add(1, 'week');
+const ScheduleRange = ({
+  date,
+  events,
+  startOfRange,
+  endOfRange,
+  setPreviewPopupVisible,
+  setRowDate,
+}) => {
+  const range = buildRange(events, startOfRange, endOfRange);
 
-  const range = buildRange(events, start, end);
+  const onEventClick = (time) => () => {
+    setRowDate(time);
+    setPreviewPopupVisible(true);
+  };
 
   return (
     <div className='schedule-range'>
       <form className='schedule-range__date-range'>
-        <div className='schedule-range__label'>Промежуток</div>
-        <input type='text' className='schedule-range__input' />
-        <span>一</span>
-        <input type='text' className='schedule-range__input' />
+        <div className='schedule-range__label'>Расписание</div>
+        <input
+          type='text'
+          className='schedule-range__input'
+          defaultValue={startOfRange.format('DD-MM-YYYY')}
+        />
+        <span className='schedule-range__dash'>一</span>
+        <input
+          type='text'
+          className='schedule-range__input'
+          defaultValue={endOfRange.format('DD-MM-YYYY')}
+        />
+
+        {/* {<DatePicker></DatePicker>} */}
       </form>
       <div className='schedule-range__day-list'>
-        {range.map((day, idx) => {
+        {range.map(({ day, time }, idx) => {
+          const dayOfMonth = time.clone().format('DD');
+          const month = time.clone().format('LL').split(' ')[1];
+          const year = time.clone().format('YYYY');
+          const dayOfWeek = time.clone().format('dddd');
+
           return (
             <div key={idx} className='schedule-range__day'>
               <div className='schedule-range__date'>
-                <span className='schedule-range__dayOfMonth'>31</span>
-                <span className='schedule-range__month'>декабря</span>
-                <span className='schedule-range__year'>2020</span>
-                <div className='schedule-range__dayOfWeek'>четверг</div>
+                <span className='schedule-range__dayOfMonth'>{dayOfMonth}</span>
+                <span className='schedule-range__month'>{month}</span>
+                <span className='schedule-range__year'>{year}</span>
+                <div className='schedule-range__dayOfWeek'>{dayOfWeek}</div>
               </div>
               <div className='schedule-range__event-list'>
                 {day.map(({ time, title }, idx) => {
@@ -65,14 +90,22 @@ const ScheduleRange = ({ date, events }) => {
                   const end = time.clone().add(1, 'hour').format('HH:mm');
 
                   return (
-                    <div key={idx} className='schedule-range__event'>
+                    <div
+                      onClick={onEventClick(time)}
+                      key={idx}
+                      className='schedule-range__event'
+                    >
                       <div className='schedule-range__time'>
                         {start}
                         &mdash;
                         {end}
                       </div>
                       <div className='schedule-range__circle'></div>
-                      <div className='schedule-range__event-title'>{title}</div>
+                      <div className='schedule-range__event-title'>
+                        <span className='schedule-range__title-inner'>
+                          {title}
+                        </span>
+                      </div>
                     </div>
                   );
                 })}
@@ -85,10 +118,14 @@ const ScheduleRange = ({ date, events }) => {
   );
 };
 
-const mapStateToProps = ({ datePicker: { date }, grid: { events } }) => {
-  return { date, events };
+const mapStateToProps = ({
+  datePicker: { date },
+  grid: { events },
+  range: { startOfRange, endOfRange },
+}) => {
+  return { date, events, startOfRange, endOfRange };
 };
 
-const mapDistatchToProps = {};
+const mapDistatchToProps = { setPreviewPopupVisible, setRowDate };
 
 export default connect(mapStateToProps, mapDistatchToProps)(ScheduleRange);

@@ -1,15 +1,18 @@
+import moment from 'moment';
+import 'moment/locale/ru';
+
 const initialState = {
-  date: null,
+  date: moment(),
   isVisible: false,
 };
 
 const datePickerReducer = (state = initialState, action) => {
-  if (action.type === 'INITIAL_DATE') {
-    return {
-      ...state,
-      date: action.payload,
-    };
-  }
+  // if (action.type === 'INITIAL_DATE') {
+  //   return {
+  //     ...state,
+  //     date: action.payload,
+  //   };
+  // }
 
   if (action.type === 'SET_DATE') {
     return {

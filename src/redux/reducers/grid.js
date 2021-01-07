@@ -2,7 +2,7 @@ const initialState = {
   rowDate: null,
   events: {
     'Thu Jan 07 2021 01:00:00 GMT+0300': { title: 'Без названия', descr: '' },
-    'Thu Jan 07 2021 03:00:00 GMT+0300': { title: '1', descr: '1' },
+    'Thu Jan 07 2021 03:00:00 GMT+0300': { title: 'авы ав ыа вы  аы  а ыва ', descr: '1' },
     'Thu Jan 07 2021 04:00:00 GMT+0300': { title: '2', descr: '2' },
     'Thu Jan 07 2021 05:00:00 GMT+0300': { title: '3', descr: '3' },
     'Thu Jan 07 2021 06:00:00 GMT+0300': { title: '4', descr: '4' },

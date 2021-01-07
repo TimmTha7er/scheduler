@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import classNames from 'classnames';
+import moment from 'moment';
+import 'moment/locale/ru';
 
 const buildCalendar = (value) => {
   const startDay = value.clone().startOf('month').startOf('week');
@@ -23,7 +25,7 @@ const buildCalendar = (value) => {
 const Calendar = ({value, onDayClick}) => {
 	const [calendar, setCalendar] = useState([]);
 	// const [value, setValue] = useState(date);
-	const today = new Date();
+	const today = moment();
 
 	useEffect(() => {
     setCalendar(buildCalendar(value));
