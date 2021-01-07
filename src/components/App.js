@@ -1,11 +1,13 @@
 import React from 'react';
 import Header from './Header/Header.jsx';
 import Day from './Day/Day.jsx';
+import ScheduleRange from './ScheduleRange/ScheduleRange.jsx';
 import { connect } from 'react-redux';
 import { initialDate } from '../redux/actions';
 import moment from 'moment';
 import 'moment/locale/ru';
 import '../scss/index.scss';
+
 
 function App({ initialDate }) {
   initialDate(moment());
@@ -15,6 +17,7 @@ function App({ initialDate }) {
       <Header></Header>
       <main className='main'>
         <Day></Day>
+        <ScheduleRange></ScheduleRange>
       </main>
     </div>
   );
