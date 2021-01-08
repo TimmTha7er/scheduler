@@ -11,16 +11,14 @@ const Header = ({
   isVisible,
   setVisible,
   setDate,
+  date,
 }) => {
   const datePickerRef = useRef();
 
   useEffect(() => {
     document.body.addEventListener('click', handleOutsideClick);
 
-    return () => {
-      // ???
-      // setVisible(false);
-    };
+    return () => document.body.removeEventListener('click', handleOutsideClick);
   }, []);
 
   const handleOutsideClick = (e) => {
@@ -40,7 +38,14 @@ const Header = ({
           <div className='header__selected-month'>{selectedMonth}</div>
           <div className='header__selected-year'>{selectedYear}</div>
         </div>
-        {isVisible && <DatePicker setDate={setDate}></DatePicker>}
+        {isVisible && (
+          <DatePicker
+            date={date}
+            setDate={setDate}
+            owner={'header'}
+            setVisible={setVisible}
+          ></DatePicker>
+        )}
       </div>
       <div className='header__btns-wrap'>
         <GridNav setDate={setDate}></GridNav>
@@ -54,7 +59,7 @@ const mapStateToProps = ({ datePicker: { date, isVisible } }) => {
   const selectedMonth = date.format('MMMM');
   const selectedYear = date.format('YYYY');
 
-  return { selectedMonth, selectedYear, isVisible };
+  return { selectedMonth, selectedYear, isVisible, date };
 };
 
 const mapDistatchToProps = {

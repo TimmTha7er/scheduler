@@ -37,7 +37,7 @@ const Calendar = ({value, onDayClick}) => {
         <div key={idx} className='datepicker__week'>
           {week.map((day, idx) => {
             const className = classNames({
-              'datepicker__day_selected': value.isSame(day),
+              'datepicker__day_selected': value.isSame(day, 'day'),
               'datepicker__day_today': day.isSame(today, 'day'),
               'datepicker__day_weekend':
                 day.format('dd') === 'вс' || day.format('dd') === 'сб',

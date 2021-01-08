@@ -11,11 +11,7 @@ const SelectedDate = ({ value, onChangeMonth, onChangeYear }) => {
   useEffect(() => {
     document.body.addEventListener('click', handleOutsideClick);
 
-    return () => {
-      // ???
-      // setVisibleMonthDropdown(false);
-      // setVisibleYearDropdown(false);
-    };
+    return () => document.body.removeEventListener('click', handleOutsideClick);
   }, []);
 
   const handleOutsideClick = (e) => {

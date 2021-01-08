@@ -3,6 +3,13 @@
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
   padding: 30px;
 
+  &__datepicker {
+    position: absolute;
+    left: -60px;
+    top: 36px;
+    z-index: 22;
+  }
+
   &__day {
     display: flex;
     justify-content: flex-start;
@@ -89,11 +96,20 @@
     margin-left: 30px;
   }
 
-  &__date-range {
+  &__date-wrap {
+    // display: flex;
+    // align-items: center;
     position: relative;
-    display: flex;
+  }
+
+  &__range-wrap {
+    display: inline-flex;
     align-items: center;
     padding: 10px 15px;
+  }
+
+  &__date-range {
+    // position: relative;
   }
 
   &__label {
@@ -102,28 +118,32 @@
     margin-right: 15px;
   }
 
-  &__input {
+  &__start-date,
+  &__end-date {
     // height: 32px;
-    font-size: 15px;
+    // position: relative;
+    font-size: 24px;
     border: 0;
     box-sizing: border-box;
     outline: 0;
     // box-shadow: inset 0 0 0 1px rgba(0,0,0,.2);
-    color: #000;
-    padding: 10px;
-    margin: 0 5px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: rgba(0, 0, 0, 0.6);
+    // padding: 10px;
+    margin: 0 10px;
+    // border: 1px solid rgba(0, 0, 0, 0.2);
     transition: border-color 0.15s ease-out, border-width 0.15s ease-out,
       outline-color 0.25s ease-out;
+    user-select: none;
+    cursor: pointer;
 
     &:hover {
       border-color: rgba(0, 0, 0, 0.5);
     }
 
-    &:focus {
-      border-color: transparent;
-      outline: solid 2px #ffdb4d;
-    }
+    // &:focus {
+    //   border-color: transparent;
+    //   outline: solid 2px #ffdb4d;
+    // }
   }
 }
 
@@ -134,34 +154,41 @@
     &__title-inner {
       max-width: 240px;
     }
+  }
+}
 
+@media only screen and (max-width: 480px) {
+  .schedule-range {
     &__label {
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
 
     &__day {
       flex-direction: column;
     }
 
-    &__date-range {
+    &__range-wrap {
       justify-content: flex-start;
       align-items: flex-start;
       flex-direction: column;
     }
 
-    &__input {
+    &__date-wrap {
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    &__start-date,
+    &__end-date {
       margin: 0;
     }
 
     &__dash {
       display: block;
-      margin-left: 80px;
+      margin-left: 50px;
     }
-  }
-}
 
-@media only screen and (max-width: 480px) {
-  .schedule-range {
     &__title-inner {
       max-width: 140px;
     }

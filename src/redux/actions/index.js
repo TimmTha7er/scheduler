@@ -8,4 +8,10 @@ export {
 
 export { createEvent, deleteEvent, setRowDate } from './grid';
 
-export { toggleRangeVisible, setRange } from './range';
+export {
+  toggleRangeVisible,
+  setStartOFRange,
+  setEndOFRange,
+  setLeftDatePickerVisible,
+  setRightDatePickerVisible,
+} from './range';

@@ -2,11 +2,11 @@ import { useState } from 'react';
 import Calendar from './Calendar';
 import SelectedDate from './SelectedDate';
 import { connect } from 'react-redux';
-import { setVisible } from '../../redux/actions';
+// import { setVisible } from '../../redux/actions';
 
 const daysList = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
 
-const DatePicker = ({ date, setDate, setVisible }) => {
+const DatePicker = ({ date, setDate, setVisible, owner }) => {
   const [value, setValue] = useState(date);
   const prevMonth = () => {
     return value.clone().subtract(1, 'month');
@@ -39,7 +39,7 @@ const DatePicker = ({ date, setDate, setVisible }) => {
   };
 
   return (
-    <div className='datepicker header__datepicker'>
+    <div className={`datepicker ${owner}__datepicker`}>
       <div className='datepicker__header'>
         <button
           onClick={onBtnPrevClick}
@@ -74,12 +74,12 @@ const DatePicker = ({ date, setDate, setVisible }) => {
   );
 };
 
-const mapStateToProps = ({ datePicker: { date } }) => {
-  return { date };
+const mapStateToProps = () => {
+  return {};
 };
 
 const mapDistatchToProps = {
-  setVisible: setVisible,
+  // setVisible: setVisible,
 };
 
 export default connect(mapStateToProps, mapDistatchToProps)(DatePicker);

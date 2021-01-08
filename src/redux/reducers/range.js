@@ -3,9 +3,11 @@ import 'moment/locale/ru';
 
 const initialState = {
   isRangeVisible: false,
-  startOfRange: moment().clone().subtract(1, 'week'),
-  endOfRange: moment().clone().add(1, 'week'),
+  startOfRange: moment().clone().startOf('week'),
+  endOfRange: moment().clone().endOf('week'),
   // isEditPopupVisible: false,
+  isLeftDatePickerVisible: false,
+  isRightDatePickerVisible: false,
 };
 
 const rangeReducer = (state = initialState, action) => {
@@ -24,11 +26,31 @@ const rangeReducer = (state = initialState, action) => {
     };
   }
 
-  if (action.type === 'SET_RANGE') {
+  if (action.type === 'SET_START_OF_RANGE') {
     return {
       ...state,
-      startDate: action.payload.start,
-      endDate: action.payload.end,
+      startOfRange: action.payload,
+    };
+  }
+
+  if (action.type === 'SET_END_OF_RANGE') {
+    return {
+      ...state,
+      endOfRange: action.payload,
+    };
+  }
+
+  if (action.type === 'SET_LEFT_DATEPICKER_VISIBLE') {
+    return {
+      ...state,
+      isLeftDatePickerVisible: action.payload,
+    };
+  }
+
+  if (action.type === 'SET_RIGHT_DATEPICKER_VISIBLE') {
+    return {
+      ...state,
+      isRightDatePickerVisible: action.payload,
     };
   }
 
