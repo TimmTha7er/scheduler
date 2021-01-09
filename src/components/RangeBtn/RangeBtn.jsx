@@ -1,9 +1,14 @@
 import { connect } from 'react-redux';
-import { toggleRangeVisible } from '../../redux/actions';
+import { toggleRangeVisible, setALLPopupsUnvisible } from '../../redux/actions';
 
-const RangeBtn = ({ isRangeVisible, toggleRangeVisible }) => {
+const RangeBtn = ({
+  isRangeVisible,
+  toggleRangeVisible,
+  setALLPopupsUnvisible,
+}) => {
   const onRangeBtnClick = () => {
     toggleRangeVisible();
+    setALLPopupsUnvisible();
   };
 
   const rangeBtnName = isRangeVisible ? 'День' : 'Расписание';
@@ -21,6 +26,7 @@ const mapStateToProps = ({ range: { isRangeVisible } }) => {
 
 const mapDistatchToProps = {
   toggleRangeVisible,
+  setALLPopupsUnvisible,
 };
 
 export default connect(mapStateToProps, mapDistatchToProps)(RangeBtn);

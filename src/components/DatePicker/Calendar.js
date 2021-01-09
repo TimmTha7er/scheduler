@@ -5,7 +5,6 @@ import 'moment/locale/ru';
 
 const buildCalendar = (value) => {
   const startDay = value.clone().startOf('month').startOf('week');
-  // const endDay = value.clone().endOf('month').endOf('week');
   const endDay = startDay.clone().add(5, 'week');
 
   const day = startDay.clone().subtract(1, 'day');
@@ -24,7 +23,6 @@ const buildCalendar = (value) => {
 
 const Calendar = ({value, onDayClick}) => {
 	const [calendar, setCalendar] = useState([]);
-	// const [value, setValue] = useState(date);
 	const today = moment();
 
 	useEffect(() => {

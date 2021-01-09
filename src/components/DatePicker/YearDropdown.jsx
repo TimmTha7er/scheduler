@@ -49,7 +49,7 @@ const YearDwopdown = ({ date, onChangeYear, onSelectedYearClick }) => {
   return (
     <div className='datepicker__year-dropdown'>
       <div onClick={onBtnUpClick} className='datepicker__year-option'>
-        <a className='datepicker__navigation datepicker__navigation_years-upcoming icon icon-up-open-big'></a>
+        <span className='datepicker__navigation datepicker__navigation_years-upcoming icon icon-up-open-big'></span>
       </div>
       {yearsList.years.map((item, idx) => {
         const className = item.isSame(activeYear, 'year')
@@ -62,7 +62,7 @@ const YearDwopdown = ({ date, onChangeYear, onSelectedYearClick }) => {
         );
       })}
       <div onClick={onBtnDownClick} className='datepicker__year-option'>
-        <a className='datepicker__navigation datepicker__navigation_years-previous icon icon-down-open-big'></a>
+        <span className='datepicker__navigation datepicker__navigation_years-previous icon icon-down-open-big'></span>
       </div>
     </div>
   );

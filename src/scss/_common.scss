@@ -14,8 +14,6 @@ body {
   display: none;
 }
 
-// (:hover, :focus, :active).
-// https://codepen.io/yurch-html/pen/qyaOZz
 .link {
   text-decoration: none;
   color: #fff;
@@ -39,19 +37,16 @@ body {
 }
 
 .container {
-  max-width: 1170px;
+  max-width: 970px;
   margin: 0 auto;
 
   @media only screen and (max-width: 1200px) {
-    max-width: none;
     padding: 0 15px;
-    // max-width: 970px;
   }
-  // @media only screen and (max-width: 992px) {
-  //   max-width: 750px;
-  // }
+  @media only screen and (max-width: 992px) {
+    max-width: none;
+  }
   @media only screen and (max-width: 768px) {
-    // max-width: 540px;
     padding: 0 10px;
   }
   @media only screen and (max-width: 480px) {

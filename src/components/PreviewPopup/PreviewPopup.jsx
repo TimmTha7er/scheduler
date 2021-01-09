@@ -3,7 +3,6 @@ import {
   setPreviewPopupVisible,
   setDeletePopupVisible,
   setCreatePopupVisible,
-  setEditPopupVisible,
 } from '../../redux/actions';
 
 const PreviewPopup = ({

@@ -1,9 +1,7 @@
-
 const initialState = {
   isCreatePopupVisible: false,
   isPreviewPopupVisible: false,
   isDeletePopupVisible: false,
-  // isEditPopupVisible: false,
 };
 
 const popupsReducer = (state = initialState, action) => {
@@ -28,12 +26,14 @@ const popupsReducer = (state = initialState, action) => {
     };
   }
 
-  // if (action.type === 'SET_EDIT_POPUP_VISIBLE') {
-  //   return {
-  //     ...state,
-  //     isEditPopupVisible: action.payload,
-  //   };
-  // }
+  if (action.type === 'SET_ALL_POPUPS_UNVISIBLE') {
+    return {
+      ...state,
+      isCreatePopupVisible: false,
+      isPreviewPopupVisible: false,
+      isDeletePopupVisible: false,
+    };
+  }
 
   return state;
 };

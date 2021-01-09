@@ -3,7 +3,11 @@ import GridNav from '../GridNav/GridNav.jsx';
 import DatePicker from '../DatePicker/DatePicker.jsx';
 import RangeBtn from '../RangeBtn/RangeBtn.jsx';
 import { connect } from 'react-redux';
-import { setVisible, setDate } from '../../redux/actions';
+import {
+  setVisible,
+  setDate,
+  setALLPopupsUnvisible,
+} from '../../redux/actions';
 
 const Header = ({
   selectedMonth,
@@ -12,6 +16,7 @@ const Header = ({
   setVisible,
   setDate,
   date,
+  setALLPopupsUnvisible,
 }) => {
   const datePickerRef = useRef();
 
@@ -29,6 +34,7 @@ const Header = ({
 
   const onSelectedDateClick = () => {
     setVisible(!isVisible);
+    setALLPopupsUnvisible();
   };
 
   return (
@@ -65,6 +71,7 @@ const mapStateToProps = ({ datePicker: { date, isVisible } }) => {
 const mapDistatchToProps = {
   setVisible,
   setDate,
+  setALLPopupsUnvisible,
 };
 
 export default connect(mapStateToProps, mapDistatchToProps)(Header);

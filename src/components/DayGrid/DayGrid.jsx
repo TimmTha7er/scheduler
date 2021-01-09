@@ -1,8 +1,4 @@
 import { connect } from 'react-redux';
-// import CreatePopup from '../CreatePopup/CreatePopup.jsx';
-// import PreviewPopup from '../PreviewPopup/PreviewPopup.jsx';
-// import DeletePopup from '../DeletePopup/DeletePopup.jsx';
-// import EditPopup from '../EditPopup/EditPopup.jsx';
 import {
   setCreatePopupVisible,
   setPreviewPopupVisible,
@@ -30,8 +26,6 @@ const DayGrid = ({
   rowDate,
   isCreatePopupVisible,
   isPreviewPopupVisible,
-  // isDeletePopupVisible,
-  // isEditPopupVisible,
   setCreatePopupVisible,
   setPreviewPopupVisible,
   setRowDate,
@@ -39,9 +33,8 @@ const DayGrid = ({
 }) => {
   const dayGrid = buildDayGrid(date);
 
-  const onRowClick = (time) => (e) => {
+  const onRowClick = (time) => () => {
     if (!isCreatePopupVisible && !isPreviewPopupVisible) {
-      // e.target.classList.add('daygrid__row_selected');
       setRowDate(time);
       setCreatePopupVisible(true);
     }
@@ -53,8 +46,6 @@ const DayGrid = ({
       setPreviewPopupVisible(true);
     }
   };
-
-  // console.log('events', events);
 
   return (
     <div className='daygrid'>
@@ -69,16 +60,12 @@ const DayGrid = ({
         </div>
       </div>
 
-      {/* {isCreatePopupVisible && <CreatePopup></CreatePopup>}
-      {isPreviewPopupVisible && <PreviewPopup></PreviewPopup>}
-      {isDeletePopupVisible && <DeletePopup></DeletePopup>} */}
-      {/* {isEditPopupVisible && <EditPopup></EditPopup>} */}
-
       <div className='daygrid__rows'>
         {dayGrid.map((item, idx) => {
-          const selectedRow = item.isSame(rowDate)
-            ? 'daygrid__row_selected'
-            : '';
+          const selectedRow =
+            item.isSame(rowDate) && isPreviewPopupVisible
+              ? 'daygrid__row_selected'
+              : '';
           const selectedEvent = item.isSame(rowDate)
             ? 'grid-event_selected'
             : '';
@@ -109,15 +96,9 @@ const DayGrid = ({
 
 const mapStateToProps = ({
   datePicker: { date },
-  popups: {
-    isCreatePopupVisible,
-    isPreviewPopupVisible,
-    // isDeletePopupVisible,
-    // isEditPopupVisible,
-  },
+  popups: { isCreatePopupVisible, isPreviewPopupVisible },
   grid: { rowDate, events },
 }) => {
-  console.log('date', date);
   const selectedMonthDay = date.format('D');
   const selectedWeedDay = date.format('ddd');
 
@@ -128,8 +109,6 @@ const mapStateToProps = ({
     rowDate,
     isCreatePopupVisible,
     isPreviewPopupVisible,
-    // isDeletePopupVisible,
-    // isEditPopupVisible,
     events,
   };
 };

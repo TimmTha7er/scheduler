@@ -5,7 +5,6 @@ const initialState = {
   isRangeVisible: false,
   startOfRange: moment().clone().startOf('week'),
   endOfRange: moment().clone().endOf('week'),
-  // isEditPopupVisible: false,
   isLeftDatePickerVisible: false,
   isRightDatePickerVisible: false,
 };
@@ -15,14 +14,6 @@ const rangeReducer = (state = initialState, action) => {
     return {
       ...state,
       isRangeVisible: !state.isRangeVisible,
-    };
-  }
-
-  if (action.type === 'INITIAL_RAGE') {
-    return {
-      ...state,
-      // startDate: action.payload,
-      // endDate: action.payload,
     };
   }
 

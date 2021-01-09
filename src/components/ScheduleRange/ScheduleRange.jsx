@@ -38,7 +38,7 @@ const ScheduleRange = ({
     setRightDatePickerVisible(false);
     setLeftDatePickerVisible(!isLeftDatePickerVisible);
   };
-  
+
   const onEndDateClick = () => {
     setLeftDatePickerVisible(false);
     setRightDatePickerVisible(!isRightDatePickerVisible);
@@ -50,37 +50,42 @@ const ScheduleRange = ({
         <div ref={datePickerRef} className='schedule-range__range-wrap'>
           <div className='schedule-range__label'>Расписание:</div>
 
-          <div className='schedule-range__date-wrap'>
-            <div
-              onClick={onStartDateClick}
-              className='schedule-range__start-date'
-            >
-              {startOfRange.format('DD-MM-YYYY')}
+          <div className='schedule-range__date-block'>
+            <div className='schedule-range__date-wrap'>
+              <div
+                onClick={onStartDateClick}
+                className='schedule-range__start-date'
+              >
+                {startOfRange.format('DD-MM-YYYY')}
+              </div>
+              {isLeftDatePickerVisible && (
+                <DatePicker
+                  owner={'schedule-range'}
+                  date={startOfRange}
+                  setDate={setStartOFRange}
+                  setVisible={setLeftDatePickerVisible}
+                ></DatePicker>
+              )}
             </div>
-            {isLeftDatePickerVisible && (
-              <DatePicker
-                owner={'schedule-range'}
-                date={startOfRange}
-                setDate={setStartOFRange}
-                setVisible={setLeftDatePickerVisible}
-              ></DatePicker>
-            )}
-          </div>
 
-          <span className='schedule-range__dash'>一</span>
+            <span className='schedule-range__dash'>一</span>
 
-          <div className='schedule-range__date-wrap'>
-            <div onClick={onEndDateClick} className='schedule-range__end-date'>
-              {endOfRange.format('DD-MM-YYYY')}
+            <div className='schedule-range__date-wrap'>
+              <div
+                onClick={onEndDateClick}
+                className='schedule-range__end-date'
+              >
+                {endOfRange.format('DD-MM-YYYY')}
+              </div>
+              {isRightDatePickerVisible && (
+                <DatePicker
+                  owner={'schedule-range'}
+                  date={endOfRange}
+                  setDate={setEndOFRange}
+                  setVisible={setRightDatePickerVisible}
+                ></DatePicker>
+              )}
             </div>
-            {isRightDatePickerVisible && (
-              <DatePicker
-                owner={'schedule-range'}
-                date={endOfRange}
-                setDate={setEndOFRange}
-                setVisible={setRightDatePickerVisible}
-              ></DatePicker>
-            )}
           </div>
         </div>
       </form>

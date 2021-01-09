@@ -1,25 +1,59 @@
 import { connect } from 'react-redux';
-// import { setDate } from '../../redux/actions';
+import {
+  setStartOFRange,
+  setEndOFRange,
+  setALLPopupsUnvisible,
+} from '../../redux/actions';
 import moment from 'moment';
 import 'moment/locale/ru';
 
-const GridNav = ({ setDate, date }) => {
+const GridNav = ({
+  setDate,
+  date,
+  isRangeVisible,
+  setStartOFRange,
+  setEndOFRange,
+  startOfRange,
+  endOfRange,
+  setALLPopupsUnvisible
+}) => {
   const onPrevBtnClick = () => {
     const prevDay = date.clone().subtract(1, 'day');
-
     setDate(prevDay);
+    setALLPopupsUnvisible();
+
+    if (isRangeVisible) {
+      const start = startOfRange.clone().subtract(1, 'week');
+      const end = endOfRange.clone().subtract(1, 'week');
+      setStartOFRange(start);
+      setEndOFRange(end);
+    }
   };
 
   const onTodayBtnClick = () => {
     const today = moment();
-
     setDate(today);
+    setALLPopupsUnvisible();
+
+    if (isRangeVisible) {
+      const start = moment().clone().startOf('week');
+      const end = moment().clone().endOf('week');
+      setStartOFRange(start);
+      setEndOFRange(end);
+    }
   };
 
   const onNextBtnClick = () => {
     const nextDay = date.clone().add(1, 'day');
-
     setDate(nextDay);
+    setALLPopupsUnvisible();
+
+    if (isRangeVisible) {
+      const start = startOfRange.clone().add(1, 'week');
+      const end = endOfRange.clone().add(1, 'week');
+      setStartOFRange(start);
+      setEndOFRange(end);
+    }
   };
 
   return (
@@ -45,12 +79,17 @@ const GridNav = ({ setDate, date }) => {
   );
 };
 
-const mapStateToProps = ({ datePicker: { date } }) => {
-  return { date };
+const mapStateToProps = ({
+  datePicker: { date },
+  range: { isRangeVisible, startOfRange, endOfRange },
+}) => {
+  return { date, isRangeVisible, startOfRange, endOfRange };
 };
 
 const mapDistatchToProps = {
-  // setDate,
+  setStartOFRange,
+  setEndOFRange,
+  setALLPopupsUnvisible
 };
 
 export default connect(mapStateToProps, mapDistatchToProps)(GridNav);

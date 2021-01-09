@@ -65,7 +65,6 @@
   }
 
   &__event-title {
-    // white-space: nowrap;
     flex: 1;
   }
 
@@ -96,9 +95,12 @@
     margin-left: 30px;
   }
 
+  &__date-block {
+    display: flex;
+    align-items: center;
+  }
+
   &__date-wrap {
-    // display: flex;
-    // align-items: center;
     position: relative;
   }
 
@@ -106,10 +108,6 @@
     display: inline-flex;
     align-items: center;
     padding: 10px 15px;
-  }
-
-  &__date-range {
-    // position: relative;
   }
 
   &__label {
@@ -120,17 +118,12 @@
 
   &__start-date,
   &__end-date {
-    // height: 32px;
-    // position: relative;
-    font-size: 24px;
+    font-size: 25px;
     border: 0;
     box-sizing: border-box;
     outline: 0;
-    // box-shadow: inset 0 0 0 1px rgba(0,0,0,.2);
     color: rgba(0, 0, 0, 0.6);
-    // padding: 10px;
     margin: 0 10px;
-    // border: 1px solid rgba(0, 0, 0, 0.2);
     transition: border-color 0.15s ease-out, border-width 0.15s ease-out,
       outline-color 0.25s ease-out;
     user-select: none;
@@ -139,11 +132,6 @@
     &:hover {
       border-color: rgba(0, 0, 0, 0.5);
     }
-
-    // &:focus {
-    //   border-color: transparent;
-    //   outline: solid 2px #ffdb4d;
-    // }
   }
 }
 
@@ -157,8 +145,23 @@
   }
 }
 
+@media only screen and (max-width: 580px) {
+  .schedule-range {
+    &__datepicker {
+      left: -130px !important;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
 @media only screen and (max-width: 480px) {
   .schedule-range {
+    position: relative;
+
+    &__date-wrap {
+      position: initial;
+    }
+
     &__label {
       margin-bottom: 20px;
     }
@@ -184,9 +187,17 @@
       margin: 0;
     }
 
+    &__start-date+.datepicker {
+      left: 15px;
+    }
+
+    &__end-date+.datepicker {
+      left: initial !important;
+      right: 15px;
+    }
+
     &__dash {
       display: block;
-      margin-left: 50px;
     }
 
     &__title-inner {
@@ -196,6 +207,11 @@
     &__circle {
       margin-right: 15px;
       margin-left: 15px;
+    }
+
+    &__datepicker {
+      top: 100px;
+      left: 20px !important;
     }
   }
 }

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Calendar from './Calendar';
 import SelectedDate from './SelectedDate';
 import { connect } from 'react-redux';
-// import { setVisible } from '../../redux/actions';
 
 const daysList = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
 
@@ -78,8 +77,6 @@ const mapStateToProps = () => {
   return {};
 };
 
-const mapDistatchToProps = {
-  // setVisible: setVisible,
-};
+const mapDistatchToProps = {};
 
 export default connect(mapStateToProps, mapDistatchToProps)(DatePicker);

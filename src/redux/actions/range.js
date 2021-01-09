@@ -1,10 +1,3 @@
-export const initialRange = (date) => {
-  return {
-    type: 'INITIAL_RANGE',
-		payload: date,
-  };
-};
-
 export const toggleRangeVisible = () => {
   return {
     type: 'TOGGLE_RANGE_VISIBLE',
