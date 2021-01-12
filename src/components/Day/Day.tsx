@@ -1,6 +1,5 @@
 import React from 'react';
-import TimeRuler from '../TimeRuler/TimeRuler';
-import DayGrid from '../DayGrid/DayGrid';
+import { TimeRuler, DayGrid } from "../../components";
 
 const Day: React.FC = () => {
   return (

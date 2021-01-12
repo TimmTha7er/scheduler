@@ -8,8 +8,7 @@ import {
 } from '../../redux/actions';
 import { RootState } from '../../redux/reducers/index';
 import { GridActionsType } from '../../redux/actions/range';
-import DatePicker from '../DatePicker/DatePicker';
-import DayList from './DayList';
+import { DatePicker, DayList } from "../../components";
 
 type ScheduleRangeProps = {
   startOfRange: moment.Moment;

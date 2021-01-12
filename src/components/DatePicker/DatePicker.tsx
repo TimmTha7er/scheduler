@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import Calendar from './Calendar';
-import SelectedDate from './SelectedDate';
+import { Calendar, SelectedDate } from '../../components';
 import leftBtnImg from '../../img/angle-left.svg';
 import rightBtnImg from '../../img/angle-right.svg';
 

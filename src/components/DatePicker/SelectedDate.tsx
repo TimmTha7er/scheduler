@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import YearDropdown from './YearDropdown';
-import MonthDropdown from './MonthDropdown';
+import { YearDropdown, MonthDropdown } from '../../components';
 
 type SelectedDateProps = {
   value: moment.Moment;

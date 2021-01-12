@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Day from '../Day/Day';
-import ScheduleRange from '../ScheduleRange/ScheduleRange';
-import CreatePopup from '../CreatePopup/CreatePopup';
-import PreviewPopup from '../PreviewPopup/PreviewPopup';
-import DeletePopup from '../DeletePopup/DeletePopup';
+import {
+  Day,
+  ScheduleRange,
+  CreatePopup,
+  PreviewPopup,
+  DeletePopup,
+} from '../../components';
 import { RootState } from '../../redux/reducers/index';
 
 type MainProps = {

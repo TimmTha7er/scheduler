@@ -1,7 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import GridNav from '../GridNav/GridNav';
-import DatePicker from '../DatePicker/DatePicker';
-import RangeBtn from '../RangeBtn/RangeBtn';
+import { GridNav, DatePicker, RangeBtn } from '../../components';
 import { connect } from 'react-redux';
 import {
   setVisible,
