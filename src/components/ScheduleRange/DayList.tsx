@@ -1,40 +1,22 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { buildRange, RangeType, DayOfRangeType, EventType } from './buildRange';
 import { setPreviewPopupVisible, setRowDate } from '../../redux/actions';
 import { RootState } from '../../redux/reducers/index';
-import { PopupsActionTypes } from '../../redux/actions/popups';
-import { GridActionsType } from '../../redux/actions/grid';
 
-type DayListProps = {
-  events: {
-    [name: string]: {
-      title: string;
-      descr: string;
-    };
-  };
-  startOfRange: moment.Moment;
-  endOfRange: moment.Moment;
-  setPreviewPopupVisible: (value: boolean) => PopupsActionTypes;
-  setRowDate: (date: moment.Moment) => GridActionsType;
-  rowDate: moment.Moment;
-  isPreviewPopupVisible: boolean;
-};
+const DayList: React.FC = () => {
+  const dispatch = useDispatch();
+  const {
+    grid: { events, rowDate },
+    range: { startOfRange, endOfRange },
+    popups: { isPreviewPopupVisible },
+  } = useSelector((state: RootState) => state);
 
-const DayList: React.FC<DayListProps> = ({
-  events,
-  startOfRange,
-  endOfRange,
-  setPreviewPopupVisible,
-  setRowDate,
-  rowDate,
-  isPreviewPopupVisible,
-}) => {
   const range: RangeType = buildRange(events, startOfRange, endOfRange);
 
   const onEventClick = (time: moment.Moment) => () => {
-    setRowDate(time);
-    setPreviewPopupVisible(true);
+    dispatch(setRowDate(time));
+    dispatch(setPreviewPopupVisible(true));
   };
 
   return (
@@ -91,23 +73,4 @@ const DayList: React.FC<DayListProps> = ({
   );
 };
 
-const mapStateToProps = ({
-  grid: { events, rowDate },
-  range: { startOfRange, endOfRange },
-  popups: { isPreviewPopupVisible },
-}: RootState) => {
-  return {
-    events,
-    startOfRange,
-    endOfRange,
-    rowDate,
-    isPreviewPopupVisible,
-  };
-};
-
-const mapDistatchToProps = {
-  setPreviewPopupVisible,
-  setRowDate,
-};
-
-export default connect(mapStateToProps, mapDistatchToProps)(DayList);
+export default DayList;

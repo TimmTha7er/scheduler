@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { YearDropdown, MonthDropdown } from '../../components';
 
-type SelectedDateProps = {
+interface SelectedDateProps {
   value: moment.Moment;
   onChangeMonth: (month: moment.Moment) => void;
   onChangeYear: (year: moment.Moment) => void;
-};
+}
 
 const SelectedDate: React.FC<SelectedDateProps> = ({
   value,

@@ -1,58 +1,36 @@
-import React from "react";
-import { connect } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   setCreatePopupVisible,
   setPreviewPopupVisible,
   setRowDate,
 } from '../../redux/actions';
 import { buildDayGrid } from './buildDayGrid';
+import { RootState } from '../../redux/reducers';
 
-import { RootState } from '../../redux/reducers/index';
-import { PopupsActionTypes } from '../../redux/actions/popups';
-import { GridActionsType } from '../../redux/actions/grid';
+const DayGrid: React.FC = () => {
+  const dispatch = useDispatch();
+  const {
+    datePicker: { date },
+    popups: { isCreatePopupVisible, isPreviewPopupVisible },
+    grid: { rowDate, events },
+  } = useSelector((state: RootState) => state);
 
-
-type DayGridProps = {
-  date: moment.Moment;
-  rowDate: moment.Moment;
-  isCreatePopupVisible: boolean;
-  isPreviewPopupVisible: boolean;
-  setCreatePopupVisible: (value: boolean) => PopupsActionTypes;
-  setPreviewPopupVisible: (value: boolean) => PopupsActionTypes;
-  setRowDate: (date: moment.Moment | null) => GridActionsType;
-  events: {
-    [name: string]: {
-      title: string;
-      descr: string;
-    };
-  };
-};
-
-const DayGrid: React.FC<DayGridProps> = ({
-  date,
-  rowDate,
-  isCreatePopupVisible,
-  isPreviewPopupVisible,
-  setCreatePopupVisible,
-  setPreviewPopupVisible,
-  setRowDate,
-  events,
-}) => {
   const dayGrid: moment.Moment[] = buildDayGrid(date);
   const selectedMonthDay: string = date.format('D');
   const selectedWeedDay: string = date.format('ddd');
 
   const onRowClick = (time: moment.Moment) => (): void => {
     if (!isCreatePopupVisible && !isPreviewPopupVisible) {
-      setRowDate(time);
-      setCreatePopupVisible(true);
+      dispatch(setRowDate(time));
+      dispatch(setCreatePopupVisible(true));
     }
   };
 
   const onEventClick = (time: moment.Moment) => (): void => {
     if (!isCreatePopupVisible) {
-      setRowDate(time);
-      setPreviewPopupVisible(true);
+      dispatch(setRowDate(time));
+      dispatch(setPreviewPopupVisible(true));
     }
   };
 
@@ -104,24 +82,4 @@ const DayGrid: React.FC<DayGridProps> = ({
   );
 };
 
-const mapStateToProps = ({
-  datePicker: { date },
-  popups: { isCreatePopupVisible, isPreviewPopupVisible },
-  grid: { rowDate, events },
-}: RootState) => {
-  return {
-    date,
-    rowDate,
-    isCreatePopupVisible,
-    isPreviewPopupVisible,
-    events,
-  };
-};
-
-const mapDistatchToProps = {
-  setCreatePopupVisible,
-  setPreviewPopupVisible,
-  setRowDate,
-};
-
-export default connect(mapStateToProps, mapDistatchToProps)(DayGrid);
+export default DayGrid;

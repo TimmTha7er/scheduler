@@ -7,7 +7,7 @@ import {
   SET_LEFT_DATEPICKER_VISIBLE,
   SET_RIGHT_DATEPICKER_VISIBLE,
 } from '../action-types';
-import { GridActionsType } from '../actions/range';
+import { RangeActionsType } from '../actions/range';
 
 interface IRangeState {
   isRangeVisible: boolean;
@@ -25,7 +25,7 @@ const initialState: IRangeState = {
   isRightDatePickerVisible: false,
 };
 
-const rangeReducer = (state = initialState, action: GridActionsType) => {
+const rangeReducer = (state = initialState, action: RangeActionsType): any => {
   if (action.type === TOGGLE_RANGE_VISIBLE) {
     return {
       ...state,

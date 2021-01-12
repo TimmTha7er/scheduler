@@ -1,26 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toggleRangeVisible, setALLPopupsUnvisible } from '../../redux/actions';
 import { RootState } from '../../redux/reducers/index';
-import { GridActionsType } from '../../redux/actions/range';
-import { PopupsActionTypes } from '../../redux/actions/popups';
 
-type RangeBtnProps = {
-  isRangeVisible: boolean;
-  toggleRangeVisible: () => GridActionsType;
-  setALLPopupsUnvisible: () => PopupsActionTypes;
-};
-
-const RangeBtn: React.FC<RangeBtnProps> = ({
-  isRangeVisible,
-  toggleRangeVisible,
-  setALLPopupsUnvisible,
-}) => {
+const RangeBtn: React.FC = () => {
+  const dispatch = useDispatch();
+  const { isRangeVisible } = useSelector((state: RootState) => state.range);
   const rangeBtnName: string = isRangeVisible ? 'День' : 'Расписание';
 
   const onRangeBtnClick = (): void => {
-    toggleRangeVisible();
-    setALLPopupsUnvisible();
+    dispatch(toggleRangeVisible());
+    dispatch(setALLPopupsUnvisible());
   };
 
   return (
@@ -30,13 +20,4 @@ const RangeBtn: React.FC<RangeBtnProps> = ({
   );
 };
 
-const mapStateToProps = ({ range: { isRangeVisible } }: RootState) => {
-  return { isRangeVisible };
-};
-
-const mapDistatchToProps = {
-  toggleRangeVisible,
-  setALLPopupsUnvisible,
-};
-
-export default connect(mapStateToProps, mapDistatchToProps)(RangeBtn);
+export default RangeBtn;

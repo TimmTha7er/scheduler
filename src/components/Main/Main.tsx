@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   Day,
   ScheduleRange,
@@ -9,19 +9,16 @@ import {
 } from '../../components';
 import { RootState } from '../../redux/reducers/index';
 
-type MainProps = {
-  isRangeVisible: boolean;
-  isCreatePopupVisible: boolean;
-  isPreviewPopupVisible: boolean;
-  isDeletePopupVisible: boolean;
-};
+const Main: React.FC = () => {
+  const {
+    range: { isRangeVisible },
+    popups: {
+      isCreatePopupVisible,
+      isPreviewPopupVisible,
+      isDeletePopupVisible,
+    },
+  } = useSelector((state: RootState) => state);
 
-const Main: React.FC<MainProps> = ({
-  isRangeVisible,
-  isCreatePopupVisible,
-  isPreviewPopupVisible,
-  isDeletePopupVisible,
-}) => {
   return (
     <main className='main'>
       {isRangeVisible ? <ScheduleRange /> : <Day />}
@@ -33,18 +30,4 @@ const Main: React.FC<MainProps> = ({
   );
 };
 
-const mapStateToProps = ({
-  range: { isRangeVisible },
-  popups: { isCreatePopupVisible, isPreviewPopupVisible, isDeletePopupVisible },
-}: RootState) => {
-  return {
-    isRangeVisible,
-    isCreatePopupVisible,
-    isPreviewPopupVisible,
-    isDeletePopupVisible,
-  };
-};
-
-const mapDistatchToProps = {};
-
-export default connect(mapStateToProps, mapDistatchToProps)(Main);
+export default Main;

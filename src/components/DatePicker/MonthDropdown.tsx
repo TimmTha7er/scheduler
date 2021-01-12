@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { buildMonthsList } from './buildMonthsList';
 
-type MonthDropdownProps = {
+interface MonthDropdownProps {
   date: moment.Moment;
   onChangeMonth: (month: moment.Moment) => void;
   onSelectedMonthClick: () => void;
-};
+}
 
 const MonthDropdown: React.FC<MonthDropdownProps> = ({
   date,

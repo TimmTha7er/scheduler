@@ -18,7 +18,10 @@ const initialState: IDatePickerState = {
   },
 };
 
-const datePickerReducer = (state = initialState, action: GridActionsType) => {
+const datePickerReducer = (
+  state = initialState,
+  action: GridActionsType
+): any => {
   if (action.type === SET_ROW_DATE) {
     return {
       ...state,

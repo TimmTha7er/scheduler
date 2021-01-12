@@ -1,76 +1,64 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   setStartOFRange,
   setEndOFRange,
   setALLPopupsUnvisible,
 } from '../../redux/actions';
+import { RootState } from '../../redux/reducers';
+import { DatePickerActionTypes } from '../../redux/actions/datePicker';
 import moment from 'moment';
 import 'moment/locale/ru';
-import { RootState } from '../../redux/reducers/index';
-import { DatePickerActionTypes } from '../../redux/actions/datePicker';
-import { GridActionsType } from '../../redux/actions/range';
-import { PopupsActionTypes } from '../../redux/actions/popups';
 import leftBtnImg from '../../img/angle-left.svg';
 import rightBtnImg from '../../img/angle-right.svg';
 
-type GridNavProps = {
+interface GridNavProps {
   setDate: (date: moment.Moment) => DatePickerActionTypes;
-  date: moment.Moment;
-  isRangeVisible: boolean;
-  setStartOFRange: (date: moment.Moment) => GridActionsType;
-  setEndOFRange: (date: moment.Moment) => GridActionsType;
-  startOfRange: moment.Moment;
-  endOfRange: moment.Moment;
-  setALLPopupsUnvisible: () => PopupsActionTypes;
-};
+}
 
-const GridNav: React.FC<GridNavProps> = ({
-  setDate,
-  date,
-  isRangeVisible,
-  setStartOFRange,
-  setEndOFRange,
-  startOfRange,
-  endOfRange,
-  setALLPopupsUnvisible,
-}) => {
+const GridNav: React.FC<GridNavProps> = React.memo(({ setDate }) => {
+  const dispatch = useDispatch();
+  const {
+    datePicker: { date },
+    range: { isRangeVisible, startOfRange, endOfRange },
+  } = useSelector((state: RootState) => state);
+
   const onPrevBtnClick = (): void => {
     const prevDay: moment.Moment = date.clone().subtract(1, 'day');
     setDate(prevDay);
-    setALLPopupsUnvisible();
+    dispatch(setALLPopupsUnvisible());
 
     if (isRangeVisible) {
       const start: moment.Moment = startOfRange.clone().subtract(1, 'week');
       const end: moment.Moment = endOfRange.clone().subtract(1, 'week');
-      setStartOFRange(start);
-      setEndOFRange(end);
+      dispatch(setStartOFRange(start));
+      dispatch(setEndOFRange(end));
     }
   };
 
   const onTodayBtnClick = () => {
     const today: moment.Moment = moment();
     setDate(today);
-    setALLPopupsUnvisible();
+    dispatch(setALLPopupsUnvisible());
 
     if (isRangeVisible) {
       const start: moment.Moment = moment().clone().startOf('week');
       const end: moment.Moment = moment().clone().endOf('week');
-      setStartOFRange(start);
-      setEndOFRange(end);
+      dispatch(setStartOFRange(start));
+      dispatch(setEndOFRange(end));
     }
   };
 
   const onNextBtnClick = () => {
     const nextDay: moment.Moment = date.clone().add(1, 'day');
     setDate(nextDay);
-    setALLPopupsUnvisible();
+    dispatch(setALLPopupsUnvisible());
 
     if (isRangeVisible) {
       const start: moment.Moment = startOfRange.clone().add(1, 'week');
       const end: moment.Moment = endOfRange.clone().add(1, 'week');
-      setStartOFRange(start);
-      setEndOFRange(end);
+      dispatch(setStartOFRange(start));
+      dispatch(setEndOFRange(end));
     }
   };
 
@@ -101,19 +89,6 @@ const GridNav: React.FC<GridNavProps> = ({
       </button>
     </div>
   );
-};
+});
 
-const mapStateToProps = ({
-  datePicker: { date },
-  range: { isRangeVisible, startOfRange, endOfRange },
-}: RootState) => {
-  return { date, isRangeVisible, startOfRange, endOfRange };
-};
-
-const mapDistatchToProps = {
-  setStartOFRange,
-  setEndOFRange,
-  setALLPopupsUnvisible,
-};
-
-export default connect(mapStateToProps, mapDistatchToProps)(GridNav);
+export default GridNav;

@@ -3,11 +3,11 @@ import { buildYearsList } from './buildYearsList';
 import upBtnImg from '../../img/angle-up.svg';
 import downBtnImg from '../../img/angle-down.svg';
 
-type CalendarProps = {
+interface CalendarProps {
   date: moment.Moment;
   onChangeYear: (year: moment.Moment) => void;
   onSelectedYearClick: () => void;
-};
+}
 
 const YearDwopdown: React.FC<CalendarProps> = ({
   date,

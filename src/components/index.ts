@@ -19,3 +19,5 @@ export { default as YearDropdown } from './DatePicker/YearDropdown';
 export { default as SelectedDate } from './DatePicker/SelectedDate';
 
 export { default as PreviewPopup } from './PreviewPopup/PreviewPopup';
+
+export { default as App } from './App';

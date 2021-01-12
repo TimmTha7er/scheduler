@@ -1,30 +1,19 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import { GridNav, DatePicker, RangeBtn } from '../../components';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   setVisible,
   setDate,
   setALLPopupsUnvisible,
 } from '../../redux/actions';
 import { RootState } from '../../redux/reducers/index';
-import { PopupsActionTypes } from '../../redux/actions/popups';
-import { DatePickerActionTypes } from '../../redux/actions/datePicker';
 
-type HeaderProps = {
-  isVisible: boolean;
-  setDate: (date: moment.Moment) => DatePickerActionTypes;
-  setVisible: (value: boolean) => DatePickerActionTypes;
-  date: moment.Moment;
-  setALLPopupsUnvisible: () => PopupsActionTypes;
-};
+const Header: React.FC = () => {
+  const dispatch = useDispatch();
+  const { date, isVisible } = useSelector(
+    (state: RootState) => state.datePicker
+  );
 
-const Header: React.FC<HeaderProps> = ({
-  isVisible,
-  setVisible,
-  setDate,
-  date,
-  setALLPopupsUnvisible,
-}) => {
   const datePickerRef = useRef<HTMLDivElement>(null);
   const selectedMonth: string = date.format('MMMM');
   const selectedYear: string = date.format('YYYY');
@@ -37,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({
 
   const handleOutsideClick = (e: any): void => {
     if (e.path && !e.path.includes(datePickerRef.current)) {
-      setVisible(false);
+      dispatch(setVisible(false));
     }
     // !!!!
     // https://youtu.be/GtaKTDNQ6vo?t=938
@@ -49,9 +38,19 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   const onSelectedDateClick = (): void => {
-    setVisible(!isVisible);
-    setALLPopupsUnvisible();
+    dispatch(setVisible(!isVisible));
+    dispatch(setALLPopupsUnvisible());
   };
+
+  const setDateCallback = useCallback(
+    (date: moment.Moment) => dispatch(setDate(date)),
+    [dispatch]
+  );
+
+  const setVisibleCallback = useCallback(
+    (value: boolean) => dispatch(setVisible(value)),
+    [dispatch]
+  );
 
   return (
     <header className='header'>
@@ -63,28 +62,18 @@ const Header: React.FC<HeaderProps> = ({
         {isVisible && (
           <DatePicker
             date={date}
-            setDate={setDate}
+            setDate={setDateCallback}
             owner={'header'}
-            setVisible={setVisible}
+            setVisible={setVisibleCallback}
           ></DatePicker>
         )}
       </div>
       <div className='header__btns-wrap'>
-        <GridNav setDate={setDate}></GridNav>
+        <GridNav setDate={setDateCallback}></GridNav>
         <RangeBtn></RangeBtn>
       </div>
     </header>
   );
 };
 
-const mapStateToProps = ({ datePicker: { date, isVisible } }: RootState) => {
-  return { isVisible, date };
-};
-
-const mapDistatchToProps = {
-  setVisible,
-  setDate,
-  setALLPopupsUnvisible,
-};
-
-export default connect(mapStateToProps, mapDistatchToProps)(Header);
+export default Header;

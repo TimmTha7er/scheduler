@@ -1,28 +1,22 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   setCreatePopupVisible,
   createEvent,
   setRowDate,
 } from '../../redux/actions';
-import { GridActionsType, IEvent } from '../../redux/actions/grid';
-import { RootState } from '../../redux/reducers/index';
-import { PopupsActionTypes } from '../../redux/actions/popups';
+import { IEvent } from '../../redux/actions/grid';
+import { RootState } from '../../redux/reducers';
 import closeBtnImg from '../../img/close.svg';
 
-type CreatePopupProps = {
-  setCreatePopupVisible: (value: boolean) => PopupsActionTypes;
-  createEvent: (event: IEvent) => GridActionsType;
-  setRowDate: (date: moment.Moment | null) => GridActionsType;
-  event?: { title?: string; descr?: string };
-};
+const CreatePopup: React.FC = () => {
+  const dispatch = useDispatch();
+  const { rowDate, events = {} } = useSelector(
+    (state: RootState) => state.grid
+  );
+  const event: IEvent = events[rowDate];
+  const { title: eventTitle = '', descr: eventDescr = '' } = event || {};
 
-const CreatePopup: React.FC<CreatePopupProps> = ({
-  setCreatePopupVisible,
-  createEvent,
-  setRowDate,
-  event: { title: eventTitle = '', descr: eventDescr = '' } = {},
-}) => {
   const [title, setTitle] = useState<string>(eventTitle);
   const [descr, setDescr] = useState<string>(eventDescr);
 
@@ -33,8 +27,8 @@ const CreatePopup: React.FC<CreatePopupProps> = ({
     !eventTitle && !eventDescr ? 'Создать' : 'Сохранить';
 
   const onCancelClick = (): void => {
-    setRowDate(null);
-    setCreatePopupVisible(false);
+    dispatch(setRowDate(null));
+    dispatch(setCreatePopupVisible(false));
   };
 
   const onTitleChange = (e: React.FormEvent<HTMLInputElement>): void => {
@@ -48,8 +42,8 @@ const CreatePopup: React.FC<CreatePopupProps> = ({
   const onSubmitClick = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const ttitle: string = title.trim() === '' ? 'Без названия' : title;
-    createEvent({ title: ttitle, descr: descr });
-    setCreatePopupVisible(false);
+    dispatch(createEvent({ title: ttitle, descr: descr }));
+    dispatch(setCreatePopupVisible(false));
   };
 
   return (
@@ -61,11 +55,7 @@ const CreatePopup: React.FC<CreatePopupProps> = ({
           // className='create-popup__close icon icon-cancel-1'
           className='create-popup__close'
         >
-          <img
-            className='create-popup__btn-img'
-            src={closeBtnImg}
-            alt='X'
-          />
+          <img className='create-popup__btn-img' src={closeBtnImg} alt='X' />
         </div>
       </div>
       <form onSubmit={onSubmitClick} className='form'>
@@ -108,16 +98,4 @@ const CreatePopup: React.FC<CreatePopupProps> = ({
   );
 };
 
-const mapStateToProps = ({ grid: { rowDate, events } }: RootState) => {
-  const event: IEvent = events[rowDate];
-
-  return { event };
-};
-
-const mapDistatchToProps = {
-  setCreatePopupVisible,
-  createEvent,
-  setRowDate,
-};
-
-export default connect(mapStateToProps, mapDistatchToProps)(CreatePopup);
+export default CreatePopup;

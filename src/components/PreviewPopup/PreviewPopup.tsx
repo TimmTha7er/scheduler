@@ -1,42 +1,31 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   setPreviewPopupVisible,
   setDeletePopupVisible,
   setCreatePopupVisible,
 } from '../../redux/actions';
-import { PopupsActionTypes } from '../../redux/actions/popups';
-import { RootState } from '../../redux/reducers/index';
+import { RootState } from '../../redux/reducers';
 import closeBtnImg from '../../img/close.svg';
 import deleteBtnImg from '../../img/trash-o.svg';
 import editBtnImg from '../../img/pencil.svg';
 
-type PreviewPopupProps = {
-  eventTitle: string;
-  eventDescr: string;
-  setPreviewPopupVisible: (value: boolean) => PopupsActionTypes;
-  setDeletePopupVisible: (value: boolean) => PopupsActionTypes;
-  setCreatePopupVisible: (value: boolean) => PopupsActionTypes;
-};
+const PreviewPopup: React.FC = () => {
+  const dispatch = useDispatch();
+  const { rowDate, events } = useSelector((state: RootState) => state.grid);
+  const { title: eventTitle, descr: eventDescr } = events[rowDate] || {};
 
-const PreviewPopup: React.FC<PreviewPopupProps> = ({
-  eventTitle,
-  eventDescr,
-  setPreviewPopupVisible,
-  setDeletePopupVisible,
-  setCreatePopupVisible,
-}) => {
   const onBtnCancelClick = (): void => {
-    setPreviewPopupVisible(false);
+    dispatch(setPreviewPopupVisible(false));
   };
 
   const onBtnDeleteClick = (): void => {
-    setDeletePopupVisible(true);
+    dispatch(setDeletePopupVisible(true));
   };
 
   const onBtnEditClick = (): void => {
-    setPreviewPopupVisible(false);
-    setCreatePopupVisible(true);
+    dispatch(setPreviewPopupVisible(false));
+    dispatch(setCreatePopupVisible(true));
   };
 
   return (
@@ -48,11 +37,11 @@ const PreviewPopup: React.FC<PreviewPopupProps> = ({
           // className='preview-popup__close icon icon-cancel-1'
           className='preview-popup__close'
         >
-           <img
-              className='action-bar__btn-img action-bar__btn-img_close'
-              src={closeBtnImg}
-              alt='X'
-            />
+          <img
+            className='action-bar__btn-img action-bar__btn-img_close'
+            src={closeBtnImg}
+            alt='X'
+          />
         </div>
       </div>
       <div className='preview-popup__descr'>
@@ -71,22 +60,14 @@ const PreviewPopup: React.FC<PreviewPopupProps> = ({
             // className='action-bar__btn icon icon-trash'
             className='action-bar__btn icon'
           >
-            <img
-              className='action-bar__btn-img'
-              src={deleteBtnImg}
-              alt='del'
-            />
+            <img className='action-bar__btn-img' src={deleteBtnImg} alt='del' />
           </button>
           <button
             onClick={onBtnEditClick}
             className='action-bar__btn'
             // className='action-bar__btn icon icon-pencil'
           >
-            <img
-              className='action-bar__btn-img'
-              src={editBtnImg}
-              alt='edit'
-            />
+            <img className='action-bar__btn-img' src={editBtnImg} alt='edit' />
           </button>
         </div>
       </div>
@@ -94,16 +75,4 @@ const PreviewPopup: React.FC<PreviewPopupProps> = ({
   );
 };
 
-const mapStateToProps = ({ grid: { rowDate, events } }: RootState) => {
-  const { title: eventTitle, descr: eventDescr } = events[rowDate];
-
-  return { eventTitle, eventDescr };
-};
-
-const mapDistatchToProps = {
-  setPreviewPopupVisible,
-  setDeletePopupVisible,
-  setCreatePopupVisible,
-};
-
-export default connect(mapStateToProps, mapDistatchToProps)(PreviewPopup);
+export default PreviewPopup;

@@ -31,41 +31,41 @@ export interface TSetRightDatePickerVisible {
   payload: boolean;
 }
 
-export type GridActionsType =
+export type RangeActionsType =
   | IToggleRangeVisible
   | ISetStartOFRange
   | ISetEndOFRange
   | ISetLeftDatePickerVisible
   | TSetRightDatePickerVisible;
 
-export const toggleRangeVisible = (): GridActionsType => {
+export const toggleRangeVisible = (): RangeActionsType => {
   return {
     type: TOGGLE_RANGE_VISIBLE,
   };
 };
 
-export const setStartOFRange = (date: moment.Moment): GridActionsType => {
+export const setStartOFRange = (date: moment.Moment): RangeActionsType => {
   return {
     type: SET_START_OF_RANGE,
     payload: date,
   };
 };
 
-export const setEndOFRange = (date: moment.Moment): GridActionsType => {
+export const setEndOFRange = (date: moment.Moment): RangeActionsType => {
   return {
     type: SET_END_OF_RANGE,
     payload: date,
   };
 };
 
-export const setLeftDatePickerVisible = (value: boolean): GridActionsType => {
+export const setLeftDatePickerVisible = (value: boolean): RangeActionsType => {
   return {
     type: SET_LEFT_DATEPICKER_VISIBLE,
     payload: value,
   };
 };
 
-export const setRightDatePickerVisible = (value: boolean): GridActionsType => {
+export const setRightDatePickerVisible = (value: boolean): RangeActionsType => {
   return {
     type: SET_RIGHT_DATEPICKER_VISIBLE,
     payload: value,
