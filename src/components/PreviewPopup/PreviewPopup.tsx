@@ -13,7 +13,8 @@ import editBtnImg from '../../img/pencil.svg';
 const PreviewPopup: React.FC = () => {
   const dispatch = useDispatch();
   const { rowDate, events } = useSelector((state: RootState) => state.grid);
-  const { title: eventTitle, descr: eventDescr } = events[rowDate] || {};
+  const { title: eventTitle, descr: eventDescr } =
+    events[rowDate!.toString()] || {};
 
   const onBtnCancelClick = (): void => {
     dispatch(setPreviewPopupVisible(false));

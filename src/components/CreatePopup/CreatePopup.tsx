@@ -14,8 +14,13 @@ const CreatePopup: React.FC = () => {
   const { rowDate, events = {} } = useSelector(
     (state: RootState) => state.grid
   );
-  const event: IEvent = events[rowDate];
-  const { title: eventTitle = '', descr: eventDescr = '' } = event || {};
+  const event: IEvent = rowDate
+    ? events[rowDate.toString()]
+    : {
+        title: '',
+        descr: '',
+      };
+  const { title: eventTitle, descr: eventDescr} = event || {};
 
   const [title, setTitle] = useState<string>(eventTitle);
   const [descr, setDescr] = useState<string>(eventDescr);

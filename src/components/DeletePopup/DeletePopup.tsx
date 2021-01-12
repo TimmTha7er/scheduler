@@ -13,7 +13,7 @@ const DeletePopup: React.FC = () => {
 
   const onBtnСonfirmClick = (): void => {
     dispatch(setPreviewPopupVisible(false));
-    dispatch(deleteEvent(rowDate));
+    dispatch(deleteEvent(rowDate!));
     dispatch(setDeletePopupVisible(false));
   };
 

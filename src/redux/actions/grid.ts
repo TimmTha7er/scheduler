@@ -9,23 +9,10 @@ export interface IEventList {
   [name: string]: IEvent;
 }
 
-export interface ICreateEvent {
+interface ICreateEvent {
   type: typeof CREATE_EVENT;
   payload: IEvent;
 }
-
-export interface IDeleteEvent {
-  type: typeof DELETE_EVENT;
-  payload: moment.Moment;
-}
-
-export interface ISetRowDate {
-  type: typeof SET_ROW_DATE;
-  payload: moment.Moment | null;
-}
-
-export type GridActionsType = ICreateEvent | IDeleteEvent | ISetRowDate;
-
 export const createEvent = (value: IEvent): GridActionsType => {
   return {
     type: CREATE_EVENT,
@@ -33,6 +20,10 @@ export const createEvent = (value: IEvent): GridActionsType => {
   };
 };
 
+interface IDeleteEvent {
+  type: typeof DELETE_EVENT;
+  payload: moment.Moment;
+}
 export const deleteEvent = (date: moment.Moment): GridActionsType => {
   return {
     type: DELETE_EVENT,
@@ -40,9 +31,15 @@ export const deleteEvent = (date: moment.Moment): GridActionsType => {
   };
 };
 
+interface ISetRowDate {
+  type: typeof SET_ROW_DATE;
+  payload: moment.Moment | null;
+}
 export const setRowDate = (date: moment.Moment | null): GridActionsType => {
   return {
     type: SET_ROW_DATE,
     payload: date,
   };
 };
+
+export type GridActionsType = ICreateEvent | IDeleteEvent | ISetRowDate;

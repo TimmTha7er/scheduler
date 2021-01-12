@@ -25,7 +25,10 @@ const initialState: IRangeState = {
   isRightDatePickerVisible: false,
 };
 
-const rangeReducer = (state = initialState, action: RangeActionsType): any => {
+const rangeReducer = (
+  state = initialState,
+  action: RangeActionsType
+): IRangeState => {
   if (action.type === TOGGLE_RANGE_VISIBLE) {
     return {
       ...state,

@@ -17,7 +17,7 @@ const initialState: IDatePickerState = {
 const datePickerReducer = (
   state = initialState,
   action: DatePickerActionTypes
-): any => {
+): IDatePickerState => {
   if (action.type === SET_DATE) {
     return {
       ...state,

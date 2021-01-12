@@ -21,7 +21,7 @@ const initialState: IPopupsState = {
 const popupsReducer = (
   state = initialState,
   action: PopupsActionTypes
-): any => {
+): IPopupsState => {
   if (action.type === SET_CREATE_POPUP_VISIBLE) {
     return {
       ...state,

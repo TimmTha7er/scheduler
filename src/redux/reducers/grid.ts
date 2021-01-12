@@ -2,12 +2,12 @@ import { DELETE_EVENT, CREATE_EVENT, SET_ROW_DATE } from '../action-types';
 import { GridActionsType } from '../actions/grid';
 import { IEventList } from '../actions/grid';
 
-export interface IDatePickerState {
+export interface IGridState {
   rowDate: moment.Moment | null;
   events: IEventList;
 }
 
-const initialState: IDatePickerState = {
+const initialState: IGridState = {
   rowDate: null,
   events: {
     'Sat Jan 09 2021 00:00:00 GMT+0300': {
@@ -21,7 +21,7 @@ const initialState: IDatePickerState = {
 const datePickerReducer = (
   state = initialState,
   action: GridActionsType
-): any => {
+): IGridState => {
   if (action.type === SET_ROW_DATE) {
     return {
       ...state,
