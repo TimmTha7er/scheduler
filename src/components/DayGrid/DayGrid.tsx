@@ -19,7 +19,7 @@ const DayGrid: React.FC = () => {
 
   useEffect(() => {
     setDayGrid(buildDayGrid(date));
-  }, [date]);
+  }, [date, events]);
   // const dayGrid: moment.Moment[] = useMemo(() => buildDayGrid(date), [date]);
 
   const selectedMonthDay: string = date.format('D');

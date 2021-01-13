@@ -51,8 +51,5 @@ export const buildRange = (
     day.add(1, 'day');
   }
 
-  console.log('bbbbbbuild range');
-  
-
   return range;
 };
