@@ -1,6 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleRangeVisible, setALLPopupsUnvisible } from '../../redux/actions';
+import {
+  toggleRangeVisible,
+  setALLPopupsUnvisible,
+  setRowDate,
+} from '../../redux/actions';
 import { RootState } from '../../redux/store';
 
 const RangeBtn: React.FC = () => {
@@ -11,6 +15,7 @@ const RangeBtn: React.FC = () => {
   const onRangeBtnClick = (): void => {
     dispatch(toggleRangeVisible());
     dispatch(setALLPopupsUnvisible());
+    dispatch(setRowDate(null));
   };
 
   return (

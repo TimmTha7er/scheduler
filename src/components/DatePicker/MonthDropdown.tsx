@@ -37,4 +37,5 @@ const MonthDropdown: React.FC<MonthDropdownProps> = ({
   );
 };
 
-export default MonthDropdown;
+export default React.memo(MonthDropdown);
+// export default MonthDropdown;

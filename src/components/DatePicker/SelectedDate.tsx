@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { YearDropdown, MonthDropdown } from '../../components';
 import useClickOutside from '../supports/hooks';
 
@@ -8,65 +8,70 @@ interface SelectedDateProps {
   onChangeYear: (year: moment.Moment) => void;
 }
 
-const SelectedDate: React.FC<SelectedDateProps> = React.memo(
-  ({ value, onChangeMonth, onChangeYear }) => {
-    const [visibleMonthDropdown, setVisibleMonthDropdown] = useState<boolean>(
-      false
-    );
-    const [visibleYearDropdown, setVisibleYearDropdown] = useState<boolean>(
-      false
-    );
-    const { ref: monthRef } = useClickOutside(setVisibleMonthDropdown);
-    const { ref: yearRef } = useClickOutside(setVisibleYearDropdown);
+const SelectedDate: React.FC<SelectedDateProps> = ({
+  value,
+  onChangeMonth,
+  onChangeYear,
+}) => {
+  const [visibleMonthDropdown, setVisibleMonthDropdown] = useState<boolean>(
+    false
+  );
+  const [visibleYearDropdown, setVisibleYearDropdown] = useState<boolean>(
+    false
+  );
 
-    const currYear = value.format('YYYY');
-    const currMonthName = value.format('MMMM');
+  const { ref: monthRef } = useClickOutside(setVisibleMonthDropdown);
+  const { ref: yearRef } = useClickOutside(setVisibleYearDropdown);
 
-    const onSelectedMonthClick = (): void => {
-      setVisibleMonthDropdown((prevState) => !prevState);
-    };
+  const currYear = value.format('YYYY');
+  const currMonthName = value.format('MMMM');
 
-    const onSelectedYearClick = (): void => {
-      setVisibleYearDropdown((prevState) => !prevState);
-    };
+  const onSelectedMonthClick = useCallback(
+    () => setVisibleMonthDropdown((prevState) => !prevState),
+    []
+  );
 
-    return (
-      <div className='datepicker__selected-date'>
-        <div ref={monthRef} className='datepicker__selected-month-wrap'>
-          <span
-            className='datepicker__selected-month'
-            onClick={onSelectedMonthClick}
-          >
-            {currMonthName}
-          </span>
+  const onSelectedYearClick = useCallback(
+    () => setVisibleYearDropdown((prevState) => !prevState),
+    []
+  );
 
-          {visibleMonthDropdown && (
-            <MonthDropdown
-              onChangeMonth={onChangeMonth}
-              onSelectedMonthClick={onSelectedMonthClick}
-              date={value}
-            ></MonthDropdown>
-          )}
-        </div>
-        <div ref={yearRef} className='datepicker__selected-year-wrap'>
-          <span
-            onClick={onSelectedYearClick}
-            className='datepicker__selected-year'
-          >
-            {currYear}
-          </span>
+  return (
+    <div className='datepicker__selected-date'>
+      <div ref={monthRef} className='datepicker__selected-month-wrap'>
+        <span
+          className='datepicker__selected-month'
+          onClick={onSelectedMonthClick}
+        >
+          {currMonthName}
+        </span>
 
-          {visibleYearDropdown && (
-            <YearDropdown
-              onChangeYear={onChangeYear}
-              onSelectedYearClick={onSelectedYearClick}
-              date={value}
-            ></YearDropdown>
-          )}
-        </div>
+        {visibleMonthDropdown && (
+          <MonthDropdown
+            onChangeMonth={onChangeMonth}
+            onSelectedMonthClick={onSelectedMonthClick}
+            date={value}
+          ></MonthDropdown>
+        )}
       </div>
-    );
-  }
-);
+      <div ref={yearRef} className='datepicker__selected-year-wrap'>
+        <span
+          onClick={onSelectedYearClick}
+          className='datepicker__selected-year'
+        >
+          {currYear}
+        </span>
 
-export default SelectedDate;
+        {visibleYearDropdown && (
+          <YearDropdown
+            onChangeYear={onChangeYear}
+            onSelectedYearClick={onSelectedYearClick}
+            date={value}
+          ></YearDropdown>
+        )}
+      </div>
+    </div>
+  );
+};
+export default React.memo(SelectedDate);
+// export default SelectedDate

@@ -5,6 +5,7 @@ import {
   setVisible,
   setDate,
   setALLPopupsUnvisible,
+  setRowDate
 } from '../../redux/actions';
 import { RootState } from '../../redux/store';
 import useClickOutside from '../supports/hooks';
@@ -21,6 +22,7 @@ const Header: React.FC = () => {
   const onSelectedDateClick = (): void => {
     dispatch(setVisible(!isVisible));
     dispatch(setALLPopupsUnvisible());
+    dispatch(setRowDate(null));
   };
 
   const setDateCallback = useCallback(

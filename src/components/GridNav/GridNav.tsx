@@ -4,6 +4,7 @@ import {
   setStartOFRange,
   setEndOFRange,
   setALLPopupsUnvisible,
+  setRowDate
 } from '../../redux/actions';
 import { RootState } from '../../redux/store';
 import { DatePickerActionTypes } from '../../redux/actions/datePicker';
@@ -16,7 +17,7 @@ interface GridNavProps {
   setDate: (date: moment.Moment) => DatePickerActionTypes;
 }
 
-const GridNav: React.FC<GridNavProps> = React.memo(({ setDate }) => {
+const GridNav: React.FC<GridNavProps> = ({ setDate }) => {
   const dispatch = useDispatch();
   const {
     datePicker: { date },
@@ -27,6 +28,7 @@ const GridNav: React.FC<GridNavProps> = React.memo(({ setDate }) => {
     const prevDay: moment.Moment = date.clone().subtract(1, 'day');
     setDate(prevDay);
     dispatch(setALLPopupsUnvisible());
+    dispatch(setRowDate(null));
 
     if (isRangeVisible) {
       const start: moment.Moment = startOfRange.clone().subtract(1, 'week');
@@ -40,6 +42,7 @@ const GridNav: React.FC<GridNavProps> = React.memo(({ setDate }) => {
     const today: moment.Moment = moment();
     setDate(today);
     dispatch(setALLPopupsUnvisible());
+    dispatch(setRowDate(null));
 
     if (isRangeVisible) {
       const start: moment.Moment = moment().clone().startOf('week');
@@ -53,6 +56,7 @@ const GridNav: React.FC<GridNavProps> = React.memo(({ setDate }) => {
     const nextDay: moment.Moment = date.clone().add(1, 'day');
     setDate(nextDay);
     dispatch(setALLPopupsUnvisible());
+    dispatch(setRowDate(null));
 
     if (isRangeVisible) {
       const start: moment.Moment = startOfRange.clone().add(1, 'week');
@@ -89,6 +93,7 @@ const GridNav: React.FC<GridNavProps> = React.memo(({ setDate }) => {
       </button>
     </div>
   );
-});
+};
 
-export default GridNav;
+export default React.memo(GridNav);
+// export default GridNav;

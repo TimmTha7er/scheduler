@@ -47,4 +47,5 @@ const Calendar: React.FC<CalendarProps> = ({ value, onDayClick }) => {
   );
 };
 
-export default Calendar;
+export default React.memo(Calendar);
+// export default Calendar;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setCreatePopupVisible,
@@ -20,10 +20,16 @@ const CreatePopup: React.FC = () => {
         title: '',
         descr: '',
       };
-  const { title: eventTitle, descr: eventDescr} = event || {};
+  const { title: eventTitle, descr: eventDescr } = event || {};
 
   const [title, setTitle] = useState<string>(eventTitle);
   const [descr, setDescr] = useState<string>(eventDescr);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current!.focus();
+  }, []);
 
   const popupTitle: string =
     !eventTitle && !eventDescr ? 'Новое событие' : 'Редактирование события';
@@ -76,6 +82,7 @@ const CreatePopup: React.FC = () => {
               type='text'
               autoComplete='off'
               maxLength={120}
+              ref={inputRef}
             />
           </div>
 

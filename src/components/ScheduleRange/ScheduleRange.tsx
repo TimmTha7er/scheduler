@@ -5,6 +5,7 @@ import {
   setEndOFRange,
   setLeftDatePickerVisible,
   setRightDatePickerVisible,
+  setALLPopupsUnvisible
 } from '../../redux/actions';
 import { DatePicker, DayList } from '../../components';
 import { RootState } from '../../redux/store';
@@ -22,11 +23,13 @@ const ScheduleRange: React.FC = () => {
   const onStartDateClick = (): void => {
     dispatch(setRightDatePickerVisible(false));
     dispatch(setLeftDatePickerVisible(!isLeftDatePickerVisible));
+    dispatch(setALLPopupsUnvisible());
   };
 
   const onEndDateClick = (): void => {
     dispatch(setLeftDatePickerVisible(false));
     dispatch(setRightDatePickerVisible(!isRightDatePickerVisible));
+    dispatch(setALLPopupsUnvisible());
   };
 
   const setStartDate = useCallback(
