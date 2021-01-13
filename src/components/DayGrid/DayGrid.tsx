@@ -6,7 +6,7 @@ import {
   setRowDate,
 } from '../../redux/actions';
 import { buildDayGrid } from './buildDayGrid';
-import { RootState } from '../../redux/reducers';
+import { RootState } from '../../redux/store';
 
 const DayGrid: React.FC = () => {
   const dispatch = useDispatch();

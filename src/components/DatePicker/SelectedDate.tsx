@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { YearDropdown, MonthDropdown } from '../../components';
+import useClickOutside from '../supports/hooks';
 
 interface SelectedDateProps {
   value: moment.Moment;
@@ -7,93 +8,65 @@ interface SelectedDateProps {
   onChangeYear: (year: moment.Moment) => void;
 }
 
-const SelectedDate: React.FC<SelectedDateProps> = ({
-  value,
-  onChangeMonth,
-  onChangeYear,
-}) => {
-  const [visibleMonthDropdown, setVisibleMonthDropdown] = useState<boolean>(
-    false
-  );
-  const [visibleYearDropdown, setVisibleYearDropdown] = useState<boolean>(
-    false
-  );
-  const monthRef = useRef<HTMLDivElement>(null);
-  const yearRef = useRef<HTMLDivElement>(null);
+const SelectedDate: React.FC<SelectedDateProps> = React.memo(
+  ({ value, onChangeMonth, onChangeYear }) => {
+    const [visibleMonthDropdown, setVisibleMonthDropdown] = useState<boolean>(
+      false
+    );
+    const [visibleYearDropdown, setVisibleYearDropdown] = useState<boolean>(
+      false
+    );
+    const { ref: monthRef } = useClickOutside(setVisibleMonthDropdown);
+    const { ref: yearRef } = useClickOutside(setVisibleYearDropdown);
 
-  useEffect(() => {
-    document.body.addEventListener('click', handleOutsideClick);
+    const currYear = value.format('YYYY');
+    const currMonthName = value.format('MMMM');
 
-    return () => document.body.removeEventListener('click', handleOutsideClick);
-  }, []);
+    const onSelectedMonthClick = (): void => {
+      setVisibleMonthDropdown((prevState) => !prevState);
+    };
 
-  const handleOutsideClick = (e: any): void => {
-    if (e.path && !e.path.includes(monthRef.current)) {
-      setVisibleMonthDropdown(false);
-    }
-    if (e.path && !e.path.includes(yearRef.current)) {
-      setVisibleYearDropdown(false);
-    }
-    // if (!monthRef.current?.contains(e.target)) {
-    //   setVisibleMonthDropdown(false);
-    // }
-    // if (!yearRef.current?.contains(e.target)) {
-    //   setVisibleYearDropdown(false);
-    // }
-  };
+    const onSelectedYearClick = (): void => {
+      setVisibleYearDropdown((prevState) => !prevState);
+    };
 
-  const onSelectedMonthClick = (): void => {
-    setVisibleMonthDropdown((prevState) => !prevState);
-  };
+    return (
+      <div className='datepicker__selected-date'>
+        <div ref={monthRef} className='datepicker__selected-month-wrap'>
+          <span
+            className='datepicker__selected-month'
+            onClick={onSelectedMonthClick}
+          >
+            {currMonthName}
+          </span>
 
-  const onSelectedYearClick = (): void => {
-    setVisibleYearDropdown((prevState) => !prevState);
-  };
+          {visibleMonthDropdown && (
+            <MonthDropdown
+              onChangeMonth={onChangeMonth}
+              onSelectedMonthClick={onSelectedMonthClick}
+              date={value}
+            ></MonthDropdown>
+          )}
+        </div>
+        <div ref={yearRef} className='datepicker__selected-year-wrap'>
+          <span
+            onClick={onSelectedYearClick}
+            className='datepicker__selected-year'
+          >
+            {currYear}
+          </span>
 
-  const currYear = (): string => {
-    return value.format('YYYY');
-  };
-
-  const currMonthName = (): string => {
-    return value.format('MMMM');
-  };
-
-  return (
-    <div className='datepicker__selected-date'>
-      <div ref={monthRef} className='datepicker__selected-month-wrap'>
-        <span
-          className='datepicker__selected-month'
-          onClick={onSelectedMonthClick}
-        >
-          {currMonthName()}
-        </span>
-
-        {visibleMonthDropdown && (
-          <MonthDropdown
-            onChangeMonth={onChangeMonth}
-            onSelectedMonthClick={onSelectedMonthClick}
-            date={value}
-          ></MonthDropdown>
-        )}
+          {visibleYearDropdown && (
+            <YearDropdown
+              onChangeYear={onChangeYear}
+              onSelectedYearClick={onSelectedYearClick}
+              date={value}
+            ></YearDropdown>
+          )}
+        </div>
       </div>
-      <div ref={yearRef} className='datepicker__selected-year-wrap'>
-        <span
-          onClick={onSelectedYearClick}
-          className='datepicker__selected-year'
-        >
-          {currYear()}
-        </span>
-
-        {visibleYearDropdown && (
-          <YearDropdown
-            onChangeYear={onChangeYear}
-            onSelectedYearClick={onSelectedYearClick}
-            date={value}
-          ></YearDropdown>
-        )}
-      </div>
-    </div>
-  );
-};
+    );
+  }
+);
 
 export default SelectedDate;

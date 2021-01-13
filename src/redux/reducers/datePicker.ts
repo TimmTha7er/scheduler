@@ -35,4 +35,4 @@ const datePickerReducer = (
   return state;
 };
 
-export default datePickerReducer;
+export { datePickerReducer };

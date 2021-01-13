@@ -63,11 +63,15 @@ const YearDwopdown: React.FC<CalendarProps> = ({
       </div>
       {yearsList.years.map((item: moment.Moment, idx: number) => {
         const className: string = item.isSame(activeYear, 'year')
-          ? 'datepicker__year-option datepicker__year-option_selected'
-          : 'datepicker__year-option';
+          ? 'datepicker__year-option_selected'
+          : '';
 
         return (
-          <div onClick={onYearClick(item)} key={idx} className={className}>
+          <div
+            onClick={onYearClick(item)}
+            key={idx}
+            className={`datepicker__year-option ${className}`}
+          >
             {item.format('YYYY')}
           </div>
         );

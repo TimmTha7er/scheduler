@@ -67,4 +67,4 @@ const rangeReducer = (
   return state;
 };
 
-export default rangeReducer;
+export { rangeReducer };

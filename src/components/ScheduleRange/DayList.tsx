@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { buildRange, RangeType, DayOfRangeType, EventType } from './buildRange';
 import { setPreviewPopupVisible, setRowDate } from '../../redux/actions';
-import { RootState } from '../../redux/reducers/index';
+import { RootState } from '../../redux/store';
 
 const DayList: React.FC = () => {
   const dispatch = useDispatch();

@@ -55,4 +55,4 @@ const popupsReducer = (
   return state;
 };
 
-export default popupsReducer;
+export { popupsReducer };

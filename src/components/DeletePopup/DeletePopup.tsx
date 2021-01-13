@@ -5,7 +5,7 @@ import {
   setDeletePopupVisible,
   deleteEvent,
 } from '../../redux/actions';
-import { RootState } from '../../redux/reducers';
+import { RootState } from '../../redux/store';
 
 const DeletePopup: React.FC = () => {
   const dispatch = useDispatch();

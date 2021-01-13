@@ -5,7 +5,7 @@ import {
   setDeletePopupVisible,
   setCreatePopupVisible,
 } from '../../redux/actions';
-import { RootState } from '../../redux/reducers';
+import { RootState } from '../../redux/store';
 import closeBtnImg from '../../img/close.svg';
 import deleteBtnImg from '../../img/trash-o.svg';
 import editBtnImg from '../../img/pencil.svg';

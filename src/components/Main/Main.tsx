@@ -7,7 +7,7 @@ import {
   PreviewPopup,
   DeletePopup,
 } from '../../components';
-import { RootState } from '../../redux/reducers/index';
+import { RootState } from '../../redux/store';
 
 const Main: React.FC = () => {
   const {

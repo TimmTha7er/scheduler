@@ -18,7 +18,7 @@ const initialState: IGridState = {
   },
 };
 
-const datePickerReducer = (
+const gridReducer = (
   state = initialState,
   action: GridActionsType
 ): IGridState => {
@@ -61,4 +61,4 @@ const datePickerReducer = (
   return state;
 };
 
-export default datePickerReducer;
+export { gridReducer };

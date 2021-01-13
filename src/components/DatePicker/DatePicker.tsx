@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Calendar, SelectedDate } from '../../components';
 import leftBtnImg from '../../img/angle-left.svg';
 import rightBtnImg from '../../img/angle-right.svg';
@@ -16,20 +16,14 @@ const DatePicker: React.FC<DatePickerProps> = React.memo(
   ({ date, setDate, setVisible, owner }) => {
     const [value, setValue] = useState<moment.Moment>(date);
 
-    const prevMonth = (): moment.Moment => {
-      return value.clone().subtract(1, 'month');
-    };
-
-    const nextMonth = (): moment.Moment => {
-      return value.clone().add(1, 'month');
-    };
-
     const onBtnPrevClick = (): void => {
-      setValue(prevMonth());
+      const prevMonth: moment.Moment = value.clone().subtract(1, 'month');
+      setValue(prevMonth);
     };
 
     const onBtnNextClick = (): void => {
-      setValue(nextMonth());
+      const nextMonth: moment.Moment = value.clone().add(1, 'month');
+      setValue(nextMonth);
     };
 
     const onDayClick = (day: moment.Moment) => (): void => {
@@ -38,13 +32,15 @@ const DatePicker: React.FC<DatePickerProps> = React.memo(
       setVisible(false);
     };
 
-    const onChangeMonth = (month: moment.Moment): void => {
-      setValue(month);
-    };
+    const onChangeMonth = useCallback(
+      (month: moment.Moment) => setValue(month),
+      []
+    );
 
-    const onChangeYear = (year: moment.Moment): void => {
-      setValue(year);
-    };
+    const onChangeYear = useCallback(
+      (year: moment.Moment): void => setValue(year),
+      []
+    );
 
     return (
       <div className={`datepicker ${owner}__datepicker`}>

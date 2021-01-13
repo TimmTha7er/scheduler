@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setStartOFRange,
@@ -7,7 +7,8 @@ import {
   setRightDatePickerVisible,
 } from '../../redux/actions';
 import { DatePicker, DayList } from '../../components';
-import { RootState } from '../../redux/reducers';
+import { RootState } from '../../redux/store';
+import useClickOutside from '../supports/hooks';
 
 const ScheduleRange: React.FC = () => {
   const dispatch = useDispatch();
@@ -17,25 +18,6 @@ const ScheduleRange: React.FC = () => {
     isLeftDatePickerVisible,
     isRightDatePickerVisible,
   } = useSelector((state: RootState) => state.range);
-  
-  const datePickerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    document.body.addEventListener('click', handleOutsideClick);
-
-    return () => document.body.removeEventListener('click', handleOutsideClick);
-  }, []);
-
-  const handleOutsideClick = (e: any) => {
-    if (e.path && !e.path.includes(datePickerRef.current)) {
-      dispatch(setLeftDatePickerVisible(false));
-      dispatch(setRightDatePickerVisible(false));
-    }
-    // if (!datePickerRef.current?.contains(e.target)) {
-    //   setLeftDatePickerVisible(false);
-    //   setRightDatePickerVisible(false);
-    // }
-  };
 
   const onStartDateClick = (): void => {
     dispatch(setRightDatePickerVisible(false));
@@ -64,14 +46,17 @@ const ScheduleRange: React.FC = () => {
     [dispatch]
   );
 
+  const { ref: leftDatePickerRef } = useClickOutside(setStartVisible);
+  const { ref: rightDatePickerRef } = useClickOutside(setEndVisible);
+
   return (
     <div className='schedule-range'>
-      <form className='schedule-range__date-range'>
-        <div ref={datePickerRef} className='schedule-range__range-wrap'>
+      {/* <form className='schedule-range__date-range'> */}
+        <div className='schedule-range__range-wrap'>
           <div className='schedule-range__label'>Расписание:</div>
 
           <div className='schedule-range__date-block'>
-            <div className='schedule-range__date-wrap'>
+            <div ref={leftDatePickerRef} className='schedule-range__date-wrap'>
               <div
                 onClick={onStartDateClick}
                 className='schedule-range__start-date'
@@ -90,7 +75,7 @@ const ScheduleRange: React.FC = () => {
 
             <span className='schedule-range__dash'>一</span>
 
-            <div className='schedule-range__date-wrap'>
+            <div ref={rightDatePickerRef} className='schedule-range__date-wrap'>
               <div
                 onClick={onEndDateClick}
                 className='schedule-range__end-date'
@@ -108,7 +93,7 @@ const ScheduleRange: React.FC = () => {
             </div>
           </div>
         </div>
-      </form>
+      {/* </form> */}
 
       <DayList></DayList>
     </div>

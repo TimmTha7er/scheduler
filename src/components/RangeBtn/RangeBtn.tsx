@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleRangeVisible, setALLPopupsUnvisible } from '../../redux/actions';
-import { RootState } from '../../redux/reducers/index';
+import { RootState } from '../../redux/store';
 
 const RangeBtn: React.FC = () => {
   const dispatch = useDispatch();

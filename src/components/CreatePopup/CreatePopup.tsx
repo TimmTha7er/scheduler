@@ -6,7 +6,7 @@ import {
   setRowDate,
 } from '../../redux/actions';
 import { IEvent } from '../../redux/actions/grid';
-import { RootState } from '../../redux/reducers';
+import { RootState } from '../../redux/store';
 import closeBtnImg from '../../img/close.svg';
 
 const CreatePopup: React.FC = () => {
