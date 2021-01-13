@@ -13,5 +13,8 @@ export const buildCalendar = (value: moment.Moment): moment.Moment[][] => {
     );
   }
 
+  // console.log('buildCalendar');
+  
+
   return calendar;
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { buildMonthsList } from './buildMonthsList';
 
 interface MonthDropdownProps {
@@ -13,7 +13,11 @@ const MonthDropdown: React.FC<MonthDropdownProps> = ({
   onSelectedMonthClick,
 }) => {
   const [activeMonth, setActiveMonth] = useState<moment.Moment>(date);
-  const monthsList: moment.Moment[] = buildMonthsList(date);
+  const [monthsList, setmonthsList] = useState<moment.Moment[]>([]);
+
+  useEffect(() => {
+    setmonthsList(buildMonthsList(date));
+  }, []);
 
   const onMonthClick = (month: moment.Moment) => () => {
     setActiveMonth(month);

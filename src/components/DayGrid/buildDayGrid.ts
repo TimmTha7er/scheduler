@@ -8,6 +8,6 @@ export const buildDayGrid = (date: moment.Moment): moment.Moment[] => {
   while (hour.isBefore(endHour, 'hour')) {
     dayGrid.push(hour.add(1, 'hour').clone());
   }
-
+  
   return dayGrid;
 };

@@ -23,9 +23,9 @@ const Calendar: React.FC<CalendarProps> = ({ value, onDayClick }) => {
         <div key={idx} className='datepicker__week'>
           {week.map((day: moment.Moment, idx: number) => {
             const className: string = classNames({
-              'datepicker__day_selected': value.isSame(day, 'day'),
-              'datepicker__day_today': day.isSame(today, 'day'),
-              'datepicker__day_weekend':
+              datepicker__day_selected: value.isSame(day, 'day'),
+              datepicker__day_today: day.isSame(today, 'day'),
+              datepicker__day_weekend:
                 day.format('dd') === 'вс' || day.format('dd') === 'сб',
               'datepicker__day_outside-month':
                 day.isAfter(value, 'month') || day.isBefore(value, 'month'),
@@ -48,4 +48,11 @@ const Calendar: React.FC<CalendarProps> = ({ value, onDayClick }) => {
 };
 
 export default React.memo(Calendar);
+// export default React.memo(Calendar, (prev, next) => {
+//   console.log('prev', prev.value.format());
+//   console.log('next', next.value.format());
+//   console.log('===', prev.value.format() === next.value.format());
+//   return prev.value.format() === next.value.format();
+// });
+
 // export default Calendar;

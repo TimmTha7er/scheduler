@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { buildYearsList } from './buildYearsList';
 import upBtnImg from '../../img/angle-up.svg';
 import downBtnImg from '../../img/angle-down.svg';
@@ -18,10 +18,14 @@ const YearDwopdown: React.FC<CalendarProps> = ({
     years: moment.Moment[];
     middle: moment.Moment;
   }>({
-    years: buildYearsList(date),
+    years: [],
     middle: date,
   });
   const [activeYear, setActiveYear] = useState<moment.Moment>(date);
+
+  useEffect(() => {
+    setYearsList({ ...yearsList, years: buildYearsList(date) });
+  }, []);
 
   const onBtnUpClick = (): void => {
     setYearsList((prevState) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setCreatePopupVisible,
@@ -15,8 +15,13 @@ const DayGrid: React.FC = () => {
     popups: { isCreatePopupVisible, isPreviewPopupVisible },
     grid: { rowDate, events },
   } = useSelector((state: RootState) => state);
+  const [dayGrid, setDayGrid] = useState<moment.Moment[]>([]);
 
-  const dayGrid: moment.Moment[] = buildDayGrid(date);
+  useEffect(() => {
+    setDayGrid(buildDayGrid(date));
+  }, [date]);
+  // const dayGrid: moment.Moment[] = useMemo(() => buildDayGrid(date), [date]);
+
   const selectedMonthDay: string = date.format('D');
   const selectedWeedDay: string = date.format('ddd');
 
