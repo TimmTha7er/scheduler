@@ -4,6 +4,12 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { App } from './components';
 
+import firebase from './firebase/config';
+
+const db = firebase.database();
+
+db.ref('calendar2').push({name: 'h1llo firebase!!!'})
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

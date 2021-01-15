@@ -102,6 +102,7 @@
 
   &__date-wrap {
     position: relative;
+    white-space: nowrap;
   }
 
   &__range-wrap {
@@ -128,6 +129,7 @@
       outline-color 0.25s ease-out;
     user-select: none;
     cursor: pointer;
+    white-space: nowrap;
 
     &:hover {
       border-color: rgba(0, 0, 0, 0.5);
