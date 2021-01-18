@@ -20,4 +20,11 @@ export { default as SelectedDate } from './DatePicker/SelectedDate';
 
 export { default as PreviewPopup } from './PreviewPopup/PreviewPopup';
 
+export {
+  schedulerServiceContext,
+  SchedulerServiceProvider,
+  SchedulerServiceConsumer,
+} from './supports/SchedulerServiceContext';
+
+
 export { default as App } from './App';

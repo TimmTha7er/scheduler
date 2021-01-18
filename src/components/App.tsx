@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from './Header/Header';
-import Main from './Main/Main';
+import { Header, Main } from '../components';
+
 import '../scss/index.scss';
 
 const App: React.FC = () => {
@@ -10,6 +10,6 @@ const App: React.FC = () => {
       <Main></Main>
     </div>
   );
-}
+};
 
 export default App;

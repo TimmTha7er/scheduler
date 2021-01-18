@@ -2,19 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import { App } from './components';
+import SchedulerStoreService from './services/SchedulerStoreService';
+import { App, SchedulerServiceProvider } from './components';
 
-import firebase from './firebase/config';
-
-const db = firebase.database();
-
-db.ref('calendar2').push({name: 'h1llo firebase!!!'})
+const schedulerStoreService = new SchedulerStoreService();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
+  // <React.StrictMode>
+  <Provider store={store}>
+    <SchedulerServiceProvider value={schedulerStoreService}>
       <App />
-    </Provider>
-  </React.StrictMode>,
+    </SchedulerServiceProvider>
+  </Provider>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
