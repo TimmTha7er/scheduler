@@ -132,9 +132,10 @@ export default class SchedulerStoreService {
     );
   };
 
-  editEvent = async (eventId: string, eventDate: string, updates: {}) => {
-    await this._getResource(
-      `calendarfdsf/${eventId}/${eventDate}/`
-    ).update(updates, () => console.log('Update succeeded.'));
+  // editEvent = async (eventId: string, eventDate: string, updates: {}) => {
+  editEvent = async (id: string, updates: {}) => {    
+    await this._getResource(`calendar/${id}/`).update(updates, () =>
+      console.log('Update succeeded.')
+    );
   };
 }

@@ -14,6 +14,7 @@ export const SET_VISIBLE = 'SET_VISIBLE';
 
 export const CREATE_EVENT = 'CREATE_EVENT';
 export const DELETE_EVENT = 'DELETE_EVENT';
+export const EDIT_EVENT = 'EDIT_EVENT';
 export const SET_ROW_DATE = 'SET_ROW_DATE';
 
 export const FETCH_EVENTS_REQUESTED = 'FETCH_EVENTS_REQUESTED';

@@ -1,6 +1,7 @@
 import {
   CREATE_EVENT,
   DELETE_EVENT,
+  EDIT_EVENT,
   SET_ROW_DATE,
   FETCH_EVENTS_REQUESTED,
   FETCH_EVENTS_LOADED,
@@ -51,14 +52,70 @@ export const createEvent = (
   };
 };
 
+interface IEDITEvent {
+  type: typeof EDIT_EVENT;
+  payload: any;
+}
+
+export const editEvent = (
+  date: string,
+  id: string,
+  updates: {
+    title: string;
+    descr: string;
+  }
+): ThunkAction<void, RootState, null, GridActionsType> => {
+  return async (dispatch) => {
+    try {
+      await schedulerStoreService.editEvent(id, updates);
+
+      const { title, descr } = updates;
+      const newEvent: any = {
+        [date]: {
+          title,
+          descr,
+          id,
+        },
+      };
+
+      dispatch({
+        type: EDIT_EVENT,
+        payload: newEvent,
+      });
+    } catch (error) {
+      console.log(error);
+
+      dispatch(eventsError(error));
+    }
+  };
+};
+
 interface IDeleteEvent {
   type: typeof DELETE_EVENT;
   payload: moment.Moment;
 }
-export const deleteEvent = (date: moment.Moment): GridActionsType => {
-  return {
-    type: DELETE_EVENT,
-    payload: date,
+// export const deleteEvent = (date: moment.Moment): GridActionsType => {
+//   return {
+//     type: DELETE_EVENT,
+//     payload: date,
+//   };
+// };
+
+export const deleteEvent = (
+  date: moment.Moment,
+  id: string
+): ThunkAction<void, RootState, null, GridActionsType> => {
+  return async (dispatch) => {
+    try {
+      await schedulerStoreService.removeEvent(id);
+
+      dispatch({
+        type: DELETE_EVENT,
+        payload: date,
+      });
+    } catch (error) {
+      dispatch(eventsError(error));
+    }
   };
 };
 
@@ -124,6 +181,7 @@ export const fetchEvents = (): ThunkAction<
 export type GridActionsType =
   | ICreateEvent
   | IDeleteEvent
+  | IEDITEvent
   | ISetRowDate
   | IEventsRequested
   | IEventsLoaded

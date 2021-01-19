@@ -9,11 +9,13 @@ import { RootState } from '../../redux/store';
 
 const DeletePopup: React.FC = () => {
   const dispatch = useDispatch();
-  const { rowDate } = useSelector((state: RootState) => state.grid);
+  const { rowDate, events } = useSelector((state: RootState) => state.grid);
 
   const onBtnСonfirmClick = (): void => {
     dispatch(setPreviewPopupVisible(false));
-    dispatch(deleteEvent(rowDate!));
+
+    const id = events[rowDate!.toString()].id;
+    dispatch(deleteEvent(rowDate!, id));
     dispatch(setDeletePopupVisible(false));
   };
 

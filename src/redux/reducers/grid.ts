@@ -1,6 +1,7 @@
 import {
   DELETE_EVENT,
   CREATE_EVENT,
+  EDIT_EVENT,
   SET_ROW_DATE,
   FETCH_EVENTS_REQUESTED,
   FETCH_EVENTS_LOADED,
@@ -75,6 +76,29 @@ const gridReducer = (
     //     title: title,
     //     descr: descr,
     //     id: id
+    //   },
+    // };
+
+    return {
+      ...state,
+      events: { ...state.events, ...action.payload },
+    };
+  }
+
+  if (action.type === EDIT_EVENT) {
+    console.log('payload', action.payload);
+
+    // const {
+    //   date,
+    //   id,
+    //   updates: { title, descr },
+    // } = action.payload;
+
+    // const newEvent: any = {
+    //   [date]: {
+    //     title: title,
+    //     descr: descr,
+    //     id: id,
     //   },
     // };
 

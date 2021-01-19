@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   setCreatePopupVisible,
   createEvent,
+  editEvent,
   setRowDate,
 } from '../../redux/actions';
 import { IEvent } from '../../redux/actions/grid';
@@ -53,9 +54,19 @@ const CreatePopup: React.FC = () => {
   const onSubmitClick = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const ttitle: string = title.trim() === '' ? 'Без названия' : title;
-    dispatch(
-      createEvent({ title: ttitle, descr: descr, time: rowDate?.toString() })
-    );
+
+    if (!eventTitle && !eventDescr) {
+      dispatch(
+        createEvent({ title: ttitle, descr: descr, time: rowDate?.toString() })
+      );
+    } else {
+      dispatch(
+        editEvent(rowDate!.toString(), events[rowDate!.toString()].id, {
+          title: ttitle,
+          descr: descr,
+        })
+      );
+    }
     dispatch(setCreatePopupVisible(false));
   };
 
