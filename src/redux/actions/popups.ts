@@ -22,7 +22,7 @@ interface ISetDeletePopupVisible {
 
 interface ISetAllPopupsUnvisible {
   type: typeof SET_ALL_POPUPS_UNVISIBLE;
-  payload?: never;
+  // payload?: never;
 }
 
 export type PopupsActionTypes =

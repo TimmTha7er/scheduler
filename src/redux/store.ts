@@ -1,5 +1,7 @@
-import { combineReducers } from 'redux';
-import { createStore } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
 import {
   datePickerReducer,
   popupsReducer,
@@ -16,9 +18,9 @@ const rootReducer = combineReducers({
 
 const store = createStore(
   rootReducer,
-  (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+  composeWithDevTools(applyMiddleware(thunk))
 );
 
-export default store;
 export type RootState = ReturnType<typeof rootReducer>;
+
+export default store;

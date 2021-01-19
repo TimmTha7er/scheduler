@@ -65,28 +65,65 @@ export default class SchedulerStoreService {
 
   getEvents = async () => {
     const snapshot = await this._getResource('calendar').once('value');
-    const events: {}[] = [];
+    // const events: {}[] = [];
 
     if (!snapshot.exists()) {
       throw new Error(`Не удалось получить ${snapshot.ref} }`);
     }
 
+    const events: any = {};
+
     snapshot.forEach((childSnapshot) => {
-      events.push({
+      const { descr, time, title } = childSnapshot.val();
+
+      events[time] = {
+        descr,
+        title,
         id: childSnapshot.key,
-        ...childSnapshot.val(),
-      });
+      };
+      // console.log('childSnapshot', {
+      //   [time]: {
+      //     descr,
+      //     title,
+      //     id: childSnapshot.key,
+      //   },
+      //   // ...childSnapshot.val(),
+      //   // id: childSnapshot.key,
+      // });
     });
 
+    // snapshot.forEach((childSnapshot) => {
+    //   events.push({
+    //     id: childSnapshot.key,
+    //     event: childSnapshot.val(),
+    //   });
+    // });
+
+    // console.log('events', events);
+
     return events;
+    // return snapshot.val();
   };
 
-  addEvent = async (newEvent: {}) => {
-    const event = await this._getResource(`calendar`).push(newEvent, () =>
-      console.log('Add event succeeded.')
-    );
+  addEvent = async (newEvent: any) => {
+    // const event = await this._getResource(`calendar`).push(newEvent, () =>
+    //   console.log('Add event succeeded.')
+    // );
+    const event = await this._getResource(`calendar`)
+      // .push(newEvent, () => console.log('Add event succeeded.'))
+      .push(newEvent);
 
-    return { ...newEvent, id: event.key };
+    // console.log({ ...newEvent, id: event.key });
+    const result = {
+      [newEvent.time.toString()]: {
+        title: newEvent.title,
+        descr: newEvent.descr,
+        id: event.key,
+      },
+    };
+
+    return result;
+    // return newEvent;
   };
 
   removeEvent = async (id: string) => {

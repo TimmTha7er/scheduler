@@ -53,7 +53,9 @@ const CreatePopup: React.FC = () => {
   const onSubmitClick = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const ttitle: string = title.trim() === '' ? 'Без названия' : title;
-    dispatch(createEvent({ title: ttitle, descr: descr }));
+    dispatch(
+      createEvent({ title: ttitle, descr: descr, time: rowDate?.toString() })
+    );
     dispatch(setCreatePopupVisible(false));
   };
 

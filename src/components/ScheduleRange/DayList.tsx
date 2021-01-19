@@ -43,6 +43,10 @@ const DayList: React.FC = () => {
                 const start: string = time.clone().format('HH:mm');
                 const end: string = time.clone().add(1, 'hour').format('HH:mm');
 
+                console.log('time', time);
+                console.log('title', title);
+                
+
                 const selectedEvent: string =
                   time.isSame(rowDate) && isPreviewPopupVisible
                     ? 'daygrid__row_selected'
