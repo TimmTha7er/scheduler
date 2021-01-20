@@ -5,10 +5,10 @@ import {
   setVisible,
   setDate,
   setALLPopupsUnvisible,
-  setRowDate
+  setRowDate,
 } from '../../redux/actions';
 import { RootState } from '../../redux/store';
-import useClickOutside from '../supports/hooks';
+import { useClickOutside } from '../supports/hooks';
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();

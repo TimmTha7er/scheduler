@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   setPreviewPopupVisible,
   setDeletePopupVisible,
-  setCreatePopupVisible,
+  setEditPopupVisible,
 } from '../../redux/actions';
 import { RootState } from '../../redux/store';
 import closeBtnImg from '../../img/close.svg';
@@ -26,7 +26,7 @@ const PreviewPopup: React.FC = () => {
 
   const onBtnEditClick = (): void => {
     dispatch(setPreviewPopupVisible(false));
-    dispatch(setCreatePopupVisible(true));
+    dispatch(setEditPopupVisible(true));
   };
 
   return (

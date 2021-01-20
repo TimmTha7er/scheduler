@@ -5,38 +5,7 @@ import {
   SET_LEFT_DATEPICKER_VISIBLE,
   SET_RIGHT_DATEPICKER_VISIBLE,
 } from '../action-types';
-
-export interface IToggleRangeVisible {
-  type: typeof TOGGLE_RANGE_VISIBLE;
-  payload?: never;
-}
-
-export interface ISetStartOFRange {
-  type: typeof SET_START_OF_RANGE;
-  payload: moment.Moment;
-}
-
-export interface ISetEndOFRange {
-  type: typeof SET_END_OF_RANGE;
-  payload: moment.Moment;
-}
-
-export interface ISetLeftDatePickerVisible {
-  type: typeof SET_LEFT_DATEPICKER_VISIBLE;
-  payload: boolean;
-}
-
-export interface TSetRightDatePickerVisible {
-  type: typeof SET_RIGHT_DATEPICKER_VISIBLE;
-  payload: boolean;
-}
-
-export type RangeActionsType =
-  | IToggleRangeVisible
-  | ISetStartOFRange
-  | ISetEndOFRange
-  | ISetLeftDatePickerVisible
-  | TSetRightDatePickerVisible;
+import { RangeActionsType } from '../interfaces';
 
 export const toggleRangeVisible = (): RangeActionsType => {
   return {

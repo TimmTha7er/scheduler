@@ -1,4 +1,4 @@
-import { IEventList } from '../../redux/actions/grid';
+import { IEventList } from '../../redux/interfaces';
 
 export type EventType = {
   title: string;

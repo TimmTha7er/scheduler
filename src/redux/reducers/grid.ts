@@ -7,25 +7,11 @@ import {
   FETCH_EVENTS_LOADED,
   FETCH_EVENTS_ERROR,
 } from '../action-types';
-import { GridActionsType } from '../actions/grid';
-import { IEventList } from '../actions/grid';
-
-export interface IGridState {
-  rowDate: moment.Moment | null;
-  events: IEventList | any;
-  loading: boolean;
-  error: null | {};
-}
+import { GridActionsType, IEventList, IGridState } from '../interfaces';
 
 const initialState: IGridState = {
   rowDate: null,
-  events: {
-    // 'Sat Jan 09 2021 00:00:00 GMT+0300': {
-    //   title: 'Покормить кота',
-    //   descr:
-    //     '1 ) взять корм\n2 ) наложить в мисочку\n3 ) позвать кота\n4 ) пожелать приятного аппетита\n5 ) погладить\n6 ) если мало - подложить еще',
-    // },
-  },
+  events: {},
   loading: true,
   error: null,
 };
@@ -68,17 +54,6 @@ const gridReducer = (
   }
 
   if (action.type === CREATE_EVENT) {
-    // const time: string = state.rowDate!.toString();
-    // const { title, descr, id } = action.payload;
-
-    // const newEvent: IEventList = {
-    //   [time]: {
-    //     title: title,
-    //     descr: descr,
-    //     id: id
-    //   },
-    // };
-
     return {
       ...state,
       events: { ...state.events, ...action.payload },
@@ -86,22 +61,6 @@ const gridReducer = (
   }
 
   if (action.type === EDIT_EVENT) {
-    console.log('payload', action.payload);
-
-    // const {
-    //   date,
-    //   id,
-    //   updates: { title, descr },
-    // } = action.payload;
-
-    // const newEvent: any = {
-    //   [date]: {
-    //     title: title,
-    //     descr: descr,
-    //     id: id,
-    //   },
-    // };
-
     return {
       ...state,
       events: { ...state.events, ...action.payload },

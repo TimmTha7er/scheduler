@@ -1,16 +1,5 @@
 import { SET_DATE, SET_VISIBLE } from '../action-types';
-
-interface ISetDate {
-  type: typeof SET_DATE;
-  payload: moment.Moment;
-}
-
-interface ISetVISIBLE {
-  type: typeof SET_VISIBLE;
-  payload: boolean;
-}
-
-export type DatePickerActionTypes = ISetVISIBLE | ISetDate;
+import { DatePickerActionTypes } from '../interfaces';
 
 export const setDate = (date: moment.Moment): DatePickerActionTypes => {
   return {

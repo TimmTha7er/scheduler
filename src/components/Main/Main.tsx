@@ -4,6 +4,7 @@ import {
   Day,
   ScheduleRange,
   CreatePopup,
+  EditPopup,
   PreviewPopup,
   DeletePopup,
   ErrorIndicator,
@@ -12,16 +13,13 @@ import {
 import { fetchEvents } from '../../redux/actions';
 import { RootState } from '../../redux/store';
 
-import SchedulerStoreService from '../../services/SchedulerStoreService';
-
-const schedulerStoreService = new SchedulerStoreService();
-
 const Main: React.FC = () => {
   const dispatch = useDispatch();
   const {
     range: { isRangeVisible },
     popups: {
       isCreatePopupVisible,
+      isEditPopupVisible,
       isPreviewPopupVisible,
       isDeletePopupVisible,
     },
@@ -29,12 +27,6 @@ const Main: React.FC = () => {
   } = useSelector((state: RootState) => state);
 
   useEffect(() => {
-    // schedulerStoreService.addEvent({
-    //   time: 'Thu Jan 21 2021 07:00:00 GMT+0300',
-    //   title: 'Покормить кота',
-    //   descr:
-    //     '1 ) взять корм\n2 ) наложить в мисочку\n3 ) позвать кота\n4 ) пожелать приятного аппетита\n5 ) погладить\n6 ) если мало - подложить еще',
-    // });
     dispatch(fetchEvents());
   }, []);
 
@@ -51,6 +43,7 @@ const Main: React.FC = () => {
       {isRangeVisible ? <ScheduleRange /> : <Day />}
 
       {isCreatePopupVisible && <CreatePopup></CreatePopup>}
+      {isEditPopupVisible && <EditPopup></EditPopup>}
       {isPreviewPopupVisible && <PreviewPopup></PreviewPopup>}
       {isDeletePopupVisible && <DeletePopup></DeletePopup>}
     </main>

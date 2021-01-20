@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-const useClickOutside = (
+export const useClickOutside = (
   setIsComponentVisible: React.Dispatch<any>
 ): { ref: React.RefObject<HTMLDivElement> } => {
   const ref = useRef<HTMLDivElement>(null);
@@ -30,4 +30,32 @@ const useClickOutside = (
   return { ref };
 };
 
-export default useClickOutside;
+interface IUseInput {
+  value: string;
+  onChange: any;
+}
+
+export const useInput = (initialValue: string): IUseInput => {
+  const [value, setValue] = useState<string>(initialValue);
+
+  const onChange = (
+    event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void => {
+    setValue(event.currentTarget.value);
+  };
+
+  return {
+    value,
+    onChange,
+  };
+};
+
+export const useFocus = (): React.RefObject<HTMLInputElement> => {
+  const ref = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    ref.current!.focus();
+  }, []);
+
+  return ref;
+};

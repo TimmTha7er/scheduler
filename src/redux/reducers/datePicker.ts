@@ -1,13 +1,7 @@
 import moment from 'moment';
 import 'moment/locale/ru';
-
 import { SET_DATE, SET_VISIBLE } from '../action-types';
-import { DatePickerActionTypes } from '../actions/datePicker';
-
-type IDatePickerState = {
-  date: moment.Moment;
-  isVisible: boolean;
-};
+import { DatePickerActionTypes, IDatePickerState } from '../interfaces';
 
 const initialState: IDatePickerState = {
   date: moment(),

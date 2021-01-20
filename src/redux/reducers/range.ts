@@ -7,15 +7,7 @@ import {
   SET_LEFT_DATEPICKER_VISIBLE,
   SET_RIGHT_DATEPICKER_VISIBLE,
 } from '../action-types';
-import { RangeActionsType } from '../actions/range';
-
-interface IRangeState {
-  isRangeVisible: boolean;
-  startOfRange: moment.Moment;
-  endOfRange: moment.Moment;
-  isLeftDatePickerVisible: boolean;
-  isRightDatePickerVisible: boolean;
-}
+import { RangeActionsType, IRangeState } from '../interfaces';
 
 const initialState: IRangeState = {
   isRangeVisible: false,

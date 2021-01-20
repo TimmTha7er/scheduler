@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { YearDropdown, MonthDropdown } from '../../components';
-import useClickOutside from '../supports/hooks';
+import { useClickOutside } from '../supports/hooks';
 
 interface SelectedDateProps {
   value: moment.Moment;

@@ -7,7 +7,7 @@ import {
   setRowDate
 } from '../../redux/actions';
 import { RootState } from '../../redux/store';
-import { DatePickerActionTypes } from '../../redux/actions/datePicker';
+import { DatePickerActionTypes } from '../../redux/interfaces';
 import moment from 'moment';
 import 'moment/locale/ru';
 import leftBtnImg from '../../img/angle-left.svg';

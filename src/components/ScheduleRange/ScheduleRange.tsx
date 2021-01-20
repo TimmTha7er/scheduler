@@ -5,11 +5,11 @@ import {
   setEndOFRange,
   setLeftDatePickerVisible,
   setRightDatePickerVisible,
-  setALLPopupsUnvisible
+  setALLPopupsUnvisible,
 } from '../../redux/actions';
 import { DatePicker, DayList } from '../../components';
 import { RootState } from '../../redux/store';
-import useClickOutside from '../supports/hooks';
+import { useClickOutside } from '../supports/hooks';
 
 const ScheduleRange: React.FC = () => {
   const dispatch = useDispatch();
@@ -55,47 +55,44 @@ const ScheduleRange: React.FC = () => {
   return (
     <div className='schedule-range'>
       {/* <form className='schedule-range__date-range'> */}
-        <div className='schedule-range__range-wrap'>
-          <div className='schedule-range__label'>Расписание:</div>
+      <div className='schedule-range__range-wrap'>
+        <div className='schedule-range__label'>Расписание:</div>
 
-          <div className='schedule-range__date-block'>
-            <div ref={leftDatePickerRef} className='schedule-range__date-wrap'>
-              <div
-                onClick={onStartDateClick}
-                className='schedule-range__start-date'
-              >
-                {startOfRange.format('DD-MM-YYYY')}
-              </div>
-              {isLeftDatePickerVisible && (
-                <DatePicker
-                  owner={'schedule-range'}
-                  date={startOfRange}
-                  setDate={setStartDate}
-                  setVisible={setStartVisible}
-                ></DatePicker>
-              )}
+        <div className='schedule-range__date-block'>
+          <div ref={leftDatePickerRef} className='schedule-range__date-wrap'>
+            <div
+              onClick={onStartDateClick}
+              className='schedule-range__start-date'
+            >
+              {startOfRange.format('DD-MM-YYYY')}
             </div>
+            {isLeftDatePickerVisible && (
+              <DatePicker
+                owner={'schedule-range'}
+                date={startOfRange}
+                setDate={setStartDate}
+                setVisible={setStartVisible}
+              ></DatePicker>
+            )}
+          </div>
 
-            <span className='schedule-range__dash'>一</span>
+          <span className='schedule-range__dash'>一</span>
 
-            <div ref={rightDatePickerRef} className='schedule-range__date-wrap'>
-              <div
-                onClick={onEndDateClick}
-                className='schedule-range__end-date'
-              >
-                {endOfRange.format('DD-MM-YYYY')}
-              </div>
-              {isRightDatePickerVisible && (
-                <DatePicker
-                  owner={'schedule-range'}
-                  date={endOfRange}
-                  setDate={setEndDate}
-                  setVisible={setEndVisible}
-                ></DatePicker>
-              )}
+          <div ref={rightDatePickerRef} className='schedule-range__date-wrap'>
+            <div onClick={onEndDateClick} className='schedule-range__end-date'>
+              {endOfRange.format('DD-MM-YYYY')}
             </div>
+            {isRightDatePickerVisible && (
+              <DatePicker
+                owner={'schedule-range'}
+                date={endOfRange}
+                setDate={setEndDate}
+                setVisible={setEndVisible}
+              ></DatePicker>
+            )}
           </div>
         </div>
+      </div>
       {/* </form> */}
 
       <DayList></DayList>
