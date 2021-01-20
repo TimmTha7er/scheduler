@@ -5,22 +5,25 @@ import closeBtnImg from '../../img/close.svg';
 interface CreateEditPopupViewProps {
   popupTitle: string;
   submitBtnName: string;
-  title: string;
-  descr: string;
-  onSubmitClick: any;
+  title?: string;
+  descr?: string;
+  onSubmitClick: (
+    title: string,
+    descr: string
+  ) => (e: React.FormEvent<HTMLFormElement>) => void;
   onCancelClick: () => void;
 }
 
 const CreateEditPopupView: React.FC<CreateEditPopupViewProps> = ({
   popupTitle,
   submitBtnName,
-  title,
-  descr,
+  title = '',
+  descr = '',
   onSubmitClick,
   onCancelClick,
 }) => {
-  const input = useInput(title);
-  const textarea = useInput(descr);
+  const { value: inputValue, onChange: inputOnChange } = useInput(title);
+  const { value: textareaValue, onChange: textareaOnChange } = useInput(descr);
   const inputRef = useFocus();
 
   return (
@@ -35,15 +38,18 @@ const CreateEditPopupView: React.FC<CreateEditPopupViewProps> = ({
           <img className='create-popup__btn-img' src={closeBtnImg} alt='X' />
         </div>
       </div>
-      <form onSubmit={onSubmitClick(input, textarea)} className='form'>
+      <form
+        onSubmit={onSubmitClick(inputValue, textareaValue)}
+        className='form'
+      >
         <div className='create-popup__content'>
           <div className='form__field'>
             <label className='form__label' htmlFor=''>
               Название
             </label>
             <input
-              onChange={input.onChange}
-              value={input.value}
+              value={inputValue}
+              onChange={inputOnChange}
               className='form__input'
               type='text'
               autoComplete='off'
@@ -57,8 +63,8 @@ const CreateEditPopupView: React.FC<CreateEditPopupViewProps> = ({
               Описание
             </label>
             <textarea
-              onChange={textarea.onChange}
-              value={textarea.value}
+              value={textareaValue}
+              onChange={textareaOnChange}
               className='form__textarea'
               cols={30}
               rows={10}
@@ -76,4 +82,4 @@ const CreateEditPopupView: React.FC<CreateEditPopupViewProps> = ({
   );
 };
 
-export default CreateEditPopupView;
+export default React.memo(CreateEditPopupView);

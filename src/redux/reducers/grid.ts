@@ -7,7 +7,7 @@ import {
   FETCH_EVENTS_LOADED,
   FETCH_EVENTS_ERROR,
 } from '../action-types';
-import { GridActionsType, IEventList, IGridState } from '../interfaces';
+import { GridActionsType, IEvent, IGridState } from '../interfaces';
 
 const initialState: IGridState = {
   rowDate: null,
@@ -68,7 +68,7 @@ const gridReducer = (
   }
 
   if (action.type === DELETE_EVENT) {
-    const newEvents: IEventList = { ...state.events };
+    const newEvents: IEvent = { ...state.events };
     const time: string = action.payload!.toString();
     delete newEvents[time];
 

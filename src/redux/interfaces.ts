@@ -25,6 +25,12 @@ import { RootState } from './store';
 // ----------------------------------------------
 //		date picker
 // ----------------------------------------------
+// reducer
+export interface IDatePickerState {
+  date: moment.Moment;
+  isVisible: boolean;
+}
+
 // actions
 export interface ISetDate {
   type: typeof SET_DATE;
@@ -36,35 +42,49 @@ export interface ISetVISIBLE {
 }
 export type DatePickerActionTypes = ISetVISIBLE | ISetDate;
 
-// reducer
-export interface IDatePickerState {
-  date: moment.Moment;
-  isVisible: boolean;
-}
-
 // ----------------------------------------------
 //		grid
 // ----------------------------------------------
-export interface IEvent {
-  title: string;
-  descr: string;
-  id?: string;
-  time?: string;
+// reducer
+export interface IGridState {
+  rowDate: moment.Moment | null;
+  events: IEvent;
+  loading: boolean;
+  error: null | {};
 }
 
-export interface IEventList {
-  [name: string]: IEvent;
+// actions
+export interface ICreatedEvent {
+  title: string;
+  descr: string;
+  time: string;
+}
+
+export interface IEditedEvent {
+  date: string;
+  id: string;
+  updates: {
+    title: string;
+    descr: string;
+  };
+}
+
+export interface IEvent {
+  [date: string]: {
+    title: string;
+    descr: string;
+    id: string;
+  };
 }
 
 export interface ICreateEvent {
   type: typeof CREATE_EVENT;
-  payload: any;
+  payload: IEvent;
 }
 
-// actions
-interface IEDITEvent {
+export interface IEditEvent {
   type: typeof EDIT_EVENT;
-  payload: any;
+  payload: IEvent;
 }
 
 interface IDeleteEvent {
@@ -83,7 +103,7 @@ interface IEventsRequested {
 
 interface IEventsLoaded {
   type: typeof FETCH_EVENTS_LOADED;
-  payload: any;
+  payload: IEvent;
 }
 
 interface IEventsEror {
@@ -94,7 +114,7 @@ interface IEventsEror {
 export type GridActionsType =
   | ICreateEvent
   | IDeleteEvent
-  | IEDITEvent
+  | IEditEvent
   | ISetRowDate
   | IEventsRequested
   | IEventsLoaded
@@ -107,17 +127,17 @@ export type GridThunkActionType = ThunkAction<
   GridActionsType
 >;
 
-// reducer
-export interface IGridState {
-  rowDate: moment.Moment | null;
-  events: IEventList | any;
-  loading: boolean;
-  error: null | {};
-}
-
 // ----------------------------------------------
 //		popups
 // ----------------------------------------------
+// reducer
+export interface IPopupsState {
+  isCreatePopupVisible: boolean;
+  isPreviewPopupVisible: boolean;
+  isDeletePopupVisible: boolean;
+  isEditPopupVisible: boolean;
+}
+
 // actions
 interface ISetCreatePopupVisible {
   type: typeof SET_CREATE_POPUP_VISIBLE;
@@ -151,17 +171,18 @@ export type PopupsActionTypes =
   | ISetEditPopupVisible
   | ISetAllPopupsUnvisible;
 
-// reducer
-export interface IPopupsState {
-  isCreatePopupVisible: boolean;
-  isPreviewPopupVisible: boolean;
-  isDeletePopupVisible: boolean;
-	isEditPopupVisible: boolean;
-}
-
 // ----------------------------------------------
 //		range
 // ----------------------------------------------
+// reducer
+export interface IRangeState {
+  isRangeVisible: boolean;
+  startOfRange: moment.Moment;
+  endOfRange: moment.Moment;
+  isLeftDatePickerVisible: boolean;
+  isRightDatePickerVisible: boolean;
+}
+
 // actions
 export interface IToggleRangeVisible {
   type: typeof TOGGLE_RANGE_VISIBLE;
@@ -194,12 +215,3 @@ export type RangeActionsType =
   | ISetEndOFRange
   | ISetLeftDatePickerVisible
   | TSetRightDatePickerVisible;
-
-// reducer
-export interface IRangeState {
-  isRangeVisible: boolean;
-  startOfRange: moment.Moment;
-  endOfRange: moment.Moment;
-  isLeftDatePickerVisible: boolean;
-  isRightDatePickerVisible: boolean;
-}

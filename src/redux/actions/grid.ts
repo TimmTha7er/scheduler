@@ -9,8 +9,9 @@ import {
 } from '../action-types';
 import {
   IEvent,
+  IEditedEvent,
+  ICreatedEvent,
   GridActionsType,
-  IEventList,
   GridThunkActionType,
 } from '../interfaces';
 import SchedulerStoreService from '../../services/SchedulerStoreService';
@@ -29,10 +30,10 @@ export const fetchEvents = (): GridThunkActionType => {
   };
 };
 
-export const createEvent = (value: IEvent): GridThunkActionType => {
+export const createEvent = (value: ICreatedEvent): GridThunkActionType => {
   return async (dispatch) => {
     try {
-      const event = await schedulerStoreService.addEvent(value);
+      const event: IEvent = await schedulerStoreService.addEvent(value);
 
       dispatch({
         type: CREATE_EVENT,
@@ -44,20 +45,17 @@ export const createEvent = (value: IEvent): GridThunkActionType => {
   };
 };
 
-export const editEvent = (
-  date: string,
-  id: string,
-  updates: {
-    title: string;
-    descr: string;
-  }
-): GridThunkActionType => {
+export const editEvent = ({
+  date,
+  id,
+  updates,
+}: IEditedEvent): GridThunkActionType => {
   return async (dispatch) => {
     try {
       await schedulerStoreService.editEvent(id, updates);
 
       const { title, descr } = updates;
-      const newEvent: any = {
+      const newEvent: IEvent = {
         [date]: {
           title,
           descr,
@@ -70,8 +68,6 @@ export const editEvent = (
         payload: newEvent,
       });
     } catch (error) {
-      console.log(error);
-
       dispatch(eventsError(error));
     }
   };
@@ -108,7 +104,7 @@ const eventsRequested = (): GridActionsType => {
   };
 };
 
-const eventsLoaded = (events: IEventList[]): GridActionsType => {
+const eventsLoaded = (events: IEvent): GridActionsType => {
   return {
     type: FETCH_EVENTS_LOADED,
     payload: events,

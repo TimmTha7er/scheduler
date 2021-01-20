@@ -34,7 +34,7 @@ const Header: React.FC = () => {
     (value: boolean) => dispatch(setVisible(value)),
     [dispatch]
   );
-  const { ref: datePickerRef } = useClickOutside(setVisibleCallback);
+  const datePickerRef = useClickOutside(setVisibleCallback);
 
   return (
     <header className='header'>

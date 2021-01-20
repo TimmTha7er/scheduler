@@ -49,8 +49,8 @@ const ScheduleRange: React.FC = () => {
     [dispatch]
   );
 
-  const { ref: leftDatePickerRef } = useClickOutside(setStartVisible);
-  const { ref: rightDatePickerRef } = useClickOutside(setEndVisible);
+  const leftDatePickerRef = useClickOutside(setStartVisible);
+  const rightDatePickerRef = useClickOutside(setEndVisible);
 
   return (
     <div className='schedule-range'>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setCreatePopupVisible,
@@ -12,32 +12,33 @@ const CreatePopup: React.FC = () => {
   const dispatch = useDispatch();
   const { rowDate } = useSelector((state: RootState) => state.grid);
 
-  const onCancelClick = (): void => {
+  const onCancelClick = useCallback(() => {
     dispatch(setRowDate(null));
     dispatch(setCreatePopupVisible(false));
-  };
+  }, [dispatch]);
 
-  const onSubmitClick = (input: any, textarea: any) => (
-    e: React.FormEvent<HTMLFormElement>
-  ): void => {
-    e.preventDefault();
+  const onSubmitClick = useCallback(
+    (title: string, descr: string) => (
+      e: React.FormEvent<HTMLFormElement>
+    ): void => {
+      e.preventDefault();
 
-    const newEvent = {
-      title: input.value || 'Без названия',
-      descr: textarea.value,
-      time: rowDate!.toString(),
-    };
+      const newEvent = {
+        title: title || 'Без названия',
+        descr: descr,
+        time: rowDate!.toString(),
+      };
 
-    dispatch(createEvent(newEvent));
-    dispatch(setCreatePopupVisible(false));
-  };
+      dispatch(createEvent(newEvent));
+      dispatch(setCreatePopupVisible(false));
+    },
+    [dispatch, rowDate]
+  );
 
   return (
     <CreateEditPopupView
       popupTitle='Новое событие'
       submitBtnName='Создать'
-      title=''
-      descr=''
       onSubmitClick={onSubmitClick}
       onCancelClick={onCancelClick}
     ></CreateEditPopupView>

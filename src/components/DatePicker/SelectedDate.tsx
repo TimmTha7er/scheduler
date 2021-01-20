@@ -20,8 +20,8 @@ const SelectedDate: React.FC<SelectedDateProps> = ({
     false
   );
 
-  const { ref: monthRef } = useClickOutside(setVisibleMonthDropdown);
-  const { ref: yearRef } = useClickOutside(setVisibleYearDropdown);
+  const monthRef = useClickOutside(setVisibleMonthDropdown);
+  const yearRef = useClickOutside(setVisibleYearDropdown);
 
   const currYear = value.format('YYYY');
   const currMonthName = value.format('MMMM');

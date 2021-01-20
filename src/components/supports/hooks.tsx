@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+type IUseClickOutside = React.RefObject<HTMLDivElement>;
+
 export const useClickOutside = (
-  setIsComponentVisible: React.Dispatch<any>
-): { ref: React.RefObject<HTMLDivElement> } => {
+  setIsComponentVisible: React.Dispatch<boolean>
+): IUseClickOutside => {
   const ref = useRef<HTMLDivElement>(null);
 
   const handleHideDropdown = (event: KeyboardEvent): void => {
@@ -27,20 +29,19 @@ export const useClickOutside = (
     };
   }, []);
 
-  return { ref };
+  return ref;
 };
 
+type IFormEvent = React.FormEvent<HTMLInputElement | HTMLTextAreaElement>;
 interface IUseInput {
   value: string;
-  onChange: any;
+  onChange: (event: IFormEvent) => void;
 }
 
 export const useInput = (initialValue: string): IUseInput => {
   const [value, setValue] = useState<string>(initialValue);
 
-  const onChange = (
-    event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
-  ): void => {
+  const onChange = (event: IFormEvent): void => {
     setValue(event.currentTarget.value);
   };
 
@@ -50,7 +51,9 @@ export const useInput = (initialValue: string): IUseInput => {
   };
 };
 
-export const useFocus = (): React.RefObject<HTMLInputElement> => {
+type IUseFocus = React.RefObject<HTMLInputElement>;
+
+export const useFocus = (): IUseFocus => {
   const ref = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
