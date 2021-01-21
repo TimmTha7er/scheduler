@@ -2,18 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import SchedulerStoreService from './services/SchedulerStoreService';
-import { App, SchedulerServiceProvider } from './components';
-
-const schedulerStoreService = new SchedulerStoreService();
+import { App } from './components';
 
 ReactDOM.render(
-  // <React.StrictMode>
-  <Provider store={store}>
-    <SchedulerServiceProvider value={schedulerStoreService}>
+  <React.StrictMode>
+    <Provider store={store}>
       <App />
-    </SchedulerServiceProvider>
-  </Provider>,
-  // </React.StrictMode>,
+    </Provider>
+  </React.StrictMode>,
   document.getElementById('root')
 );

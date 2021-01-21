@@ -24,10 +24,5 @@ export { default as SelectedDate } from './DatePicker/SelectedDate';
 
 export { default as ErrorIndicator } from './supports/ErrorIndicator';
 export { default as Loading } from './supports/Loading';
-export {
-  schedulerServiceContext,
-  SchedulerServiceProvider,
-  SchedulerServiceConsumer,
-} from './supports/SchedulerServiceContext';
 
 export { default as App } from './App';

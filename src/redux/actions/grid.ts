@@ -14,15 +14,15 @@ import {
   GridActionsType,
   GridThunkActionType,
 } from '../interfaces';
-import SchedulerStoreService from '../../services/SchedulerStoreService';
+import SchedulerService from '../../services/SchedulerService';
 
-const schedulerStoreService = new SchedulerStoreService();
+const schedulerService = new SchedulerService();
 
 export const fetchEvents = (): GridThunkActionType => {
   return async (dispatch) => {
     try {
       dispatch(eventsRequested());
-      const events = await schedulerStoreService.getEvents();
+      const events = await schedulerService.getEvents();
       dispatch(eventsLoaded(events));
     } catch (error) {
       dispatch(eventsError(error));
@@ -33,7 +33,7 @@ export const fetchEvents = (): GridThunkActionType => {
 export const createEvent = (value: ICreatedEvent): GridThunkActionType => {
   return async (dispatch) => {
     try {
-      const event: IEvent = await schedulerStoreService.addEvent(value);
+      const event: IEvent = await schedulerService.addEvent(value);
 
       dispatch({
         type: CREATE_EVENT,
@@ -52,7 +52,7 @@ export const editEvent = ({
 }: IEditedEvent): GridThunkActionType => {
   return async (dispatch) => {
     try {
-      await schedulerStoreService.editEvent(id, updates);
+      await schedulerService.editEvent(id, updates);
 
       const { title, descr } = updates;
       const newEvent: IEvent = {
@@ -79,7 +79,7 @@ export const deleteEvent = (
 ): GridThunkActionType => {
   return async (dispatch) => {
     try {
-      await schedulerStoreService.removeEvent(id);
+      await schedulerService.removeEvent(id);
 
       dispatch({
         type: DELETE_EVENT,
