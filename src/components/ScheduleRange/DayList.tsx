@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { buildRange, RangeType, DayOfRangeType, EventType } from './buildRange';
+import { buildRange, RangeType, DayOfRangeType } from './buildRange';
 import { setPreviewPopupVisible, setRowDate } from '../../redux/actions';
 import { RootState } from '../../redux/store';
+import { EventList } from '../../components';
 
 const DayList: React.FC = () => {
   const dispatch = useDispatch();
@@ -17,10 +18,13 @@ const DayList: React.FC = () => {
     setRange(buildRange(events, startOfRange, endOfRange));
   }, [events, startOfRange, endOfRange]);
 
-  const onEventClick = (time: moment.Moment) => () => {
-    dispatch(setRowDate(time));
-    dispatch(setPreviewPopupVisible(true));
-  };
+  const onEventClick = useCallback(
+    (time: moment.Moment) => () => {
+      dispatch(setRowDate(time));
+      dispatch(setPreviewPopupVisible(true));
+    },
+    [dispatch]
+  );
 
   return (
     <div className='schedule-range__day-list'>
@@ -38,37 +42,13 @@ const DayList: React.FC = () => {
               <span className='schedule-range__year'>{year}</span>
               <div className='schedule-range__dayOfWeek'>{dayOfWeek}</div>
             </div>
-            <div className='schedule-range__event-list'>
-              {day.map(({ time, title }: EventType, idx: number) => {
-                const start: string = time.clone().format('HH:mm');
-                const end: string = time.clone().add(1, 'hour').format('HH:mm');
 
-                const selectedEvent: string =
-                  time.isSame(rowDate) && isPreviewPopupVisible
-                    ? 'daygrid__row_selected'
-                    : '';
-
-                return (
-                  <div
-                    onClick={onEventClick(time)}
-                    key={idx}
-                    className={`schedule-range__event ${selectedEvent}`}
-                  >
-                    <div className='schedule-range__time'>
-                      {start}
-                      &mdash;
-                      {end}
-                    </div>
-                    <div className='schedule-range__circle'></div>
-                    <div className='schedule-range__event-title'>
-                      <span className='schedule-range__title-inner'>
-                        {title}
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+            <EventList
+              day={day}
+              rowDate={rowDate}
+              isPreviewPopupVisible={isPreviewPopupVisible}
+              onEventClick={onEventClick}
+            ></EventList>
           </div>
         );
       })}

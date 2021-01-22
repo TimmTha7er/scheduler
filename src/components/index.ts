@@ -4,6 +4,7 @@ export { default as Main } from './Main/Main';
 export { default as Day } from './Day/Day';
 export { default as ScheduleRange } from './ScheduleRange/ScheduleRange';
 export { default as DayList } from './ScheduleRange/DayList';
+export { default as EventList } from './ScheduleRange/EventList';
 
 export { default as GridNav } from './GridNav/GridNav';
 export { default as RangeBtn } from './RangeBtn/RangeBtn';

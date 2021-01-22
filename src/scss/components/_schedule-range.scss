@@ -46,54 +46,54 @@
     font-size: 15px;
   }
 
-  &__event-list {
-    flex: 1;
-  }
+  // &__event-list {
+  //   flex: 1;
+  // }
 
-  &__event {
-    display: flex;
-    justify-content: flex-start;
-    cursor: pointer;
-    font-size: 17px;
-    line-height: 24px;
-    padding: 10px 13px;
-    transition: background-color 0.15s ease-out;
+  // &__event {
+  //   display: flex;
+  //   justify-content: flex-start;
+  //   cursor: pointer;
+  //   font-size: 17px;
+  //   line-height: 24px;
+  //   padding: 10px 13px;
+  //   transition: background-color 0.15s ease-out;
 
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.03);
-    }
-  }
+  //   &:hover {
+  //     background-color: rgba(0, 0, 0, 0.03);
+  //   }
+  // }
 
-  &__event-title {
-    flex: 1;
-  }
+  // &__event-title {
+  //   flex: 1;
+  // }
 
-  &__title-inner {
-    max-width: 340px;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: horizontal;
-    overflow: hidden;
-    cursor: pointer;
-  }
+  // &__title-inner {
+  //   max-width: 340px;
+  //   text-overflow: ellipsis;
+  //   display: -webkit-box;
+  //   -webkit-line-clamp: 3;
+  //   -webkit-box-orient: horizontal;
+  //   overflow: hidden;
+  //   cursor: pointer;
+  // }
 
-  &__time {
-    white-space: nowrap;
-    color: #999;
-  }
+  // &__time {
+  //   white-space: nowrap;
+  //   color: #999;
+  // }
 
-  &__circle {
-    flex-shrink: 0;
-    width: 12px;
-    height: 12px;
-    color: rgb(72, 135, 225);
-    border-radius: 50%;
-    background-color: currentColor;
-    margin-top: 6px;
-    margin-right: 30px;
-    margin-left: 30px;
-  }
+  // &__circle {
+  //   flex-shrink: 0;
+  //   width: 12px;
+  //   height: 12px;
+  //   color: rgb(72, 135, 225);
+  //   border-radius: 50%;
+  //   background-color: currentColor;
+  //   margin-top: 6px;
+  //   margin-right: 30px;
+  //   margin-left: 30px;
+  // }
 
   &__date-block {
     display: flex;
@@ -137,10 +137,66 @@
   }
 }
 
+.event-list {
+  flex: 1;
+
+  &__event {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 17px;
+    line-height: 24px;
+    padding: 10px 13px;
+    transition: background-color 0.15s ease-out;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.03);
+    }
+  }
+
+  &__event-title {
+    flex: 1;
+  }
+
+  &__title-inner {
+    max-width: 340px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: horizontal;
+    overflow: hidden;
+    // cursor: pointer;
+    white-space: nowrap;
+  }
+
+  &__time {
+    white-space: nowrap;
+    color: #999;
+  }
+
+  &__circle {
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    color: rgb(72, 135, 225);
+    border-radius: 50%;
+    background-color: currentColor;
+    margin-top: 6px;
+    margin-right: 30px;
+    margin-left: 30px;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .schedule-range {
     padding: 15px;
 
+    // &__title-inner {
+    //   max-width: 240px;
+    // }
+  }
+
+  .event-list {
     &__title-inner {
       max-width: 240px;
     }
@@ -152,6 +208,13 @@
     &__datepicker {
       left: -130px !important;
       box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .event-list {
+    &__circle {
+      margin-right: 15px;
+      margin-left: 15px;
     }
   }
 }
@@ -189,11 +252,11 @@
       margin: 0;
     }
 
-    &__start-date+.datepicker {
+    &__start-date + .datepicker {
       left: 15px;
     }
 
-    &__end-date+.datepicker {
+    &__end-date + .datepicker {
       left: initial !important;
       right: 15px;
     }
@@ -202,18 +265,29 @@
       display: block;
     }
 
-    &__title-inner {
-      max-width: 140px;
-    }
+    // &__title-inner {
+    //   max-width: 140px;
+    // }
 
-    &__circle {
-      margin-right: 15px;
-      margin-left: 15px;
-    }
+    // &__circle {
+    //   margin-right: 15px;
+    //   margin-left: 15px;
+    // }
 
     &__datepicker {
       top: 100px;
       left: 20px !important;
     }
+  }
+
+  .event-list {
+    &__title-inner {
+      max-width: 140px;
+    }
+
+    // &__circle {
+    //   margin-right: 15px;
+    //   margin-left: 15px;
+    // }
   }
 }

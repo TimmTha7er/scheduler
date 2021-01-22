@@ -9,7 +9,7 @@ import {
 } from '../../redux/actions';
 import { DatePicker, DayList } from '../../components';
 import { RootState } from '../../redux/store';
-import { useClickOutside } from '../supports/hooks';
+import { useClickOutside, useInput } from '../supports/hooks';
 
 const ScheduleRange: React.FC = () => {
   const dispatch = useDispatch();
@@ -19,6 +19,8 @@ const ScheduleRange: React.FC = () => {
     isLeftDatePickerVisible,
     isRightDatePickerVisible,
   } = useSelector((state: RootState) => state.range);
+
+  const input = useInput('schedule');
 
   const onStartDateClick = (): void => {
     dispatch(setRightDatePickerVisible(false));
@@ -55,6 +57,58 @@ const ScheduleRange: React.FC = () => {
   return (
     <div className='schedule-range'>
       {/* <form className='schedule-range__date-range'> */}
+      <div>
+        <form className='radio-group'>
+          <input
+            className='radio-group__input visually-hidden'
+            type='radio'
+            value='schedule'
+            id='schedule'
+            name='range-radio-btn'
+            //  checked={gender === 'schedule'}
+            onChange={input.onChange}
+            defaultChecked
+          />
+          <input
+            className='radio-group__input visually-hidden'
+            type='radio'
+            value='n-days'
+            id='n-days'
+            name='range-radio-btn'
+            onChange={input.onChange}
+            // checked={gender === 'n-days'}
+          />
+          <input
+            className='radio-group__input visually-hidden'
+            type='radio'
+            value='n-events'
+            id='n-events'
+            name='range-radio-btn'
+            onChange={input.onChange}
+            // checked={gender === 'n-events'}
+          />
+
+          <div className='schedule-range__btns'>
+            <label
+              className='radio-group__label radio-group__label_active'
+              htmlFor='schedule'
+            >
+              <span className='radio-group__text'>Расписание</span>
+            </label>
+
+            <label className='radio-group__label' htmlFor='n-days'>
+              <span className='radio-group__text'>Ближайшие n дней</span>
+            </label>
+
+            <label className='radio-group__label' htmlFor='n-events'>
+              <span className='radio-group__text'>Ближайшие n соытий</span>
+            </label>
+          </div>
+        </form>
+
+        {/* <p>выбрано {input.value}</p> */}
+      </div>
+
       <div className='schedule-range__range-wrap'>
         <div className='schedule-range__label'>Расписание:</div>
 
@@ -94,7 +148,6 @@ const ScheduleRange: React.FC = () => {
         </div>
       </div>
       {/* </form> */}
-
       <DayList></DayList>
     </div>
   );
