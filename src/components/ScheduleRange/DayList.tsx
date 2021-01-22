@@ -11,10 +11,10 @@ const DayList: React.FC = () => {
     range: { startOfRange, endOfRange },
     popups: { isPreviewPopupVisible },
   } = useSelector((state: RootState) => state);
-  const [range, setrange] = useState<RangeType>([]);
+  const [range, setRange] = useState<RangeType>([]);
 
   useEffect(() => {
-    setrange(buildRange(events, startOfRange, endOfRange));
+    setRange(buildRange(events, startOfRange, endOfRange));
   }, [events, startOfRange, endOfRange]);
 
   const onEventClick = (time: moment.Moment) => () => {
@@ -42,10 +42,6 @@ const DayList: React.FC = () => {
               {day.map(({ time, title }: EventType, idx: number) => {
                 const start: string = time.clone().format('HH:mm');
                 const end: string = time.clone().add(1, 'hour').format('HH:mm');
-
-                console.log('time', time);
-                console.log('title', title);
-                
 
                 const selectedEvent: string =
                   time.isSame(rowDate) && isPreviewPopupVisible

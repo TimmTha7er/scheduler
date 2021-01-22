@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 import {
   setCreatePopupVisible,
   setPreviewPopupVisible,
   setRowDate,
 } from '../../redux/actions';
 import { buildDayGrid } from './buildDayGrid';
-import { RootState } from '../../redux/store';
 
 const DayGrid: React.FC = () => {
   const dispatch = useDispatch();
@@ -20,7 +20,6 @@ const DayGrid: React.FC = () => {
   useEffect(() => {
     setDayGrid(buildDayGrid(date));
   }, [date, events]);
-  // const dayGrid: moment.Moment[] = useMemo(() => buildDayGrid(date), [date]);
 
   const selectedMonthDay: string = date.format('D');
   const selectedWeedDay: string = date.format('ddd');
