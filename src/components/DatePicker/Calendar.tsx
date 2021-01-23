@@ -4,11 +4,10 @@ import { RootState } from '../../redux/store';
 import classNames from 'classnames';
 import moment from 'moment';
 import 'moment/locale/ru';
+import {Tooltip} from '../../components';
 import { buildCalendar } from './buildCalendar';
 import { isDayHasEvents } from './isDayHasEvents';
 import { buildRange } from '../ScheduleRange/buildRange';
-
-import EventList from './EventList';
 
 interface CalendarProps {
   value: moment.Moment;
@@ -40,8 +39,8 @@ const Calendar: React.FC<CalendarProps> = ({ value, onDayClick }) => {
               'datepicker__day_has-events': dayHasEvents,
             });
 
-            const eventList = dayHasEvents ? (
-              <EventList day={buildRange(events, day, day)[0].day} />
+            const tooltip = dayHasEvents ? (
+              <Tooltip day={buildRange(events, day, day)[0].day} />
             ) : null;
 
             return (
@@ -51,7 +50,7 @@ const Calendar: React.FC<CalendarProps> = ({ value, onDayClick }) => {
                 className={`datepicker__day ${className}`}
               >
                 {day.format('D')}
-                {eventList}
+                {tooltip}
               </div>
             );
           })}

@@ -22,6 +22,7 @@ export { default as Calendar } from './DatePicker/Calendar';
 export { default as MonthDropdown } from './DatePicker/MonthDropdown';
 export { default as YearDropdown } from './DatePicker/YearDropdown';
 export { default as SelectedDate } from './DatePicker/SelectedDate';
+export { default as Tooltip } from './DatePicker/Tooltip';
 
 export { default as ErrorIndicator } from './supports/ErrorIndicator';
 export { default as Loading } from './supports/Loading';

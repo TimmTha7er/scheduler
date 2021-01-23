@@ -1,27 +1,27 @@
 import React from 'react';
 import { EventType } from '../ScheduleRange/buildRange';
 
-interface EventListProps {
+interface TooltipProps {
   day: EventType[];
 }
 
-const EventList: React.FC<EventListProps> = ({ day }) => {
+const Tooltip: React.FC<TooltipProps> = ({ day }) => {
   return (
-    <div className='event-list datepicker__event-list'>
+    <div className='tooltip datepicker__tooltip'>
       {day.map(({ time, title }: EventType, idx: number) => {
         const start: string = time.clone().format('HH:mm');
         const end: string = time.clone().add(1, 'hour').format('HH:mm');
 
         return (
-          <div key={idx} className={`event-list__event`}>
-            <div className='event-list__time'>
+          <div key={idx} className={`tooltip__event`}>
+            <div className='tooltip__time'>
               {start}
               &mdash;
               {end}
             </div>
-            <div className='event-list__circle'></div>
-            <div className='event-list__event-title'>
-              <span className='event-list__title-inner'>{title}</span>
+            <div className='tooltip__circle'></div>
+            <div className='tooltip__event-title'>
+              <span className='tooltip__title-inner'>{title}</span>
             </div>
           </div>
         );
@@ -30,4 +30,4 @@ const EventList: React.FC<EventListProps> = ({ day }) => {
   );
 };
 
-export default EventList;
+export default Tooltip;

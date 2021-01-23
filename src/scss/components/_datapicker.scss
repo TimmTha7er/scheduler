@@ -17,41 +17,11 @@
     padding-top: 8px;
   }
 
-  &__event-list {
+  &__tooltip {
     position: absolute;
     top: 5px;
     left: 35px;
-    // max-width: 500px;
     display: none;
-    font-weight: 400;
-    color: rgb(0, 0, 0);
-    background-color: #fff;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1),
-      0 10px 20px -5px rgba(0, 0, 0, 0.4);
-    z-index: 100;
-    // cursor: initial;
-
-    & > .event-list__event {
-      font-size: 15px;
-      padding: 6px 13px;
-      line-height: 20px;
-      cursor: initial;
-      &:hover {
-        background-color: transparent;
-      }
-    }
-
-    & .event-list__circle {
-      width: 10px;
-      height: 10px;
-      margin-top: 5px;
-      margin-right: 20px;
-      margin-left: 20px;
-    }
-
-    // & .event-list__event-title {
-    //   cursor: initial;
-    // }
   }
 
   &__month-navigation {
@@ -282,7 +252,7 @@
       }
 
       &:hover {
-        & .datepicker__event-list {
+        & .datepicker__tooltip {
           display: block;
         }
       }
@@ -292,6 +262,72 @@
       &:before {
         background: #fff;
       }
+    }
+  }
+}
+
+.tooltip {
+  flex: 1;
+  font-weight: 400;
+  color: rgb(0, 0, 0);
+  background-color: #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 10px 20px -5px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+  cursor: initial;
+
+  &__event {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 15px;
+    padding: 6px 13px;
+    line-height: 20px;
+  }
+
+  &__event-title {
+    flex: 1;
+  }
+
+  &__title-inner {
+    max-width: 340px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: horizontal;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &__time {
+    white-space: nowrap;
+    color: #999;
+  }
+
+  &__circle {
+    flex-shrink: 0;
+    width: 10px;
+    height: 10px;
+    color: rgb(72, 135, 225);
+    border-radius: 50%;
+    background-color: currentColor;
+    margin-top: 5px;
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .tooltip {
+    &__title-inner {
+      max-width: 240px;
+    }
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  .tooltip {
+    &__circle {
+      margin-right: 15px;
+      margin-left: 15px;
     }
   }
 }
@@ -308,6 +344,12 @@
     &__year-dropdown {
       left: 58%;
       transform: translate(-50%, 0%);
+    }
+  }
+
+  .tooltip {
+    &__title-inner {
+      max-width: 140px;
     }
   }
 }
