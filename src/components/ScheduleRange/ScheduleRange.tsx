@@ -1,66 +1,21 @@
 import React from 'react';
-import { useInput } from '../supports/hooks';
-import Range from './Range';
-import NextDays from './NextDays';
-import NextEvents from './NextEvents';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { Range, NextDays, NextEvents, RangeRadioBtn } from '../../components';
 
 const ScheduleRange: React.FC = () => {
-  const input = useInput('schedule');
+  const { radioBtnValue } = useSelector((state: RootState) => state.range);
+  const range = radioBtnValue === 'schedule' && <Range />;
+  const nextDays = radioBtnValue === 'n-days' && <NextDays />;
+  const nextEvent = radioBtnValue === 'n-events' && <NextEvents />;
 
   return (
     <div className='schedule-range'>
-      {/* <form className='schedule-range__date-range'> */}
-      <div>
-        <form className='radio-group'>
-          <input
-            className='radio-group__input visually-hidden'
-            type='radio'
-            value='schedule'
-            id='schedule'
-            name='range-radio-btn'
-            onChange={input.onChange}
-            defaultChecked
-          />
-          <input
-            className='radio-group__input visually-hidden'
-            type='radio'
-            value='n-days'
-            id='n-days'
-            name='range-radio-btn'
-            onChange={input.onChange}
-          />
-          <input
-            className='radio-group__input visually-hidden'
-            type='radio'
-            value='n-events'
-            id='n-events'
-            name='range-radio-btn'
-            onChange={input.onChange}
-          />
+      <RangeRadioBtn></RangeRadioBtn>
 
-          <div className='schedule-range__btns'>
-            <label
-              className='radio-group__label radio-group__label_active'
-              htmlFor='schedule'
-            >
-              <span className='radio-group__text'>Промежуток</span>
-            </label>
-
-            <label className='radio-group__label' htmlFor='n-days'>
-              <span className='radio-group__text'>Ближайшие n дней</span>
-            </label>
-
-            <label className='radio-group__label' htmlFor='n-events'>
-              <span className='radio-group__text'>Ближайшие n соытий</span>
-            </label>
-          </div>
-        </form>
-      </div>
-
-      {input.value === 'schedule' && <Range></Range>}
-      {input.value === 'n-days' && <NextDays></NextDays>}
-      {input.value === 'n-events' && <NextEvents></NextEvents>}
-      {/* <DayList></DayList> */}
+      {range}
+      {nextDays}
+      {nextEvent}
     </div>
   );
 };

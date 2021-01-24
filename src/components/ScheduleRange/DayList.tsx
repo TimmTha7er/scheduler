@@ -1,22 +1,20 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { buildRange, RangeType, DayOfRangeType } from './buildRange';
-import { setPreviewPopupVisible, setRowDate } from '../../redux/actions';
 import { RootState } from '../../redux/store';
+import { RangeType, DayOfRangeType } from './buildRange';
+import { setPreviewPopupVisible, setRowDate } from '../../redux/actions';
 import { EventList } from '../../components';
 
-const DayList: React.FC = () => {
+interface DayListProps {
+  range: RangeType;
+}
+
+const DayList: React.FC<DayListProps> = ({ range }) => {
   const dispatch = useDispatch();
   const {
-    grid: { events, rowDate },
-    range: { startOfRange, endOfRange },
+    grid: { rowDate },
     popups: { isPreviewPopupVisible },
   } = useSelector((state: RootState) => state);
-  const [range, setRange] = useState<RangeType>([]);
-
-  useEffect(() => {
-    setRange(buildRange(events, startOfRange, endOfRange));
-  }, [events, startOfRange, endOfRange]);
 
   const onEventClick = useCallback(
     (time: moment.Moment) => () => {

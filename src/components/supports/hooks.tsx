@@ -38,11 +38,23 @@ interface IUseInput {
   onChange: (event: IFormEvent) => void;
 }
 
-export const useInput = (initialValue: string): IUseInput => {
+export const useInput = (
+  initialValue: string,
+  maxLength?: number,
+  pattern?: RegExp
+): IUseInput => {
   const [value, setValue] = useState<string>(initialValue);
 
   const onChange = (event: IFormEvent): void => {
-    setValue(event.currentTarget.value);
+    const value = event.currentTarget.value;
+
+    if (!(maxLength !== undefined && value.length > maxLength)) {
+      if (pattern === undefined) {
+        setValue(value);
+      } else if (value === '' || pattern.test(value)) {
+        setValue(value);
+      }
+    }
   };
 
   return {

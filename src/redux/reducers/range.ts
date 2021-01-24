@@ -6,6 +6,9 @@ import {
   SET_END_OF_RANGE,
   SET_LEFT_DATEPICKER_VISIBLE,
   SET_RIGHT_DATEPICKER_VISIBLE,
+  SET_RADIO_BTN_VALUE,
+  SET_NEXT_DAYS_NUM,
+  SET_NEXT_EVENTS_NUM,
 } from '../action-types';
 import { RangeActionsType, IRangeState } from '../interfaces';
 
@@ -15,6 +18,9 @@ const initialState: IRangeState = {
   endOfRange: moment().clone().endOf('week'),
   isLeftDatePickerVisible: false,
   isRightDatePickerVisible: false,
+  radioBtnValue: 'schedule',
+  nextDaysNum: '1',
+  nextEventsNum: '1',
 };
 
 const rangeReducer = (
@@ -53,6 +59,27 @@ const rangeReducer = (
     return {
       ...state,
       isRightDatePickerVisible: action.payload,
+    };
+  }
+
+  if (action.type === SET_RADIO_BTN_VALUE) {
+    return {
+      ...state,
+      radioBtnValue: action.payload,
+    };
+  }
+
+  if (action.type === SET_NEXT_DAYS_NUM) {
+    return {
+      ...state,
+      nextDaysNum: action.payload,
+    };
+  }
+
+  if (action.type === SET_NEXT_EVENTS_NUM) {
+    return {
+      ...state,
+      nextEventsNum: action.payload,
     };
   }
 

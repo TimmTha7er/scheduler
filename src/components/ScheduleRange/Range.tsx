@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../redux/store';
-import NewDayList from './NewDayList';
 import { useClickOutside } from '../supports/hooks';
-import { DatePicker } from '../../components';
+import { RootState } from '../../redux/store';
 import { buildRange, RangeType } from './buildRange';
+import { DatePicker, DayList } from '../../components';
 
 import {
   setStartOFRange,
@@ -104,7 +103,7 @@ const Range: React.FC = () => {
         </div>
       </div>
 
-      <NewDayList range={range}></NewDayList>
+      <DayList range={range}></DayList>
     </>
   );
 };

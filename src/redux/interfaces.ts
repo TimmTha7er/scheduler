@@ -18,6 +18,9 @@ import {
   SET_END_OF_RANGE,
   SET_LEFT_DATEPICKER_VISIBLE,
   SET_RIGHT_DATEPICKER_VISIBLE,
+  SET_RADIO_BTN_VALUE,
+  SET_NEXT_DAYS_NUM,
+  SET_NEXT_EVENTS_NUM,
 } from './action-types';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from './store';
@@ -181,6 +184,9 @@ export interface IRangeState {
   endOfRange: moment.Moment;
   isLeftDatePickerVisible: boolean;
   isRightDatePickerVisible: boolean;
+  radioBtnValue: string;
+  nextDaysNum: string;
+  nextEventsNum: string;
 }
 
 // actions
@@ -209,9 +215,26 @@ export interface TSetRightDatePickerVisible {
   payload: boolean;
 }
 
+export interface TSetRadioBtnValue {
+  type: typeof SET_RADIO_BTN_VALUE;
+  payload: string;
+}
+
+export interface TSetNextDaysNum {
+  type: typeof SET_NEXT_DAYS_NUM;
+  payload: string;
+}
+export interface TSetNextEventsNum {
+  type: typeof SET_NEXT_EVENTS_NUM;
+  payload: string;
+}
+
 export type RangeActionsType =
   | IToggleRangeVisible
   | ISetStartOFRange
   | ISetEndOFRange
   | ISetLeftDatePickerVisible
-  | TSetRightDatePickerVisible;
+  | TSetRightDatePickerVisible
+  | TSetRadioBtnValue
+  | TSetNextDaysNum
+  | TSetNextEventsNum;

@@ -23,7 +23,7 @@ export const buildRange = (
   let end: moment.Moment = endDay.clone().add(1, 'day');
   let idx = 0;
   let isFirst = true;
-
+  
   if (startDay.isSameOrAfter(endDay)) {
     end = startDay.clone().add(1, 'day');
     start = endDay.clone();

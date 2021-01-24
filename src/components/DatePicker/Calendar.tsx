@@ -4,7 +4,7 @@ import { RootState } from '../../redux/store';
 import classNames from 'classnames';
 import moment from 'moment';
 import 'moment/locale/ru';
-import {Tooltip} from '../../components';
+import { Tooltip } from '../../components';
 import { buildCalendar } from './buildCalendar';
 import { isDayHasEvents } from './isDayHasEvents';
 import { buildRange } from '../ScheduleRange/buildRange';

@@ -5,8 +5,8 @@ import {
   setRowDate,
   setEditPopupVisible,
 } from '../../redux/actions';
-import { CreateEditPopupView } from '../../components';
 import { RootState } from '../../redux/store';
+import { CreateEditPopupView } from '../../components';
 
 const CreatePopup: React.FC = () => {
   const dispatch = useDispatch();

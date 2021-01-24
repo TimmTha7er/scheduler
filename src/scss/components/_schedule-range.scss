@@ -60,6 +60,7 @@
     display: inline-flex;
     align-items: center;
     padding: 10px 15px;
+    margin-left: 20px;
   }
 
   &__label {
@@ -138,6 +139,44 @@
   }
 }
 
+.next-events, .next-days {
+  display: flex;
+
+  &__field {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    font-size: 21px;
+  }
+
+  &__label {
+    color: rgba(0, 0, 0, 0.6);
+    padding-right: 10px;
+    padding-left: 20px;
+    user-select: none;
+  }
+
+  &__input {
+    max-width: 60px;
+    color: #000;
+    padding: 7px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    transition: border-color 0.15s ease-out, border-width 0.15s ease-out,
+      outline-color 0.25s ease-out;
+
+    &:hover {
+      border-color: rgba(0, 0, 0, 0.5);
+    }
+
+    &:focus {
+      border-color: transparent;
+      outline: solid 2px #ffdb4d;
+    }
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .schedule-range {
     padding: 15px;
@@ -186,6 +225,7 @@
       justify-content: flex-start;
       align-items: flex-start;
       flex-direction: column;
+      margin-left: 0px;
     }
 
     &__date-wrap {
