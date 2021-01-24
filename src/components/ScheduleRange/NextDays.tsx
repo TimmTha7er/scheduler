@@ -42,7 +42,7 @@ const NextDays: React.FC = () => {
       <form className='next-days'>
         <div className='next-days__field'>
           <label className='next-days__label' htmlFor=''>
-            Cобытия за ближайшие
+            За ближайшие
           </label>
           <input
             value={input.value}

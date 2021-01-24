@@ -139,7 +139,8 @@
   }
 }
 
-.next-events, .next-days {
+.next-events,
+.next-days {
   display: flex;
 
   &__field {
@@ -184,7 +185,7 @@
 
   .event-list {
     &__title-inner {
-      max-width: 240px;
+      max-width: 220px;
     }
   }
 }
@@ -192,7 +193,7 @@
 @media only screen and (max-width: 580px) {
   .schedule-range {
     &__datepicker {
-      left: -130px !important;
+      // left: -130px !important;
       box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
     }
   }
@@ -202,7 +203,12 @@
       margin-right: 15px;
       margin-left: 15px;
     }
+
+    &__title-inner {
+      max-width: 130px;
+    }
   }
+  
 }
 
 @media only screen and (max-width: 480px) {
@@ -253,7 +259,7 @@
     }
 
     &__datepicker {
-      top: 100px;
+      top: 200px;
       left: 20px !important;
     }
   }
@@ -261,6 +267,20 @@
   .event-list {
     &__title-inner {
       max-width: 140px;
+    }
+  }
+
+  .next-events,
+  .next-days {
+
+    &__field {
+      margin-left: 0px;
+      // padding-left: 0;
+      font-size: 19px;
+    }
+
+    &__label {
+      padding-left: 10px;
     }
   }
 }

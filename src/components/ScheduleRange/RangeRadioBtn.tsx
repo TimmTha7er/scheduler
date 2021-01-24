@@ -2,7 +2,11 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { useInput } from '../supports/hooks';
-import { setRadioBtnValue } from '../../redux/actions';
+import {
+  setRadioBtnValue,
+  setALLPopupsUnvisible,
+  setRowDate,
+} from '../../redux/actions';
 
 const RangeRadioBtn: React.FC = () => {
   const dispatch = useDispatch();
@@ -12,6 +16,8 @@ const RangeRadioBtn: React.FC = () => {
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     input.onChange(event);
     dispatch(setRadioBtnValue(event.currentTarget.value));
+    dispatch(setALLPopupsUnvisible());
+    dispatch(setRowDate(null));
   };
 
   return (
@@ -32,7 +38,7 @@ const RangeRadioBtn: React.FC = () => {
         id='n-days'
         name='range-radio-btn'
         onChange={handleChange}
-				defaultChecked={radioBtnValue === 'n-days'}
+        defaultChecked={radioBtnValue === 'n-days'}
       />
       <input
         className='radio-group__input visually-hidden'
@@ -41,10 +47,10 @@ const RangeRadioBtn: React.FC = () => {
         id='n-events'
         name='range-radio-btn'
         onChange={handleChange}
-				defaultChecked={radioBtnValue === 'n-events'}
+        defaultChecked={radioBtnValue === 'n-events'}
       />
 
-      <div className='schedule-range__btns'>
+      <div className='radio-group__btns'>
         <label
           className='radio-group__label radio-group__label_active'
           htmlFor='schedule'

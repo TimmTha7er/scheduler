@@ -14,8 +14,8 @@ import { RangeActionsType, IRangeState } from '../interfaces';
 
 const initialState: IRangeState = {
   isRangeVisible: false,
-  startOfRange: moment().clone().startOf('week'),
-  endOfRange: moment().clone().endOf('week'),
+  startOfRange: moment().clone().startOf('month'),
+  endOfRange: moment().clone().endOf('month'),
   isLeftDatePickerVisible: false,
   isRightDatePickerVisible: false,
   radioBtnValue: 'schedule',
