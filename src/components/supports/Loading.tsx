@@ -6,7 +6,7 @@ const Loading: React.FC = () => {
   return (
     <div className='day content__day'>
       <ContentLoader
-        speed={2}
+        speed={3}
         width={970}
         height={1450}
         viewBox='0 0 970 1450'

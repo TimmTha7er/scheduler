@@ -21,7 +21,10 @@
     position: absolute;
     top: 5px;
     left: 35px;
-    display: none;
+    // display: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s linear;
   }
 
   &__month-navigation {
@@ -253,7 +256,9 @@
 
       &:hover {
         & .datepicker__tooltip {
-          display: block;
+          // display: block;
+          visibility: visible;
+          opacity: 1;
         }
       }
     }
@@ -312,6 +317,19 @@
     margin-top: 5px;
     margin-right: 20px;
     margin-left: 20px;
+  }
+
+  &__more {
+    font-size: 15px;
+    max-width: 70px;
+    color: rgb(45, 106, 192);
+    margin: 5px 0 10px 7px;
+    cursor: pointer;
+    transition: color 0.15s ease-out;
+
+    &:hover {
+      color: #f33;
+    }
   }
 }
 

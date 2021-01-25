@@ -7,7 +7,6 @@ import 'moment/locale/ru';
 import { Tooltip } from '../../components';
 import { buildCalendar } from './buildCalendar';
 import { isDayHasEvents } from './isDayHasEvents';
-import { buildRange } from '../ScheduleRange/buildRange';
 
 interface CalendarProps {
   value: moment.Moment;
@@ -40,7 +39,7 @@ const Calendar: React.FC<CalendarProps> = ({ value, onDayClick }) => {
             });
 
             const tooltip = dayHasEvents ? (
-              <Tooltip day={buildRange(events, day, day)[0].day} />
+              <Tooltip day={day} maxLength={5} />
             ) : null;
 
             return (
