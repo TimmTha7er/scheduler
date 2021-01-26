@@ -2,39 +2,38 @@ import React from 'react';
 import ContentLoader from 'react-content-loader';
 
 const Loading: React.FC = () => {
-  let y = 60;
+  let y = -53;
   return (
-    <div className='day content__day'>
-      <ContentLoader
-        speed={3}
-        width={970}
-        height={1450}
-        viewBox='0 0 970 1450'
-        backgroundColor='#f3f3f3'
-        foregroundColor='#ecebeb'
-      >
-        <rect x='0' y='0' rx='10' ry='10' width='970' height='70' />
-        <rect x='0' y='75' rx='10' ry='10' width='970' height='35' />
+    // <div className='day content__day'>
+    <ContentLoader
+      speed={3}
+      width={915}
+      height={1345}
+      viewBox='0 0 915 1345'
+      backgroundColor='#f3f3f3'
+      foregroundColor='#ecebeb'
+    >
+      {/* <rect x='0' y='0' rx='10' ry='10' width='915' height='70' />
+        <rect x='0' y='75' rx='10' ry='10' width='915' height='35' /> */}
 
-        {Array(24)
-          .fill(0)
-          .map((_, idx) => {
-            ;
-
-            return (
-              <rect
-                key={idx}
-                x='0'
-                y={y += 55.5}
-                rx='10'
-                ry='10'
-                width='970'
-                height='50'
-              />
-            );
-          })}
-      </ContentLoader>
-    </div>
+      {Array(24)
+        .fill(0)
+        .map((_, idx) => {
+          y += 56.3;
+          return (
+            <rect
+              key={idx}
+              x='0'
+              y={y}
+              rx='10'
+              ry='10'
+              width='915'
+              height='50'
+            />
+          );
+        })}
+    </ContentLoader>
+    // </div>
   );
 };
 

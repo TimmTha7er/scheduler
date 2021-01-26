@@ -7,8 +7,6 @@ import {
   EditPopup,
   PreviewPopup,
   DeletePopup,
-  ErrorIndicator,
-  Loading,
 } from '../../components';
 import { fetchEvents } from '../../redux/actions';
 import { RootState } from '../../redux/store';
@@ -23,20 +21,11 @@ const Main: React.FC = () => {
       isPreviewPopupVisible,
       isDeletePopupVisible,
     },
-    grid: { loading, error },
   } = useSelector((state: RootState) => state);
 
   useEffect(() => {
     dispatch(fetchEvents());
   }, []);
-
-  if (error) {
-    return <ErrorIndicator></ErrorIndicator>;
-  }
-
-  if (loading) {
-    return <Loading></Loading>;
-  }
 
   return (
     <main className='main'>

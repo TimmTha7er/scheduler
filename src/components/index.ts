@@ -13,6 +13,8 @@ export { default as RangeRadioBtn } from './ScheduleRange/RangeRadioBtn';
 export { default as GridNav } from './GridNav/GridNav';
 export { default as RangeBtn } from './RangeBtn/RangeBtn';
 export { default as DayGrid } from './DayGrid/DayGrid';
+export { default as RowList } from './DayGrid/RowList';
+
 export { default as TimeRuler } from './TimeRuler/TimeRuler';
 
 export { default as CreateEditPopupView } from './Popups/CreateEditPopupView';
