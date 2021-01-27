@@ -10,7 +10,10 @@ interface TooltipProps {
 
 const Tooltip: React.FC<TooltipProps> = ({ day, maxLength }) => {
   const { events } = useSelector((state: RootState) => state.grid);
-  const dayRange = buildRange(events, day, day)[0].day;
+  
+  const startOfRange = day.clone().startOf('day');
+  const endOfRange = day.clone().add(1, 'day').startOf('day');
+  const dayRange = buildRange(events, startOfRange, endOfRange)[0].day;
 
   return (
     <div className='tooltip datepicker__tooltip'>
@@ -37,8 +40,10 @@ const Tooltip: React.FC<TooltipProps> = ({ day, maxLength }) => {
         );
       })}
 
-      {dayRange.length >= maxLength && (
-        <div className='tooltip__more'>Еще {dayRange.length - maxLength}...</div>
+      {dayRange.length > maxLength && (
+        <div className='tooltip__more'>
+          Еще {dayRange.length - maxLength}...
+        </div>
       )}
     </div>
   );

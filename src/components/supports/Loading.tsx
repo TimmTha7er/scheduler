@@ -25,8 +25,8 @@ const Loading: React.FC = () => {
               key={idx}
               x='0'
               y={y}
-              rx='10'
-              ry='10'
+              rx='3'
+              ry='3'
               width='915'
               height='50'
             />

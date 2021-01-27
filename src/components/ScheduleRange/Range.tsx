@@ -27,7 +27,10 @@ const Range: React.FC = () => {
   const [range, setRange] = useState<RangeType>([]);
 
   useEffect(() => {
-    setRange(buildRange(events, startOfRange, endOfRange));
+    const start = startOfRange.clone().startOf('day');
+    const end = endOfRange.clone().add(1, 'day').startOf('day');
+
+    setRange(buildRange(events, start, end));
   }, [events, startOfRange, endOfRange]);
 
   const onStartDateClick = (): void => {

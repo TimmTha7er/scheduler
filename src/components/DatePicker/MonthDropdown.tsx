@@ -26,18 +26,19 @@ const MonthDropdown: React.FC<MonthDropdownProps> = ({
   };
 
   return (
-    <div className='datepicker__month-dropdown'>
+    <ul className='datepicker__month-dropdown'>
       {monthsList.map((item: moment.Moment, idx: number) => {
         const className = item.isSame(activeMonth, 'month')
           ? 'datepicker__month-name datepicker__month-name_selected'
           : 'datepicker__month-name';
+
         return (
-          <div onClick={onMonthClick(item)} key={idx} className={className}>
+          <li onClick={onMonthClick(item)} key={idx} className={className}>
             {item.format('MMMM')}
-          </div>
+          </li>
         );
       })}
-    </div>
+    </ul>
   );
 };
 

@@ -21,6 +21,7 @@ import {
   SET_RADIO_BTN_VALUE,
   SET_NEXT_DAYS_NUM,
   SET_NEXT_EVENTS_NUM,
+  SET_SELECT_VALUE,
 } from './action-types';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from './store';
@@ -187,6 +188,7 @@ export interface IRangeState {
   radioBtnValue: string;
   nextDaysNum: string;
   nextEventsNum: string;
+  selectValue: string;
 }
 
 // actions
@@ -224,8 +226,14 @@ export interface TSetNextDaysNum {
   type: typeof SET_NEXT_DAYS_NUM;
   payload: string;
 }
+
 export interface TSetNextEventsNum {
   type: typeof SET_NEXT_EVENTS_NUM;
+  payload: string;
+}
+
+export interface TSetSelectValue {
+  type: typeof SET_SELECT_VALUE;
   payload: string;
 }
 
@@ -237,4 +245,5 @@ export type RangeActionsType =
   | TSetRightDatePickerVisible
   | TSetRadioBtnValue
   | TSetNextDaysNum
-  | TSetNextEventsNum;
+  | TSetNextEventsNum
+  | TSetSelectValue;

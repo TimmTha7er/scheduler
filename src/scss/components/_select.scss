@@ -1,0 +1,90 @@
+.select {
+  position: relative;
+  display: inline-block;
+  // font-size: 16px;
+  // font-weight: 400;
+	min-height: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  transition: border-color 0.15s ease-out, border-width 0.15s ease-out,
+    outline-color 0.25s ease-out, background-color 0.15s ease-out;
+  outline: solid 2px transparent;
+
+  &:hover {
+    border-color: rgba(0, 0, 0, 0.3);
+  }
+
+  &:active {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 35px;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTMiIGhlaWdodD0iOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTEuMyAxTDYuNSA1LjcgMS43IDFsLS43LjdMNi41IDcgMTIgMS43bC0uNy0uN3oiLz48L3N2Zz4=);
+    transition: transform 0.15s ease-out;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    z-index: -1;
+  }
+
+  &_active {
+    border-color: transparent;
+    outline: solid 2px #ffdb4d;
+
+    &::after {
+      transform: rotate(180deg);
+    }
+
+    &:hover {
+      border-color: transparent;
+    }
+  }
+
+  &__selected-text {
+    display: inline-block;
+    display: block;
+    cursor: pointer;
+    transition: color 0.15s ease-out;
+    user-select: none;
+    padding: 7px 15px;
+    min-width: 200px;
+  }
+
+  &__options {
+    position: absolute;
+    left: 0px;
+    top: 45px;
+    width: 100%;
+    background: #fff;
+    padding: 5px 0 0px 0;
+    // font-size: 18px;
+    // font-weight: 400;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1),
+      0 10px 20px -5px rgba(0, 0, 0, 0.4);
+    z-index: 10;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  &__option {
+    line-height: 28px;
+    padding: 0 18px 0 37px;
+    transition: background-color 0.15s ease-out;
+
+    &:hover {
+      background-color: #ffeba0;
+    }
+
+    &_selected {
+      background-color: #ffeba0;
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNiI+PHBhdGggZD0iTTEzLjUuNWwtOCAxMkwxLjcgOGwtMSAxLjZMNS42IDE1bDkuMS0xMy40eiIvPjwvc3ZnPgo=);
+      background-position: 15px center;
+      background-repeat: no-repeat;
+    }
+  }
+}

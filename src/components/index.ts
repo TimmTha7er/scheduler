@@ -9,6 +9,7 @@ export { default as Range } from './ScheduleRange/Range';
 export { default as NextDays } from './ScheduleRange/NextDays';
 export { default as NextEvents } from './ScheduleRange/NextEvents';
 export { default as RangeRadioBtn } from './ScheduleRange/RangeRadioBtn';
+export { default as Select } from './ScheduleRange/Select';
 
 export { default as GridNav } from './GridNav/GridNav';
 export { default as RangeBtn } from './RangeBtn/RangeBtn';

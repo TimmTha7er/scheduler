@@ -7,6 +7,7 @@ import {
   SET_RADIO_BTN_VALUE,
   SET_NEXT_DAYS_NUM,
   SET_NEXT_EVENTS_NUM,
+  SET_SELECT_VALUE,
 } from '../action-types';
 import { RangeActionsType } from '../interfaces';
 
@@ -65,3 +66,9 @@ export const setNextDaysNum = (value: string): RangeActionsType => {
   };
 };
 
+export const setSelectValue = (value: string): RangeActionsType => {
+  return {
+    type: SET_SELECT_VALUE,
+    payload: value,
+  };
+};

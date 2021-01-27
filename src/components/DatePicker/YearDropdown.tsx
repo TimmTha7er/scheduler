@@ -55,41 +55,41 @@ const YearDwopdown: React.FC<CalendarProps> = ({
   };
 
   return (
-    <div className='datepicker__year-dropdown'>
-      <div
+    <ul className='datepicker__year-dropdown'>
+      <li
         onClick={onBtnUpClick}
         className='datepicker__year-option datepicker__year-option_btn'
       >
         {/* <span className='datepicker__navigation datepicker__navigation_years-upcoming icon icon-up-open-big'> */}
-        <span className='datepicker__navigation datepicker__navigation_years-upcoming'>
+        <div className='datepicker__navigation datepicker__navigation_years-upcoming'>
           <img className='datepicker__btn-img' src={upBtnImg} alt='^' />
-        </span>
-      </div>
+        </div>
+      </li>
       {yearsList.years.map((item: moment.Moment, idx: number) => {
         const className: string = item.isSame(activeYear, 'year')
           ? 'datepicker__year-option_selected'
           : '';
 
         return (
-          <div
+          <li
             onClick={onYearClick(item)}
             key={idx}
             className={`datepicker__year-option ${className}`}
           >
             {item.format('YYYY')}
-          </div>
+          </li>
         );
       })}
-      <div
+      <li
         onClick={onBtnDownClick}
         className='datepicker__year-option datepicker__year-option_btn'
       >
         {/* <span className='datepicker__navigation datepicker__navigation_years-previous icon icon-down-open-big'> */}
-        <span className='datepicker__navigation datepicker__navigation_years-previous'>
+        <div className='datepicker__navigation datepicker__navigation_years-previous'>
           <img className='datepicker__btn-img' src={downBtnImg} alt='v' />
-        </span>
-      </div>
-    </div>
+        </div>
+      </li>
+    </ul>
   );
 };
 

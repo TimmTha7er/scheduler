@@ -9,6 +9,7 @@ import {
   SET_RADIO_BTN_VALUE,
   SET_NEXT_DAYS_NUM,
   SET_NEXT_EVENTS_NUM,
+  SET_SELECT_VALUE
 } from '../action-types';
 import { RangeActionsType, IRangeState } from '../interfaces';
 
@@ -21,6 +22,7 @@ const initialState: IRangeState = {
   radioBtnValue: 'schedule',
   nextDaysNum: '1',
   nextEventsNum: '1',
+  selectValue: 'суток',
 };
 
 const rangeReducer = (
@@ -80,6 +82,13 @@ const rangeReducer = (
     return {
       ...state,
       nextEventsNum: action.payload,
+    };
+  }
+
+  if (action.type === SET_SELECT_VALUE) {
+    return {
+      ...state,
+      selectValue: action.payload,
     };
   }
 
