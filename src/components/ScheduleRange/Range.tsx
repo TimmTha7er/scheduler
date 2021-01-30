@@ -33,14 +33,13 @@ const Range: React.FC = () => {
   return (
     <>
       <div className='schedule-range__range-wrap'>
-        {/* <div className='schedule-range__label'>Расписание:</div> */}
-
         <div className='schedule-range__date-block'>
           <RangeDatePicker
             date={startOfRange}
             isVisible={isLeftDatePickerVisible}
             setVisible={setLeftDatePickerVisible}
             setDateOfRange={setStartOFRange}
+            position={'start'}
           ></RangeDatePicker>
 
           <span className='schedule-range__dash'>一</span>
@@ -50,6 +49,7 @@ const Range: React.FC = () => {
             isVisible={isRightDatePickerVisible}
             setVisible={setRightDatePickerVisible}
             setDateOfRange={setEndOFRange}
+            position={'end'}
           ></RangeDatePicker>
         </div>
       </div>

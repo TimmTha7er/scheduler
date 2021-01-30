@@ -9,6 +9,7 @@ interface RangeDatePickerProps {
   date: moment.Moment;
   isVisible: boolean;
   setVisible: (value: boolean) => object;
+  position: string;
 }
 
 const RangeDatePicker: React.FC<RangeDatePickerProps> = ({
@@ -16,6 +17,7 @@ const RangeDatePicker: React.FC<RangeDatePickerProps> = ({
   date,
   isVisible,
   setVisible,
+  position,
 }) => {
   const dispatch = useDispatch();
 
@@ -37,7 +39,10 @@ const RangeDatePicker: React.FC<RangeDatePickerProps> = ({
 
   return (
     <div ref={leftDatePickerRef} className='schedule-range__date-wrap'>
-      <div onClick={onStartDateClick} className='schedule-range__range-date'>
+      <div
+        onClick={onStartDateClick}
+        className={`schedule-range__${position}-date`}
+      >
         {date.format('DD-MM-YYYY')}
       </div>
       {isVisible && (

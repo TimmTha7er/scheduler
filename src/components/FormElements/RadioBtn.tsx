@@ -14,17 +14,17 @@ const RadioBtn: React.FC<RadioBtnProps> = ({
   onLabelClick,
   name,
 }) => {
-	const input = useInput(defaultChecked);
+  const input = useInput(defaultChecked);
 
-	const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     input.onChange(event);
-		onLabelClick(event.currentTarget.value);
+    onLabelClick(event.currentTarget.value);
   };
 
   return (
     <div className='radio-group'>
       {options.map(({ value, text }, idx) => (
-        <React.Fragment key={idx}>
+        <div className='radio-group__option' key={idx}>
           <input
             className='radio-group__input visually-hidden'
             type='radio'
@@ -37,7 +37,7 @@ const RadioBtn: React.FC<RadioBtnProps> = ({
           <label key={idx} className='radio-group__label' htmlFor={value}>
             {text}
           </label>
-        </React.Fragment>
+        </div>
       ))}
     </div>
   );

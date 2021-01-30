@@ -1,16 +1,35 @@
 .radio-group {
   margin-bottom: 29px;
+  // display: flex;
+
+  &__option {
+    display: inline-block;
+
+    &:first-child label {
+      border-radius: 4px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      transform: translateX(1px);
+    }
+
+    &:last-child label {
+      border-radius: 4px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      transform: translateX(-1px);
+    }
+  }
 
   &__label {
-    user-select: none;
+    display: inline-block;
     border: 1px solid rgba(0, 0, 0, 0.12);
+    user-select: none;
     white-space: nowrap;
     line-height: 34px;
     font-size: 15px;
     padding: 0px 20px;
     cursor: pointer;
     transition: background-color 0.15s ease-out;
-    display: inline-block;
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.05);
@@ -18,20 +37,6 @@
 
     &:active {
       background-color: rgba(0, 0, 0, 0.1);
-    }
-
-    &:first-child {
-      border-radius: 4px;
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-      transform: translateX(1px);
-    }
-
-    &:last-child {
-      border-radius: 4px;
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-      transform: translateX(-1px);
     }
   }
 }
@@ -43,23 +48,24 @@
 
 @media only screen and (max-width: 580px) {
   .radio-group {
-    &__btns {
-      display: flex;
-      flex-direction: column;
-    }
+    &__option {
+      display: block;
+      width: 100%;
 
-    &__label {
-      border-radius: 4px;
-
-      &:first-child {
+      &:first-child label {
         border-radius: 4px;
         transform: translateY(1px);
       }
 
-      &:last-child {
+      &:last-child label {
         border-radius: 4px;
         transform: translateY(-1px);
       }
+    }
+
+    &__label {
+      display: block;
+      border-radius: 4px;
     }
   }
 }
