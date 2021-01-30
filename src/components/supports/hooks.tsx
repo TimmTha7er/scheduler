@@ -45,6 +45,7 @@ export const useInput = (
 ): IUseInput => {
   const [value, setValue] = useState<string>(initialValue);
 
+  // useCallback ???
   const onChange = (event: IFormEvent): void => {
     const value = event.currentTarget.value;
 

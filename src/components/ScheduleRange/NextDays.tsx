@@ -15,7 +15,7 @@ const NextDays: React.FC = () => {
     range: { nextDaysNum, selectValue },
   } = useSelector((state: RootState) => state);
   const [range, setRange] = useState<RangeType>([]);
-  const input = useInput(nextDaysNum, 3, /^[0-9\b]+$/);
+  const input = useInput(nextDaysNum, 2, /^[0-9\b]+$/);
   const inputRef = useFocus();
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const NextDays: React.FC = () => {
             className='next-days__input'
             type='text'
             autoComplete='off'
-            maxLength={3}
+            maxLength={2}
             ref={inputRef}
           />
           <div className='next-days__label'>

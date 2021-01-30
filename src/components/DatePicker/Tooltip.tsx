@@ -1,6 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import { toggleRangeVisible } from '../../redux/actions';
 import { EventType, buildRange } from '../ScheduleRange/buildRange';
 
 interface TooltipProps {
@@ -9,11 +10,21 @@ interface TooltipProps {
 }
 
 const Tooltip: React.FC<TooltipProps> = ({ day, maxLength }) => {
-  const { events } = useSelector((state: RootState) => state.grid);
-  
+  const dispatch = useDispatch();
+  const {
+    grid: { events },
+    range: { isRangeVisible },
+  } = useSelector((state: RootState) => state);
+
   const startOfRange = day.clone().startOf('day');
   const endOfRange = day.clone().add(1, 'day').startOf('day');
   const dayRange = buildRange(events, startOfRange, endOfRange)[0].day;
+
+  const onMoreClick = () => {
+    if (isRangeVisible) {
+      dispatch(toggleRangeVisible());
+    }
+  };
 
   return (
     <div className='tooltip datepicker__tooltip'>
@@ -41,7 +52,7 @@ const Tooltip: React.FC<TooltipProps> = ({ day, maxLength }) => {
       })}
 
       {dayRange.length > maxLength && (
-        <div className='tooltip__more'>
+        <div onClick={onMoreClick} className='tooltip__more'>
           Еще {dayRange.length - maxLength}...
         </div>
       )}

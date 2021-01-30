@@ -21,6 +21,7 @@
     white-space: nowrap;
     margin-right: 25px;
     padding: 10px 13px;
+    min-width: 160px;
   }
 
   &__dayOfMonth {
@@ -69,8 +70,9 @@
     margin-right: 15px;
   }
 
-  &__start-date,
-  &__end-date {
+  // &__start-date,
+  // &__end-date {
+  &__range-date {
     font-size: 25px;
     border: 0;
     box-sizing: border-box;
@@ -209,7 +211,6 @@
       max-width: 130px;
     }
   }
-  
 }
 
 @media only screen and (max-width: 480px) {
@@ -273,7 +274,6 @@
 
   .next-events,
   .next-days {
-
     &__field {
       margin-left: 0px;
       // padding-left: 0;

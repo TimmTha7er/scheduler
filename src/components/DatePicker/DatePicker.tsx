@@ -92,4 +92,3 @@ const DatePicker: React.FC<DatePickerProps> = ({
 };
 
 export default React.memo(DatePicker);
-// export default DatePicker;

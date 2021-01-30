@@ -5,6 +5,7 @@ import {
   setDeletePopupVisible,
   setEditPopupVisible,
 } from '../../redux/actions';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import { RootState } from '../../redux/store';
 import closeBtnImg from '../../img/close.svg';
 import deleteBtnImg from '../../img/trash-o.svg';
@@ -45,15 +46,19 @@ const PreviewPopup: React.FC = () => {
           />
         </div>
       </div>
-      <div className='preview-popup__descr'>
-        {eventDescr.split('\n').map((item: string, idx: number) => {
-          return (
-            <span className='preview-popup__descr-item' key={idx}>
-              {item}
-            </span>
-          );
-        })}
-      </div>
+
+      <PerfectScrollbar>
+        <div className='preview-popup__descr'>
+          {eventDescr.split('\n').map((item: string, idx: number) => {
+            return (
+              <span className='preview-popup__descr-item' key={idx}>
+                {item}
+              </span>
+            );
+          })}
+        </div>
+      </PerfectScrollbar>
+
       <div className='preview-popup__footer'>
         <div className='action-bar'>
           <button

@@ -49,8 +49,8 @@ export const buildRange = (
       endHour = endDay.clone();
     }
 
-    while (hour.isBefore(endHour)) {
-      if (events[hour.toString()] && hour.isSame(day, 'day')) {
+    while (hour.isBefore(endHour) && hour.isSame(day, 'day')) {
+      if (events[hour.toString()]) {
         dayEvents.push({ ...events[hour.toString()], time: hour.clone() });
         idx += 1;
       }

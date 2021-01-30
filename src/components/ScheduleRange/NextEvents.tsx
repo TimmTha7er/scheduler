@@ -15,7 +15,7 @@ const NextEvents: React.FC = () => {
     range: { nextEventsNum },
   } = useSelector((state: RootState) => state);
   const [range, setRange] = useState<RangeType>([]);
-  const input = useInput(nextEventsNum, 3, /^[0-9\b]+$/);
+  const input = useInput(nextEventsNum, 2, /^[0-9\b]+$/);
   const inputRef = useFocus();
 
   useEffect(() => {
@@ -29,7 +29,12 @@ const NextEvents: React.FC = () => {
     });
 
     setRange(
-      buildRange(events, startOfRange, endOfRange, parseInt(input.value) || 0)
+      buildRange(
+        events,
+        startOfRange,
+        endOfRange.clone().add(1, 'day'),
+        parseInt(input.value) || 0
+      )
     );
   }, [events, input.value]);
 
@@ -45,19 +50,21 @@ const NextEvents: React.FC = () => {
           <label className='next-events__label' htmlFor=''>
             Ближайшие
           </label>
+          {/* <button>+</button> */}
           <input
             value={input.value}
             onChange={handleChange}
             className='next-events__input'
             type='text'
             autoComplete='off'
-            maxLength={3}
+            maxLength={2}
             ref={inputRef}
           />
+          {/* <button>-</button> */}
           <span className='next-events__label'>событий</span>
         </div>
       </form>
-      
+
       <DayList range={range}></DayList>
     </>
   );

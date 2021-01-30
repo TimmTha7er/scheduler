@@ -50,6 +50,7 @@ body {
 .container {
   max-width: 970px;
   margin: 0 auto;
+  max-height: 100vh;
 
   @media only screen and (max-width: 1200px) {
     padding: 0 15px;
@@ -65,3 +66,4 @@ body {
     padding: 0 5px;
   }
 }
+

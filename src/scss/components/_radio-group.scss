@@ -36,9 +36,7 @@
   }
 }
 
-#schedule:checked ~ .radio-group__btns label[for='schedule'],
-#n-days:checked ~ .radio-group__btns label[for='n-days'],
-#n-events:checked ~ .radio-group__btns label[for='n-events'] {
+.radio-group__input:checked + .radio-group__label {
   border-color: rgba(21, 126, 225, 0.5);
   background-color: #eef4fa;
 }

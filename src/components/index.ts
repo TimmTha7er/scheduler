@@ -8,8 +8,11 @@ export { default as EventList } from './ScheduleRange/EventList';
 export { default as Range } from './ScheduleRange/Range';
 export { default as NextDays } from './ScheduleRange/NextDays';
 export { default as NextEvents } from './ScheduleRange/NextEvents';
-export { default as RangeRadioBtn } from './ScheduleRange/RangeRadioBtn';
-export { default as Select } from './ScheduleRange/Select';
+export { default as RangeDatePicker } from './ScheduleRange/RangeDatePicker';
+
+
+export { default as RadioBtn } from './FormElements/RadioBtn';
+export { default as Select } from './FormElements/Select';
 
 export { default as GridNav } from './GridNav/GridNav';
 export { default as RangeBtn } from './RangeBtn/RangeBtn';
@@ -23,6 +26,8 @@ export { default as CreatePopup } from './Popups/CreatePopup';
 export { default as EditPopup } from './Popups/EditPopup';
 export { default as PreviewPopup } from './Popups/PreviewPopup';
 export { default as DeletePopup } from './Popups/DeletePopup';
+export { default as Popups } from './Popups/Popups';
+
 
 export { default as DatePicker } from './DatePicker/DatePicker';
 export { default as Calendar } from './DatePicker/Calendar';
