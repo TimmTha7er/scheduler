@@ -1,7 +1,7 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { RootState } from '../../redux/store';
-import { toggleRangeVisible } from '../../redux/actions';
 import { EventType, buildRange } from '../ScheduleRange/buildRange';
 
 interface TooltipProps {
@@ -10,21 +10,14 @@ interface TooltipProps {
 }
 
 const Tooltip: React.FC<TooltipProps> = ({ day, maxLength }) => {
-  const dispatch = useDispatch();
   const {
     grid: { events },
-    range: { isRangeVisible },
+    datePicker: { date },
   } = useSelector((state: RootState) => state);
 
   const startOfRange = day.clone().startOf('day');
   const endOfRange = day.clone().add(1, 'day').startOf('day');
   const dayRange = buildRange(events, startOfRange, endOfRange)[0].day;
-
-  const onMoreClick = () => {
-    if (isRangeVisible) {
-      dispatch(toggleRangeVisible());
-    }
-  };
 
   return (
     <div className='tooltip datepicker__tooltip'>
@@ -52,9 +45,15 @@ const Tooltip: React.FC<TooltipProps> = ({ day, maxLength }) => {
       })}
 
       {dayRange.length > maxLength && (
-        <div onClick={onMoreClick} className='tooltip__more'>
+        <NavLink
+          className='link tooltip__more'
+          to={{
+            pathname: `/day`,
+            search: `date=${date.format('YYYY-MM-DD')}`,
+          }}
+        >
           Еще {dayRange.length - maxLength}...
-        </div>
+        </NavLink>
       )}
     </div>
   );

@@ -4,7 +4,7 @@ import {
   setStartOFRange,
   setEndOFRange,
   setALLPopupsUnvisible,
-  setRowDate
+  setRowDate,
 } from '../../redux/actions';
 import { RootState } from '../../redux/store';
 import { DatePickerActionTypes } from '../../redux/interfaces';
@@ -12,6 +12,7 @@ import moment from 'moment';
 import 'moment/locale/ru';
 import leftBtnImg from '../../img/angle-left.svg';
 import rightBtnImg from '../../img/angle-right.svg';
+import { useHistory, useLocation } from 'react-router-dom';
 
 interface GridNavProps {
   setDate: (date: moment.Moment) => DatePickerActionTypes;
@@ -21,48 +22,83 @@ const GridNav: React.FC<GridNavProps> = ({ setDate }) => {
   const dispatch = useDispatch();
   const {
     datePicker: { date },
-    range: { isRangeVisible, startOfRange, endOfRange },
+    range: { startOfRange, endOfRange },
   } = useSelector((state: RootState) => state);
+  const history = useHistory();
+  const location = useLocation();
 
   const onPrevBtnClick = (): void => {
-    const prevDay: moment.Moment = date.clone().subtract(1, 'day');
-    setDate(prevDay);
     dispatch(setALLPopupsUnvisible());
     dispatch(setRowDate(null));
 
-    if (isRangeVisible) {
+    if (location.pathname === '/schedule/range') {
       const start: moment.Moment = startOfRange.clone().subtract(1, 'week');
       const end: moment.Moment = endOfRange.clone().subtract(1, 'week');
-      dispatch(setStartOFRange(start));
-      dispatch(setEndOFRange(end));
+      dispatch(setStartOFRange(moment(start, 'YYYY-MM-DD')));
+      dispatch(setEndOFRange(moment(end, 'YYYY-MM-DD')));
+
+      history.push({
+        search: `start=${start.format('YYYY-MM-DD')}&end=${end.format(
+          'YYYY-MM-DD'
+        )}`,
+      });
+    } else if (location.pathname === '/day') {
+      const prevDay: moment.Moment = date.clone().subtract(1, 'day');
+      setDate(moment(prevDay, 'YYYY-MM-DD'));
+
+      history.push({
+        search: `?date=${prevDay.format('YYYY-MM-DD')}`,
+      });
     }
   };
 
   const onTodayBtnClick = () => {
-    const today: moment.Moment = moment();
-    setDate(today);
     dispatch(setALLPopupsUnvisible());
     dispatch(setRowDate(null));
 
-    if (isRangeVisible) {
-      const start: moment.Moment = moment().clone().startOf('week');
-      const end: moment.Moment = moment().clone().endOf('week');
-      dispatch(setStartOFRange(start));
-      dispatch(setEndOFRange(end));
+    if (location.pathname === '/schedule/range') {
+      const start: moment.Moment = moment().clone().startOf('month');
+      const end: moment.Moment = moment().clone().endOf('month');
+      dispatch(setStartOFRange(moment(start, 'YYYY-MM-DD')));
+      dispatch(setEndOFRange(moment(end, 'YYYY-MM-DD')));
+
+      history.push({
+        search: `start=${start.format('YYYY-MM-DD')}&end=${end.format(
+          'YYYY-MM-DD'
+        )}`,
+      });
+    } else if (location.pathname === '/day') {
+      const today: moment.Moment = moment();
+      setDate(moment(today, 'YYYY-MM-DD'));
+
+      history.push({
+        search: `?date=${today.format('YYYY-MM-DD')}`,
+      });
     }
   };
 
   const onNextBtnClick = () => {
-    const nextDay: moment.Moment = date.clone().add(1, 'day');
-    setDate(nextDay);
     dispatch(setALLPopupsUnvisible());
     dispatch(setRowDate(null));
 
-    if (isRangeVisible) {
+    if (location.pathname === '/schedule/range') {
       const start: moment.Moment = startOfRange.clone().add(1, 'week');
       const end: moment.Moment = endOfRange.clone().add(1, 'week');
-      dispatch(setStartOFRange(start));
-      dispatch(setEndOFRange(end));
+      dispatch(setStartOFRange(moment(start, 'YYYY-MM-DD')));
+      dispatch(setEndOFRange(moment(end, 'YYYY-MM-DD')));
+
+      history.push({
+        search: `start=${start.format('YYYY-MM-DD')}&end=${end.format(
+          'YYYY-MM-DD'
+        )}`,
+      });
+    } else if (location.pathname === '/day') {
+      const nextDay: moment.Moment = date.clone().add(1, 'day');
+      setDate(moment(nextDay, 'YYYY-MM-DD'));
+
+      history.push({
+        search: `?date=${nextDay.format('YYYY-MM-DD')}`,
+      });
     }
   };
 

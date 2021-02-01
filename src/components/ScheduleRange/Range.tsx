@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { buildRange, RangeType } from './buildRange';
-import { DayList, RangeDatePicker } from '../../components';
-
 import {
   setStartOFRange,
   setEndOFRange,
   setLeftDatePickerVisible,
   setRightDatePickerVisible,
 } from '../../redux/actions';
+import { useHistory } from 'react-router-dom';
+import moment from 'moment';
+import 'moment/locale/ru';
+import { buildRange, RangeType } from './buildRange';
+import { DayList, RangeDatePicker } from '../../components';
+import { useQuery } from '../supports/hooks';
 
 const Range: React.FC = () => {
+  const dispatch = useDispatch();
   const {
     grid: { events },
     range: {
@@ -22,13 +26,42 @@ const Range: React.FC = () => {
     },
   } = useSelector((state: RootState) => state);
   const [range, setRange] = useState<RangeType>([]);
+  const history = useHistory();
+
+  let query = useQuery();
+  let startDate = query.get('start');
+  let endDate = query.get('end');
 
   useEffect(() => {
     const start = startOfRange.clone().startOf('day');
     const end = endOfRange.clone().add(1, 'day').startOf('day');
 
     setRange(buildRange(events, start, end));
-  }, [events, startOfRange, endOfRange]);
+  }, [events, startOfRange, endOfRange, history]);
+
+  useEffect(() => {
+    dispatch(setStartOFRange(moment(startDate, 'YYYY-MM-DD')));
+    dispatch(setEndOFRange(moment(endDate, 'YYYY-MM-DD')));
+  }, [startDate, endDate, dispatch]);
+
+  const setStart = (value: moment.Moment) => {
+    history.push({
+      search: `?start=${value.format('YYYY-MM-DD')}&end=${endOfRange.format(
+        'YYYY-MM-DD'
+      )}`,
+    });
+    return setStartOFRange(value);
+  };
+
+  const setEnd = (value: moment.Moment) => {
+    history.push({
+      search: `?start=${startOfRange.format('YYYY-MM-DD')}&end=${value.format(
+        'YYYY-MM-DD'
+      )}`,
+    });
+
+    return setEndOFRange(value);
+  };
 
   return (
     <>
@@ -38,7 +71,7 @@ const Range: React.FC = () => {
             date={startOfRange}
             isVisible={isLeftDatePickerVisible}
             setVisible={setLeftDatePickerVisible}
-            setDateOfRange={setStartOFRange}
+            setDateOfRange={setStart}
             position={'start'}
           ></RangeDatePicker>
 
@@ -48,7 +81,7 @@ const Range: React.FC = () => {
             date={endOfRange}
             isVisible={isRightDatePickerVisible}
             setVisible={setRightDatePickerVisible}
-            setDateOfRange={setEndOFRange}
+            setDateOfRange={setEnd}
             position={'end'}
           ></RangeDatePicker>
         </div>

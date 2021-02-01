@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 type IUseClickOutside = React.RefObject<HTMLDivElement>;
 
@@ -74,4 +75,8 @@ export const useFocus = (): IUseFocus => {
   }, []);
 
   return ref;
+};
+
+export const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
 };

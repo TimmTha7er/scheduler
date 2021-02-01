@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useInput, useFocus } from '../supports/hooks';
+import { useInput, useFocus, useQuery } from '../supports/hooks';
 import { RootState } from '../../redux/store';
+import { useHistory } from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/ru';
 import { setNextEventsNum } from '../../redux/actions';
@@ -12,11 +13,14 @@ const NextEvents: React.FC = () => {
   const dispatch = useDispatch();
   const {
     grid: { events },
-    range: { nextEventsNum },
   } = useSelector((state: RootState) => state);
   const [range, setRange] = useState<RangeType>([]);
-  const input = useInput(nextEventsNum, 2, /^[0-9\b]+$/);
   const inputRef = useFocus();
+  
+  const history = useHistory();
+  const query = useQuery();
+  const num = query.get('num') || '';
+  const input = useInput(num, 2, /^[0-9\b]+$/);
 
   useEffect(() => {
     const startOfRange = moment().clone().startOf('hour');
@@ -36,11 +40,22 @@ const NextEvents: React.FC = () => {
         parseInt(input.value) || 0
       )
     );
-  }, [events, input.value]);
+
+    dispatch(setNextEventsNum(num));
+  }, [dispatch, events, input.value, num]);
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
-    input.onChange(event);
-    dispatch(setNextEventsNum(event.currentTarget.value));
+    const inputValue = event.currentTarget.value;
+    const pattern = /^[0-9\b]+$/;
+
+    if (pattern.test(inputValue)) {
+      history.push({
+        search: `?num=${inputValue}`,
+      });
+
+      input.onChange(event);
+      dispatch(setNextEventsNum(event.currentTarget.value));
+    }
   };
 
   return (
@@ -52,7 +67,7 @@ const NextEvents: React.FC = () => {
           </label>
           {/* <button>+</button> */}
           <input
-            value={input.value}
+            value={num}
             onChange={handleChange}
             className='next-events__input'
             type='text'

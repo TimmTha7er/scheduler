@@ -1,15 +1,11 @@
 export { default as Header } from './Header/Header';
 
-export { default as Main } from './Main/Main';
-export { default as Day } from './Day/Day';
-export { default as ScheduleRange } from './ScheduleRange/ScheduleRange';
 export { default as DayList } from './ScheduleRange/DayList';
 export { default as EventList } from './ScheduleRange/EventList';
 export { default as Range } from './ScheduleRange/Range';
 export { default as NextDays } from './ScheduleRange/NextDays';
 export { default as NextEvents } from './ScheduleRange/NextEvents';
 export { default as RangeDatePicker } from './ScheduleRange/RangeDatePicker';
-
 
 export { default as RadioBtn } from './FormElements/RadioBtn';
 export { default as Select } from './FormElements/Select';
@@ -27,7 +23,6 @@ export { default as EditPopup } from './Popups/EditPopup';
 export { default as PreviewPopup } from './Popups/PreviewPopup';
 export { default as DeletePopup } from './Popups/DeletePopup';
 export { default as Popups } from './Popups/Popups';
-
 
 export { default as DatePicker } from './DatePicker/DatePicker';
 export { default as Calendar } from './DatePicker/Calendar';

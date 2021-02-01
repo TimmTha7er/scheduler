@@ -14,7 +14,6 @@ const EventList: React.FC<EventListProps> = ({
   isPreviewPopupVisible,
   onEventClick,
 }) => {
-  // console.log('day', day);
   return (
     <div className='event-list'>
       {day.map(({ time, title }: EventType, idx: number) => {

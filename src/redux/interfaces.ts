@@ -13,12 +13,12 @@ import {
   SET_EDIT_POPUP_VISIBLE,
   SET_DELETE_POPUP_VISIBLE,
   SET_ALL_POPUPS_UNVISIBLE,
-  TOGGLE_RANGE_VISIBLE,
+  // TOGGLE_RANGE_VISIBLE,
   SET_START_OF_RANGE,
   SET_END_OF_RANGE,
   SET_LEFT_DATEPICKER_VISIBLE,
   SET_RIGHT_DATEPICKER_VISIBLE,
-  SET_RADIO_BTN_VALUE,
+  // SET_RADIO_BTN_VALUE,
   SET_NEXT_DAYS_NUM,
   SET_NEXT_EVENTS_NUM,
   SET_SELECT_VALUE,
@@ -180,22 +180,22 @@ export type PopupsActionTypes =
 // ----------------------------------------------
 // reducer
 export interface IRangeState {
-  isRangeVisible: boolean;
+  // isRangeVisible: boolean;
   startOfRange: moment.Moment;
   endOfRange: moment.Moment;
   isLeftDatePickerVisible: boolean;
   isRightDatePickerVisible: boolean;
-  radioBtnValue: string;
+  // radioBtnValue: string;
   nextDaysNum: string;
   nextEventsNum: string;
   selectValue: string;
 }
 
 // actions
-export interface IToggleRangeVisible {
-  type: typeof TOGGLE_RANGE_VISIBLE;
-  payload?: never;
-}
+// export interface IToggleRangeVisible {
+//   type: typeof TOGGLE_RANGE_VISIBLE;
+//   payload?: never;
+// }
 
 export interface ISetStartOFRange {
   type: typeof SET_START_OF_RANGE;
@@ -217,10 +217,10 @@ export interface TSetRightDatePickerVisible {
   payload: boolean;
 }
 
-export interface TSetRadioBtnValue {
-  type: typeof SET_RADIO_BTN_VALUE;
-  payload: string;
-}
+// export interface TSetRadioBtnValue {
+//   type: typeof SET_RADIO_BTN_VALUE;
+//   payload: string;
+// }
 
 export interface TSetNextDaysNum {
   type: typeof SET_NEXT_DAYS_NUM;
@@ -238,12 +238,12 @@ export interface TSetSelectValue {
 }
 
 export type RangeActionsType =
-  | IToggleRangeVisible
+  // | IToggleRangeVisible
   | ISetStartOFRange
   | ISetEndOFRange
   | ISetLeftDatePickerVisible
   | TSetRightDatePickerVisible
-  | TSetRadioBtnValue
+  // | TSetRadioBtnValue
   | TSetNextDaysNum
   | TSetNextEventsNum
   | TSetSelectValue;

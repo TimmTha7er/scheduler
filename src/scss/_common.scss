@@ -16,18 +16,21 @@ body {
 
 .link {
   text-decoration: none;
-  color: #fff;
+  color: inherit;
   transition: color 0.25s ease;
+  outline: none;
 
   &:link {
+    outline: none;
   }
   &:visited {
+    // outline: none;
   }
   &:hover {
-    color: $accent-color;
+    // color: $accent-color;
   }
   &:active {
-    color: $accent-color;
+    // color: $accent-color;
   }
 }
 
@@ -50,6 +53,7 @@ body {
 .container {
   max-width: 970px;
   margin: 0 auto;
+  min-height: 100vh;
   max-height: 100vh;
 
   @media only screen and (max-width: 1200px) {

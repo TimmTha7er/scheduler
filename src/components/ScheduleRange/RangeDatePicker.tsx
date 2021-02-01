@@ -21,7 +21,7 @@ const RangeDatePicker: React.FC<RangeDatePickerProps> = ({
 }) => {
   const dispatch = useDispatch();
 
-  const onStartDateClick = (): void => {
+  const onDateClick = (): void => {
     dispatch(setVisible(!isVisible));
     dispatch(setALLPopupsUnvisible());
   };
@@ -30,17 +30,18 @@ const RangeDatePicker: React.FC<RangeDatePickerProps> = ({
     (date: moment.Moment) => dispatch(setDateOfRange(date)),
     [dispatch, setDateOfRange]
   );
+
   const setRabgeVisible = useCallback(
     (value: boolean) => dispatch(setVisible(value)),
     [dispatch, setVisible]
   );
 
-  const leftDatePickerRef = useClickOutside(setRabgeVisible);
+  const datePickerRef = useClickOutside(setRabgeVisible);
 
   return (
-    <div ref={leftDatePickerRef} className='schedule-range__date-wrap'>
+    <div ref={datePickerRef} className='schedule-range__date-wrap'>
       <div
-        onClick={onStartDateClick}
+        onClick={onDateClick}
         className={`schedule-range__${position}-date`}
       >
         {date.format('DD-MM-YYYY')}

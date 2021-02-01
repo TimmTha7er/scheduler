@@ -1,12 +1,12 @@
 import moment from 'moment';
 import 'moment/locale/ru';
 import {
-  TOGGLE_RANGE_VISIBLE,
+  // TOGGLE_RANGE_VISIBLE,
   SET_START_OF_RANGE,
   SET_END_OF_RANGE,
   SET_LEFT_DATEPICKER_VISIBLE,
   SET_RIGHT_DATEPICKER_VISIBLE,
-  SET_RADIO_BTN_VALUE,
+  // SET_RADIO_BTN_VALUE,
   SET_NEXT_DAYS_NUM,
   SET_NEXT_EVENTS_NUM,
   SET_SELECT_VALUE
@@ -14,12 +14,12 @@ import {
 import { RangeActionsType, IRangeState } from '../interfaces';
 
 const initialState: IRangeState = {
-  isRangeVisible: false,
+  // isRangeVisible: false,
   startOfRange: moment().clone().startOf('month'),
   endOfRange: moment().clone().endOf('month'),
   isLeftDatePickerVisible: false,
   isRightDatePickerVisible: false,
-  radioBtnValue: 'schedule',
+  // radioBtnValue: 'schedule',
   nextDaysNum: '1',
   nextEventsNum: '1',
   selectValue: 'суток',
@@ -29,12 +29,12 @@ const rangeReducer = (
   state = initialState,
   action: RangeActionsType
 ): IRangeState => {
-  if (action.type === TOGGLE_RANGE_VISIBLE) {
-    return {
-      ...state,
-      isRangeVisible: !state.isRangeVisible,
-    };
-  }
+  // if (action.type === TOGGLE_RANGE_VISIBLE) {
+  //   return {
+  //     ...state,
+  //     isRangeVisible: !state.isRangeVisible,
+  //   };
+  // }
 
   if (action.type === SET_START_OF_RANGE) {
     return {
@@ -64,12 +64,12 @@ const rangeReducer = (
     };
   }
 
-  if (action.type === SET_RADIO_BTN_VALUE) {
-    return {
-      ...state,
-      radioBtnValue: action.payload,
-    };
-  }
+  // if (action.type === SET_RADIO_BTN_VALUE) {
+  //   return {
+  //     ...state,
+  //     radioBtnValue: action.payload,
+  //   };
+  // }
 
   if (action.type === SET_NEXT_DAYS_NUM) {
     return {

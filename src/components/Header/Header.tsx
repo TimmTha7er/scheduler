@@ -9,13 +9,14 @@ import {
 import { RootState } from '../../redux/store';
 import { useClickOutside } from '../supports/hooks';
 import { GridNav, DatePicker, RangeBtn } from '../../components';
+import { useHistory } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
-  const { date, isVisible } = useSelector(
-    (state: RootState) => state.datePicker
-  );
-
+  const {
+    datePicker: { date, isVisible },
+  } = useSelector((state: RootState) => state);
+  const history = useHistory();
   const selectedMonth: string = date.format('MMMM');
   const selectedYear: string = date.format('YYYY');
 
@@ -25,8 +26,22 @@ const Header: React.FC = () => {
     dispatch(setRowDate(null));
   };
 
-  const setDateCallback = useCallback(
-    (date: moment.Moment) => dispatch(setDate(date)),
+  const setDatePickerDate = useCallback(
+    (date: moment.Moment) => {
+      history.push({
+        pathname: `/day`,
+        search: `?date=${date.format('YYYY-MM-DD')}`,
+      });
+
+      return dispatch(setDate(date));
+    },
+    [dispatch, history]
+  );
+
+  const setGridDate = useCallback(
+    (date: moment.Moment) => {
+      return dispatch(setDate(date));
+    },
     [dispatch]
   );
 
@@ -39,19 +54,15 @@ const Header: React.FC = () => {
   return (
     <header className='header'>
       <div ref={datePickerRef} className='header__date-wrap'>
-        <div className='header__selected-date'>
-          <div onClick={onSelectedDateClick} className='header__selected-month'>
-            {selectedMonth}
-          </div>
-          <div onClick={onSelectedDateClick} className='header__selected-year'>
-            {selectedYear}
-          </div>
+        <div onClick={onSelectedDateClick} className='header__selected-date'>
+          <div className='header__selected-month'>{selectedMonth}</div>
+          <div className='header__selected-year'>{selectedYear}</div>
         </div>
         <div className='datepicker__wrap'>
           {isVisible && (
             <DatePicker
               date={date}
-              setDate={setDateCallback}
+              setDate={setDatePickerDate}
               owner={'header'}
               setVisible={setVisibleCallback}
             ></DatePicker>
@@ -59,7 +70,7 @@ const Header: React.FC = () => {
         </div>
       </div>
       <div className='header__btns-wrap'>
-        <GridNav setDate={setDateCallback}></GridNav>
+        <GridNav setDate={setGridDate}></GridNav>
         <RangeBtn></RangeBtn>
       </div>
     </header>

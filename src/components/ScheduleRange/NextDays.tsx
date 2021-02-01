@@ -1,22 +1,28 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useInput, useFocus } from '../supports/hooks';
+import { useInput, useFocus, useQuery } from '../supports/hooks';
 import { RootState } from '../../redux/store';
 import moment from 'moment';
 import 'moment/locale/ru';
 import { buildRange, RangeType } from './buildRange';
 import { setNextDaysNum, setSelectValue } from '../../redux/actions';
 import { DayList, Select } from '../../components';
+import { useHistory } from 'react-router-dom';
 
-const NextDays: React.FC = () => {
+const NextDays: React.FC<any> = () => {
   const dispatch = useDispatch();
   const {
     grid: { events },
-    range: { nextDaysNum, selectValue },
+    range: { selectValue },
   } = useSelector((state: RootState) => state);
   const [range, setRange] = useState<RangeType>([]);
-  const input = useInput(nextDaysNum, 2, /^[0-9\b]+$/);
   const inputRef = useFocus();
+
+  const history = useHistory();
+  const query = useQuery();
+  const num = query.get('num') || '';
+  const interval = query.get('interval') || '';
+  const input = useInput(num, 2, /^[0-9\b]+$/);
 
   useEffect(() => {
     const startOfRange = moment().clone().startOf('hour');
@@ -28,11 +34,23 @@ const NextDays: React.FC = () => {
       : [];
 
     setRange(range);
-  }, [events, input.value, selectValue]);
+
+    dispatch(setSelectValue(interval));
+    dispatch(setNextDaysNum(num));
+  }, [events, input.value, selectValue, num, interval, dispatch]);
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
-    input.onChange(event);
-    dispatch(setNextDaysNum(event.currentTarget.value));
+    const inputValue = event.currentTarget.value;
+    const pattern = /^[0-9\b]+$/;
+
+    if (pattern.test(inputValue)) {
+      history.push({
+        search: `?num=${inputValue}&interval=${interval}`,
+      });
+
+      input.onChange(event);
+      dispatch(setNextDaysNum(inputValue));
+    }
   };
 
   const onOptionClick = useCallback(
@@ -50,7 +68,7 @@ const NextDays: React.FC = () => {
             За ближайшие
           </label>
           <input
-            value={input.value}
+            value={num}
             onChange={handleChange}
             className='next-days__input'
             type='text'

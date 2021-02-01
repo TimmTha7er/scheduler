@@ -1,27 +1,52 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  toggleRangeVisible,
-  setALLPopupsUnvisible,
-  setRowDate,
-} from '../../redux/actions';
+import { NavLink, useLocation } from 'react-router-dom';
+import { setALLPopupsUnvisible, setRowDate } from '../../redux/actions';
 import { RootState } from '../../redux/store';
 
 const RangeBtn: React.FC = () => {
   const dispatch = useDispatch();
-  const { isRangeVisible } = useSelector((state: RootState) => state.range);
-  const rangeBtnName: string = isRangeVisible ? 'День' : 'Расписание';
+  const {
+    datePicker: { date },
+    range: { startOfRange, endOfRange },
+  } = useSelector((state: RootState) => state);
+  const location = useLocation();
 
   const onRangeBtnClick = (): void => {
-    dispatch(toggleRangeVisible());
     dispatch(setALLPopupsUnvisible());
     dispatch(setRowDate(null));
   };
 
   return (
-    <button onClick={onRangeBtnClick} className='header__range-btn'>
-      {rangeBtnName}
-    </button>
+    <>
+      {location.pathname === '/day' || location.pathname === '/' ? (
+        <NavLink
+          onClick={onRangeBtnClick}
+          className='link header__range-btn'
+          exact
+          to={{
+            pathname: `/schedule/range`,
+            search: `start=${startOfRange.format(
+              'YYYY-MM-DD'
+            )}&end=${endOfRange.format('YYYY-MM-DD')}`,
+          }}
+        >
+          Расписание
+        </NavLink>
+      ) : (
+        <NavLink
+          onClick={onRangeBtnClick}
+          className='link header__range-btn'
+          exact
+          to={{
+            pathname: `/day`,
+            search: `date=${date.format('YYYY-MM-DD')}`,
+          }}
+        >
+          День
+        </NavLink>
+      )}
+    </>
   );
 };
 
