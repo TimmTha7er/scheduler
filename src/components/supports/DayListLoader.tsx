@@ -1,7 +1,7 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
-const Loading: React.FC = () => {
+const DayListLoader: React.FC = () => {
   let y = -53;
   return (
     // <div className='day content__day'>
@@ -37,4 +37,4 @@ const Loading: React.FC = () => {
   );
 };
 
-export default Loading;
+export default DayListLoader;

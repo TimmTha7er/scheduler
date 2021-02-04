@@ -22,6 +22,12 @@ import {
   SET_NEXT_DAYS_NUM,
   SET_NEXT_EVENTS_NUM,
   SET_SELECT_VALUE,
+  SET_USER,
+  SIGN_OUT,
+  SET_LOADING,
+  SET_ERROR,
+  NEED_VERIFICATION,
+  SET_SUCCESS,
 } from './action-types';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from './store';
@@ -247,3 +253,78 @@ export type RangeActionsType =
   | TSetNextDaysNum
   | TSetNextEventsNum
   | TSetSelectValue;
+
+// ----------------------------------------------
+//		auth
+// ----------------------------------------------
+// reducer
+export interface User {
+  firstName: string;
+  email: string;
+  id: string;
+  createdAt: any;
+}
+
+export interface AuthState {
+  user: User | null;
+  authenticated: boolean;
+  loading: boolean;
+  error: string;
+  needVerification: boolean;
+  success: string;
+}
+
+export interface SignUpData {
+  firstName: string;
+  email: string;
+  password: string;
+}
+
+export interface SignInData {
+  email: string;
+  password: string;
+}
+
+// actions
+interface SetUser {
+  type: typeof SET_USER;
+  payload: User;
+}
+
+interface SetLoading {
+  type: typeof SET_LOADING;
+  payload: boolean;
+}
+
+interface SignOut {
+  type: typeof SIGN_OUT;
+}
+
+interface SetError {
+  type: typeof SET_ERROR;
+  payload: string;
+}
+
+interface NeedVerification {
+  type: typeof NEED_VERIFICATION;
+}
+
+interface SetSuccess {
+  type: typeof SET_SUCCESS;
+  payload: string;
+}
+
+export type AuthActionsType =
+  | SetUser
+  | SetLoading
+  | SignOut
+  | SetError
+  | NeedVerification
+  | SetSuccess;
+
+export type AuthThunkActionType = ThunkAction<
+  void,
+  RootState,
+  null,
+  AuthActionsType
+>;

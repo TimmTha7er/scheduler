@@ -25,3 +25,13 @@ export const SET_ROW_DATE = 'SET_ROW_DATE';
 export const FETCH_EVENTS_REQUESTED = 'FETCH_EVENTS_REQUESTED';
 export const FETCH_EVENTS_LOADED = 'FETCH_EVENTS_LOADED';
 export const FETCH_EVENTS_ERROR = 'FETCH_EVENTS_ERROR';
+
+// auth
+export const SET_USER = 'SET_USER';
+export const SIGN_OUT = 'SIGN_OUT';
+export const SET_LOADING = 'SET_LOADING';
+export const SET_ERROR = 'SET_ERROR';
+export const NEED_VERIFICATION = 'NEED_VERIFICATION';
+export const SET_SUCCESS = 'SET_SUCCESS';
+
+

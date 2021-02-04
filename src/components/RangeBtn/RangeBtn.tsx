@@ -19,7 +19,7 @@ const RangeBtn: React.FC = () => {
 
   return (
     <>
-      {location.pathname === '/day' || location.pathname === '/' ? (
+      {location.pathname === '/day' ? (
         <NavLink
           onClick={onRangeBtnClick}
           className='link header__range-btn'

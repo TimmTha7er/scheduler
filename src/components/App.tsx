@@ -1,11 +1,56 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+import { setLoading, getUserById, setNeedVerification } from '../redux/actions';
 import { Switch, Route } from 'react-router-dom';
-import { Header, Popups } from '../components';
-import { HomePage, DayPage, SchedulePage } from '../pages';
+import firebase from '../services/firebase/config';
+import {
+  HomePage,
+  DayPage,
+  SchedulePage,
+  SignUp,
+  SignIn,
+  ForgotPassword,
+} from '../pages';
 import '../scss/index.scss';
+import {
+  Header,
+  Popups,
+  NotFound,
+  AppLoader,
+  PublicRoute,
+  PrivateRoute,
+} from '../components';
 
 const App: React.FC = () => {
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state: RootState) => state.auth);
+
+  // Check if user exists
+  useEffect(() => {
+    dispatch(setLoading(true));
+
+    const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
+      if (user) {
+        dispatch(setLoading(true));
+        await dispatch(getUserById(user.uid));
+        if (!user.emailVerified) {
+          dispatch(setNeedVerification());
+        }
+      }
+      dispatch(setLoading(false));
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [dispatch]);
+
+  if (loading) {
+    return <AppLoader />;
+  }
+
   return (
     <>
       <PerfectScrollbar>
@@ -13,9 +58,13 @@ const App: React.FC = () => {
           <Header></Header>
           <main className='main'>
             <Switch>
-              <Route exact path='/' component={DayPage} />
-              <Route path='/day' component={DayPage} />
-              <Route path='/schedule' component={SchedulePage} />
+              <PublicRoute exact path='/' component={HomePage} />
+              <PrivateRoute path='/day' component={DayPage} />
+              <PrivateRoute path='/schedule' component={SchedulePage} />
+              <PublicRoute path='/sign-up' component={SignUp} />
+              <PublicRoute path='/sign-in' component={SignIn} />
+              <PublicRoute path='/forgot-password' component={ForgotPassword} />
+              <PublicRoute component={NotFound} />
             </Switch>
           </main>
         </div>

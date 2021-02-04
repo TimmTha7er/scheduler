@@ -1,4 +1,5 @@
 export { default as Header } from './Header/Header';
+export { default as HeaderBottom } from './Header/HeaderBottom';
 
 export { default as DayList } from './ScheduleRange/DayList';
 export { default as EventList } from './ScheduleRange/EventList';
@@ -32,6 +33,12 @@ export { default as SelectedDate } from './DatePicker/SelectedDate';
 export { default as Tooltip } from './DatePicker/Tooltip';
 
 export { default as ErrorIndicator } from './supports/ErrorIndicator';
-export { default as Loading } from './supports/Loading';
+export { default as DayListLoader } from './supports/DayListLoader';
+export { default as AppLoader } from './supports/AppLoader';
+export { default as NotFound } from './supports/NotFound';
+export { default as Message } from './supports/Message';
+
+export { default as PublicRoute } from './auth/PublicRoute';
+export { default as PrivateRoute } from './auth/PrivateRoute';
 
 export { default as App } from './App';

@@ -2,13 +2,27 @@
 //		header
 // ----------------------------------------------
 .header {
-  display: flex;
-  align-items: flex-end;
-  position: relative;
-  padding-top: 25px;
-  padding-bottom: 5px;
+  // display: flex;
+  // align-items: flex-end;
+  // position: relative;
+
   // min-height: 100vh;
   // max-height: 100vh;
+
+  &__top-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  &__bot-line {
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+    padding-top: 25px;
+    padding-bottom: 5px;
+  }
 
   &__datepicker {
     position: absolute;
@@ -82,10 +96,43 @@
   }
 }
 
+.logo {
+  display: flex;
+  font-family: 'Cheshirskiy Cat';
+
+  &__img {
+    max-width: 70px;
+    max-height: 70px;
+    margin-right: 10px;
+  }
+
+  &__text {
+    margin-top: 2px;
+
+    &:hover .logo__subtitle {
+      color: #f8d54b;
+    }
+  }
+
+  &__title {
+    font-size: 37px;
+  }
+
+  &__subtitle {
+    font-size: 27px;
+    transition: color 0.15s ease-out;
+  }
+}
+
+.user-bar {
+}
+
 @media only screen and (max-width: 580px) {
   .header {
-    flex-direction: column-reverse;
-    align-items: flex-start;
+    &__bot-line {
+      flex-direction: column-reverse;
+      align-items: flex-start;
+    }
 
     &__gridnav {
       margin-left: 0;

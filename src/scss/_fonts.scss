@@ -64,3 +64,15 @@
   font-style: normal;
   font-display: swap;
 }
+
+// ----------- Cheshirskiy Cat -----------
+@font-face {
+  font-family: 'Cheshirskiy Cat';
+  src: local('Cheshirskiy Cat'), local('CheshirskiyCat'),
+    url('../fonts/CheshirskiyCat/CheshirskiyCat.woff2') format('woff2'),
+    url('../fonts/CheshirskiyCat/CheshirskiyCat.woff') format('woff'),
+    url('../fonts/CheshirskiyCat/CheshirskiyCat.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

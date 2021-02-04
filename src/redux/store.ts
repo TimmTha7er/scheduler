@@ -7,6 +7,7 @@ import {
   popupsReducer,
   gridReducer,
   rangeReducer,
+  authReducer,
 } from './reducers';
 
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   popups: popupsReducer,
   grid: gridReducer,
   range: rangeReducer,
+  auth: authReducer,
 });
 
 const store = createStore(

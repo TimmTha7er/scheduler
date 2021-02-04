@@ -1,0 +1,35 @@
+.sing-in {
+	max-width: 360px;
+	margin: 0 auto;
+
+	&__field {
+    margin-bottom: 5px;
+  }
+
+	&__label {
+		margin-bottom: 5px;
+  }
+
+	&__title {
+		font-size: 19px;
+		text-align: center;
+		margin-bottom: 20px;
+	}
+
+  &__forgot-password {
+		display: inline-block;
+		font-size: 15px;
+		color: #04b;
+		cursor: pointer;
+    transition: color 0.25s ease-out;
+		margin: 10px 0 20px 0;
+
+		&:hover {
+			color: #c00;
+		}
+	}
+	
+  &__btn {
+    width: 100%;
+  }
+}

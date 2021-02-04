@@ -1,20 +1,29 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
-import { fetchEvents, setDate } from '../redux/actions';
+import { fetchEvents, setDate, setSuccess } from '../redux/actions';
 import { useQuery } from '../components/supports/hooks';
 import { useHistory } from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/ru';
-import { TimeRuler, DayGrid } from '../components';
+import { TimeRuler, DayGrid, HeaderBottom, Message } from '../components';
 
 const DayPage: React.FC = () => {
   const dispatch = useDispatch();
-  const { date } = useSelector((state: RootState) => state.datePicker);
+  const {
+    datePicker: { date },
+    auth: { needVerification, success },
+  } = useSelector((state: RootState) => state);
 
   const history = useHistory();
   const query = useQuery();
   const showDate = query.get('date') || '';
+
+  useEffect(() => {
+    if (success) {
+      dispatch(setSuccess(''));
+    }
+  }, [success, dispatch]);
 
   useEffect(() => {
     dispatch(fetchEvents());
@@ -32,6 +41,11 @@ const DayPage: React.FC = () => {
 
   return (
     <>
+      {needVerification && (
+        <Message type='success' msg='Please verify your email address.' />
+      )}
+      
+      <HeaderBottom></HeaderBottom>
       <div className='day'>
         <div className='day__left-col'>
           <TimeRuler></TimeRuler>

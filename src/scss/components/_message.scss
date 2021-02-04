@@ -1,0 +1,48 @@
+.message {
+  // font-size: 38px;
+  font-size: 1rem;
+  border-radius: 0.375em;
+
+  &_danger {
+    background-color: #feecf0;
+
+    & .message__body {
+      border-color: #f14668;
+      color: #cc0f35;
+    }
+  }
+
+  &_warning {
+    background-color: #fffaeb;
+
+    & .message__body {
+      border-color: #ffe08a;
+      color: #946c00;
+    }
+  }
+
+  &_success {
+    background-color: #effaf5;
+
+    & .message__body {
+      border-color: #48c78e;
+      color: #257953;
+    }
+  }
+
+  &_info {
+    background-color: #eff5fb;
+
+    & .message__body {
+      border-color: #3e8ed0;
+      color: #296fa8;
+    }
+  }
+
+  &__body {
+    border-radius: 0.375em;
+    border-style: solid;
+    border-width: 0 0 0 4px;
+    padding: 1.25em 1.5em;
+  }
+}

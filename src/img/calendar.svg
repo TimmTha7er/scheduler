@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" id="calendar">
+	<g color="#b3b3b3" fill="none">
+		<path d="M-3-3h24v24H-3z"></path>
+		<g transform="translate(1)">
+			<rect height="14" rx="2" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="16" y="3"></rect>
+			<path d="M14 3h2v3H0V3h2V1a1 1 0 112 0v2h8V1a1 1 0 012 0z" fill="currentColor"></path>
+		</g>
+	</g>
+</svg>
