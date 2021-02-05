@@ -2,14 +2,14 @@ import firebase from './firebase/config';
 import { IEvent, ICreatedEvent } from '../redux/interfaces';
 
 export default class SchedulerService {
-  _apiBase = 'calendar';
+  _apiBase = `calendar/users/${this.getUid()}/events`;
 
   _getResource = (url: string) => {
     return firebase.database().ref(`${url}`);
   };
 
   getEvents = async () => {
-    const snapshot = await this._getResource(this._apiBase).once('value');
+    const snapshot = await this._getResource(`${this._apiBase}`).once('value');
 
     if (!snapshot.exists()) {
       throw new Error(`Не удалось получить ${snapshot.ref} }`);
@@ -32,8 +32,13 @@ export default class SchedulerService {
   };
 
   editEvent = async (id: string, updates: { title: string; descr: string }) => {
-    await this._getResource(`${this._apiBase}/${id}/`).update(updates);
+    await this._getResource(`${this._apiBase}/${id}`).update(updates);
   };
+
+  getUid() {
+    const user = firebase.auth().currentUser;
+    return user ? user.uid : null;
+  }
 
   _transformEvent = (newEvent: ICreatedEvent, id: string) => {
     return {
