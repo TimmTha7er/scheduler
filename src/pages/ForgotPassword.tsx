@@ -44,8 +44,20 @@ const ForgotPassword: FC = () => {
     <div className='forgot-password'>
       <h2 className='forgot-password__title'>Сбросить пароль</h2>
       <form className='forgot-password__form' onSubmit={submitHandler}>
-        {error && <Message type='danger' msg={error} />}
-        {success && <Message type='success' msg={success} />}
+        {error && (
+          <Message
+            className='forgot-password__message'
+            type='danger'
+            msg={error}
+          />
+        )}
+        {success && (
+          <Message
+            className='forgot-password__message'
+            type='success'
+            msg={success}
+          />
+        )}
 
         <div className='forgot-password__field'>
           <label className='forgot-password__label label' htmlFor='email'>
@@ -63,8 +75,7 @@ const ForgotPassword: FC = () => {
         </div>
 
         <button className='forgot-password__btn form-button' disabled={loading}>
-          {loading ? 'Loading...' : 'Send password reset email'}
-          {/* Отправить письмо для сброса пароля */}
+          {loading ? 'Loading...' : 'Отправить письмо для сброса пароля'}
         </button>
       </form>
     </div>

@@ -15,6 +15,8 @@ const messages: IMessages = {
     'Адрес электронной почты уже используется другой учетной записью.',
   'Please verify your email address.':
     'Пожалуйста, подтвердите свой адрес электронной почты.',
+  'Password should be at least 6 characters':
+    'Пароль должен состоять минимум из 6 символов.',
 };
 
 export default messages;

@@ -11,9 +11,13 @@
 
   &__top-line {
     display: flex;
-    justify-content: space-between;
+    // justify-content: center;
     align-items: center;
-    margin-bottom: 30px;
+    flex-direction: column;
+    // margin-bottom: 30px;
+
+    padding: 10px 20px 10px 20px;
+    // border-bottom: 1px solid rgba(0,0,0,0.1);
   }
 
   &__bot-line {
@@ -22,6 +26,10 @@
     position: relative;
     padding-top: 25px;
     padding-bottom: 5px;
+  }
+
+  &__logo {
+    margin-bottom: 15px;
   }
 
   &__datepicker {
@@ -98,20 +106,29 @@
 
 .logo {
   display: flex;
+  justify-content: center;
+  width: 100%;
   font-family: 'Cheshirskiy Cat';
+
+  &:hover {
+    .logo__text {
+      color: rgba(0, 0, 0, 0.5);
+    }
+    .logo__img {
+      opacity: .6;
+    }
+  }
 
   &__img {
     max-width: 70px;
     max-height: 70px;
     margin-right: 10px;
+    transition: opacity 0.25s ease-out;
   }
 
   &__text {
     margin-top: 2px;
-
-    &:hover .logo__subtitle {
-      color: #f8d54b;
-    }
+    transition: color 0.25s ease-out;
   }
 
   &__title {
@@ -120,11 +137,28 @@
 
   &__subtitle {
     font-size: 27px;
-    transition: color 0.15s ease-out;
   }
 }
 
 .user-bar {
+  &__sing-out-btn,
+  &__sing-up-btn,
+  &__sing-in-btn {
+    font-size: 18px;
+    color: #4887e1;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: color 0.15s ease-out;
+    margin-right: 20px;
+
+    &:hover {
+      color: #4888e194;
+    }
+    &:active {
+      color: #c00;
+    }
+  }
 }
 
 @media only screen and (max-width: 580px) {

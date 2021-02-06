@@ -1,6 +1,6 @@
 import React, { useState, FormEvent, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { signin, setError } from '../redux/actions';
 import { RootState } from '../redux/store';
 import { Message } from '../components';
@@ -11,6 +11,7 @@ const SignIn: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     return () => {
@@ -26,50 +27,63 @@ const SignIn: React.FC = () => {
     if (error) {
       dispatch(setError(''));
     }
-    
+
     setLoading(true);
     dispatch(signin({ email, password }, () => setLoading(false)));
   };
 
-  return (
-    <div className='sing-in'>
-      <h2 className='sing-in__title'>Войдите, чтобы продолжить</h2>
-      <form className='sing-in__form' onSubmit={submitHandler}>
-        {error && <Message type='danger' msg={error} />}
+  const onSingUpBtnClick = () => {
+    history.push('/sign-up');
+  };
 
-        <div className='sing-in__field'>
-          <label className='sing-in__label label' htmlFor='email'>
+  return (
+    <div className='sign-in'>
+      <h2 className='sign-in__title'>Войдите, чтобы продолжить</h2>
+      <form className='sign-in__form' onSubmit={submitHandler}>
+        {error && (
+          <Message className='sign-in__message' type='danger' msg={error} />
+        )}
+
+        <div className='sign-in__field'>
+          <label className='sign-in__label label' htmlFor='email'>
             Email адрес
           </label>
           <input
-            className='sing-in__input input'
+            className='sign-in__input input'
             type='email'
             name='email'
             value={email}
-            placeholder='Email address'
+            // placeholder='адрес электронной почты'
             onChange={(e) => setEmail(e.currentTarget.value)}
           />
         </div>
-        <div className='sing-in__field'>
-          <label className='sing-in__label label' htmlFor='password'>
+        <div className='sign-in__field'>
+          <label className='sign-in__label label' htmlFor='password'>
             Пароль
           </label>
           <input
-            className='sing-in__input input'
+            className='sign-in__input input'
             type='password'
             name='password'
             value={password}
-            placeholder='Password'
+            // placeholder='ваш пароль'
             onChange={(e) => setPassword(e.currentTarget.value)}
-						autoComplete='off'
+            autoComplete='off'
           />
         </div>
 
-        <Link to='/forgot-password' className='sing-in__forgot-password link'>
+        <Link to='/forgot-password' className='sign-in__forgot-password link'>
           Забыли параль?
         </Link>
-        <button className='sing-in__btn form-button' disabled={loading}>
-          {loading ? 'Loading...' : 'Sign In'}
+        <button className='sign-in__btn form-button' disabled={loading}>
+          {loading ? 'Loading...' : 'Вход'}
+        </button>
+
+        <button
+          onClick={onSingUpBtnClick}
+          className='sign-in__sign-up-btn form-button'
+        >
+          Зарегистрироваться
         </button>
       </form>
     </div>

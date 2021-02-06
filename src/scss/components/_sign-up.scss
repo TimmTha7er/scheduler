@@ -1,6 +1,6 @@
-.sing-up {
+.sign-up {
 	max-width: 360px;
-	margin: 0 auto;
+	margin: 50px auto;
 
 	&__field {
     margin-bottom: 5px;
@@ -20,4 +20,8 @@
 		width: 100%;
 		margin-top: 20px;
   }
+
+	&__message {
+		margin-bottom: 5px;
+	}
 }
