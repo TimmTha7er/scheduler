@@ -6,9 +6,9 @@ import {
   NEED_VERIFICATION,
   SET_SUCCESS,
 } from '../action-types';
-import { AuthActionsType, AuthState } from '../interfaces';
+import { AuthActionsType, IAuthState } from '../interfaces';
 
-const initialState: AuthState = {
+const initialState: IAuthState = {
   user: null,
   authenticated: false,
   loading: false,
@@ -20,7 +20,7 @@ const initialState: AuthState = {
 const authReducer = (
   state = initialState,
   action: AuthActionsType
-): AuthState => {
+): IAuthState => {
   if (action.type === SET_USER) {
     return {
       ...state,

@@ -3,7 +3,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { setLoading, getUserById, setNeedVerification } from '../redux/actions';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import firebase from '../services/firebase/config';
 import {
   HomePage,
@@ -13,7 +13,6 @@ import {
   SignIn,
   ForgotPassword,
 } from '../pages';
-import '../scss/index.scss';
 import {
   Header,
   Popups,
@@ -22,6 +21,7 @@ import {
   PublicRoute,
   PrivateRoute,
 } from '../components';
+import '../scss/index.scss';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -35,10 +35,12 @@ const App: React.FC = () => {
       if (user) {
         dispatch(setLoading(true));
         await dispatch(getUserById(user.uid));
+        
         if (!user.emailVerified) {
           dispatch(setNeedVerification());
         }
       }
+
       dispatch(setLoading(false));
     });
 

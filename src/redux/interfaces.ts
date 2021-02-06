@@ -258,15 +258,15 @@ export type RangeActionsType =
 //		auth
 // ----------------------------------------------
 // reducer
-export interface User {
+export interface IUser {
   firstName: string;
   email: string;
   id: string;
   createdAt: any;
 }
 
-export interface AuthState {
-  user: User | null;
+export interface IAuthState {
+  user: IUser | null;
   authenticated: boolean;
   loading: boolean;
   error: string;
@@ -274,53 +274,53 @@ export interface AuthState {
   success: string;
 }
 
-export interface SignUpData {
+export interface ISignUpData {
   firstName: string;
   email: string;
   password: string;
 }
 
-export interface SignInData {
+export interface ISignInData {
   email: string;
   password: string;
 }
 
 // actions
-interface SetUser {
+interface ISetUser {
   type: typeof SET_USER;
-  payload: User;
+  payload: IUser;
 }
 
-interface SetLoading {
+interface ISetLoading {
   type: typeof SET_LOADING;
   payload: boolean;
 }
 
-interface SignOut {
+interface ISignOut {
   type: typeof SIGN_OUT;
 }
 
-interface SetError {
+interface ISetError {
   type: typeof SET_ERROR;
   payload: string;
 }
 
-interface NeedVerification {
+interface INeedVerification {
   type: typeof NEED_VERIFICATION;
 }
 
-interface SetSuccess {
+interface ISetSuccess {
   type: typeof SET_SUCCESS;
   payload: string;
 }
 
 export type AuthActionsType =
-  | SetUser
-  | SetLoading
-  | SignOut
-  | SetError
-  | NeedVerification
-  | SetSuccess;
+  | ISetUser
+  | ISetLoading
+  | ISignOut
+  | ISetError
+  | INeedVerification
+  | ISetSuccess;
 
 export type AuthThunkActionType = ThunkAction<
   void,

@@ -2,16 +2,23 @@ import firebase from './firebase/config';
 import { IEvent, ICreatedEvent } from '../redux/interfaces';
 
 export default class SchedulerService {
-  _apiBase = `calendar/users/${this.getUid()}/events`;
+  _apiBase = () => `calendar/users/${this.getUid()}/events`;
 
   _getResource = (url: string) => {
     return firebase.database().ref(`${url}`);
   };
 
-  getEvents = async () => {
-    const snapshot = await this._getResource(`${this._apiBase}`).once('value');
+  // grid
+  getUid() {
+    const user = firebase.auth().currentUser;
+    return user ? user.uid : null;
+  }
 
-    if (!snapshot.exists()) {
+  getEvents = async () => {
+    const snapshot = await this._getResource(this._apiBase()).once('value');
+
+    // ??
+    if (!snapshot.exists) {
       throw new Error(`Не удалось получить ${snapshot.ref} }`);
     }
 
@@ -21,24 +28,34 @@ export default class SchedulerService {
   };
 
   addEvent = async (newEvent: ICreatedEvent) => {
-    const res = await this._getResource(`${this._apiBase}`).push(newEvent);
+    const res = await this._getResource(this._apiBase()).push(newEvent);
     const event: IEvent = this._transformEvent(newEvent, res.key!.toString());
 
     return event;
   };
 
   removeEvent = async (id: string) => {
-    await this._getResource(`${this._apiBase}/${id}`).remove();
+    await this._getResource(`${this._apiBase()}/${id}`).remove();
   };
 
-  editEvent = async (id: string, updates: { title: string; descr: string }) => {
-    await this._getResource(`${this._apiBase}/${id}`).update(updates);
-  };
+  editEvent = async (
+    id: string,
+    date: string,
+    updates: { title: string; descr: string }
+  ) => {
+    await this._getResource(`${this._apiBase()}/${id}`).update(updates);
 
-  getUid() {
-    const user = firebase.auth().currentUser;
-    return user ? user.uid : null;
-  }
+    const { title, descr } = updates;
+    const newEvent: IEvent = {
+      [date]: {
+        title,
+        descr,
+        id,
+      },
+    };
+
+    return newEvent;
+  };
 
   _transformEvent = (newEvent: ICreatedEvent, id: string) => {
     return {
