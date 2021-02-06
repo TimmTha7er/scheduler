@@ -28,16 +28,6 @@ export default class AuthService {
       .set(userData);
     await res.user.sendEmailVerification();
 
-    // ???
-    // await firebase
-    //   .database()
-    //   .ref(`calendar/users/${res.user.uid}/events`)
-    //   .push({
-    //     descr: '',
-    //     time: "Sat Feb 06 2021 02:00:00 GMT+0300",
-    //     title: 'Ваша первая заметка',
-    //   });
-
     return userData;
   };
 

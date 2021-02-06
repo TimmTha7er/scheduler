@@ -1,4 +1,5 @@
 import React from 'react';
+import Messages from "../../utils/messages";
 
 interface MessageProps {
   msg: string;
@@ -6,9 +7,14 @@ interface MessageProps {
 }
 
 const Message: React.FC<MessageProps> = ({ msg, type }) => {
+  const message = Messages[msg] || msg;
+
+  console.log('message', Messages[msg]);
+  
+
   return (
     <article className={`message message_${type}`}>
-      <div className='message__body'>{msg}</div>
+      <div className='message__body'>{message}</div>
     </article>
   );
 };

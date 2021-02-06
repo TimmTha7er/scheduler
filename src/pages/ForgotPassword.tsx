@@ -31,7 +31,12 @@ const ForgotPassword: FC = () => {
       dispatch(setError(''));
     }
     setLoading(true);
-    await dispatch(sendPasswordResetEmail(email, 'Email sent!'));
+    await dispatch(
+      sendPasswordResetEmail(
+        email,
+        'Письмо для сброса пароля отправлено на указанный email!'
+      )
+    );
     setLoading(false);
   };
 
@@ -53,7 +58,7 @@ const ForgotPassword: FC = () => {
             value={email}
             onChange={(e) => setEmail(e.currentTarget.value)}
             placeholder='Email address'
-						autoComplete='off'
+            autoComplete='off'
           />
         </div>
 

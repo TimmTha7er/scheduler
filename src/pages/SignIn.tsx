@@ -22,9 +22,11 @@ const SignIn: React.FC = () => {
 
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
+
     if (error) {
       dispatch(setError(''));
     }
+    
     setLoading(true);
     dispatch(signin({ email, password }, () => setLoading(false)));
   };
