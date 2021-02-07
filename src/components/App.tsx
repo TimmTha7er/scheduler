@@ -2,7 +2,12 @@ import React, { useEffect } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
-import { setLoading, getUserById, setNeedVerification } from '../redux/actions';
+import {
+  setLoading,
+  getUserById,
+  setNeedVerification,
+  fetchEvents,
+} from '../redux/actions';
 import { Switch } from 'react-router-dom';
 import firebase from '../services/firebase/config';
 import {
@@ -35,10 +40,13 @@ const App: React.FC = () => {
       if (user) {
         dispatch(setLoading(true));
         await dispatch(getUserById(user.uid));
-        
+
         if (!user.emailVerified) {
           dispatch(setNeedVerification());
         }
+
+        // 
+        dispatch(fetchEvents());
       }
 
       dispatch(setLoading(false));

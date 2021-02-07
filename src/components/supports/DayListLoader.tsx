@@ -4,7 +4,6 @@ import ContentLoader from 'react-content-loader';
 const DayListLoader: React.FC = () => {
   let y = -53;
   return (
-    // <div className='day content__day'>
     <ContentLoader
       speed={3}
       width={915}
@@ -21,19 +20,10 @@ const DayListLoader: React.FC = () => {
         .map((_, idx) => {
           y += 56.3;
           return (
-            <rect
-              key={idx}
-              x='0'
-              y={y}
-              rx='3'
-              ry='3'
-              width='915'
-              height='50'
-            />
+            <rect key={idx} x='0' y={y} rx='3' ry='3' width='915' height='50' />
           );
         })}
     </ContentLoader>
-    // </div>
   );
 };
 

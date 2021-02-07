@@ -31,7 +31,7 @@ const DayPage: React.FC = () => {
   }, [success, dispatch]);
 
   useEffect(() => {
-    dispatch(fetchEvents());
+    // dispatch(fetchEvents());
 
     if (showDate === '') {
       history.push({

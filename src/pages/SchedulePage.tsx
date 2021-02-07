@@ -41,7 +41,7 @@ const SchedulePage: React.FC = () => {
 
   // ????
   useEffect(() => {
-    dispatch(fetchEvents());
+    // dispatch(fetchEvents());
 
     if (showDate === '') {
       history.push({

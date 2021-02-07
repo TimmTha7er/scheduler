@@ -54,15 +54,6 @@ export const editEvent = ({
     try {
       const newEvent = await schedulerService.editEvent(id, date, updates);
 
-      // const { title, descr } = updates;
-      // const newEvent: IEvent = {
-      //   [date]: {
-      //     title,
-      //     descr,
-      //     id,
-      //   },
-      // };
-
       dispatch({
         type: EDIT_EVENT,
         payload: newEvent,
