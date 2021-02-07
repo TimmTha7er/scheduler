@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/ru';
 import { buildRange, RangeType } from './buildRange';
-import { DayList, RangeDatePicker } from '../../components';
+import { DayList, RangeDatePicker, EmptyDayList } from '../../components';
 import { useQuery } from '../supports/hooks';
 
 const Range: React.FC = () => {
@@ -87,7 +87,12 @@ const Range: React.FC = () => {
         </div>
       </div>
 
-      <DayList range={range}></DayList>
+      <DayList
+        range={range}
+        msg={`c ${startOfRange.format('DD-MM-YYYY')} по ${endOfRange.format(
+          'DD-MM-YYYY'
+        )}`}
+      />
     </>
   );
 };

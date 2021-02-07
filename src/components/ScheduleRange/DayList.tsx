@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { RangeType, DayOfRangeType } from './buildRange';
 import { setPreviewPopupVisible, setRowDate } from '../../redux/actions';
-import { EventList } from '../../components';
+import { EventList, EmptyDayList } from '../../components';
 
 interface DayListProps {
   range: RangeType;
+  msg: string;
 }
 
-const DayList: React.FC<DayListProps> = ({ range }) => {
+const DayList: React.FC<DayListProps> = ({ range, msg }) => {
   const dispatch = useDispatch();
   const {
     grid: { rowDate },
@@ -23,6 +24,10 @@ const DayList: React.FC<DayListProps> = ({ range }) => {
     },
     [dispatch]
   );
+
+  if (range.length === 0) {
+    return <EmptyDayList msg={msg || ''} />;
+  }
 
   return (
     <div className='schedule-range__day-list'>

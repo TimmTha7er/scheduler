@@ -86,7 +86,7 @@ const NextDays: React.FC<any> = () => {
         </div>
       </form>
 
-      <DayList range={range}></DayList>
+      <DayList range={range} msg={`за ближайшие ${num} ${selectValue}`} />
     </>
   );
 };

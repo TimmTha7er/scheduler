@@ -9,14 +9,14 @@ interface DatePickerProps {
   date: moment.Moment;
   setDate: (day: moment.Moment) => object;
   setVisible: (value: boolean) => object;
-  owner: string;
+  className: string;
 }
 
 const DatePicker: React.FC<DatePickerProps> = ({
   date,
   setDate,
   setVisible,
-  owner,
+  className
 }) => {
   const [value, setValue] = useState<moment.Moment>(date);
 
@@ -50,7 +50,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
   );
 
   return (
-    <div className={`datepicker ${owner}__datepicker`}>
+    <div className={`datepicker ${className}`}>
       <div className='datepicker__header'>
         <button
           onClick={onBtnPrevClick}

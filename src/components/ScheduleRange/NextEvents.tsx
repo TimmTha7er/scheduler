@@ -16,7 +16,7 @@ const NextEvents: React.FC = () => {
   } = useSelector((state: RootState) => state);
   const [range, setRange] = useState<RangeType>([]);
   const inputRef = useFocus();
-  
+
   const history = useHistory();
   const query = useQuery();
   const num = query.get('num') || '';
@@ -80,7 +80,10 @@ const NextEvents: React.FC = () => {
         </div>
       </form>
 
-      <DayList range={range}></DayList>
+      <DayList
+        range={range}
+        msg={`с ${moment().clone().startOf('hour').format('DD-MM-YYYY HH:mm')}`}
+      />
     </>
   );
 };

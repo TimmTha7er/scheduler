@@ -54,16 +54,19 @@ const ControlPanel: React.FC = () => {
   return (
     <div className='control-panel'>
       <div ref={datePickerRef} className='control-panel__date-wrap'>
-        <div onClick={onSelectedDateClick} className='control-panel__selected-date'>
+        <div
+          onClick={onSelectedDateClick}
+          className='control-panel__selected-date'
+        >
           <div className='control-panel__selected-month'>{selectedMonth}</div>
           <div className='control-panel__selected-year'>{selectedYear}</div>
         </div>
         <div className='datepicker__wrap'>
           {isVisible && (
             <DatePicker
+              className='control-panel__datepicker'
               date={date}
               setDate={setDatePickerDate}
-              owner={'control-panel'}
               setVisible={setVisibleCallback}
             ></DatePicker>
           )}

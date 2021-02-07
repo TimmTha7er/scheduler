@@ -12,6 +12,7 @@ export { default as SelectedDate } from './DatePicker/SelectedDate';
 export { default as Tooltip } from './DatePicker/Tooltip';
 
 export { default as DayList } from './ScheduleRange/DayList';
+export { default as EmptyDayList } from './ScheduleRange/EmptyDayList';
 export { default as EventList } from './ScheduleRange/EventList';
 export { default as Range } from './ScheduleRange/Range';
 export { default as NextDays } from './ScheduleRange/NextDays';

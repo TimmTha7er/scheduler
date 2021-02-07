@@ -48,7 +48,7 @@ const RangeDatePicker: React.FC<RangeDatePickerProps> = ({
       </div>
       {isVisible && (
         <DatePicker
-          owner={'schedule-range'}
+          className={'schedule-range__datepicker'}
           date={date}
           setDate={setRangeDate}
           setVisible={setRabgeVisible}
