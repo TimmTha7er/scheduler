@@ -1,0 +1,127 @@
+// ----------------------------------------------
+//		header
+// ----------------------------------------------
+.control-panel {
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  padding-bottom: 5px;
+
+  &__datepicker {
+    position: absolute;
+    top: 70px;
+    left: 10px;
+    max-width: 285px;
+    z-index: 21;
+  }
+
+  &__selected-date {
+    display: flex;
+    position: relative;
+    justify-content: flex-start;
+    font-size: 20px;
+    padding-left: 5px;
+    margin: 1px 0 12px 0;
+    transition: color 0.15s ease-out;
+
+    &:hover {
+      color: rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  &__selected-month {
+    margin-right: 8px;
+    cursor: pointer;
+    user-select: none;
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  &__selected-year {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  &__btns-wrap {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+  }
+
+  &__range-btn {
+    font-size: 15px;
+    line-height: 18px;
+    padding: 8px 22px;
+    margin-right: 15px;
+    border: solid 1px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+    transition: background-color 0.15s ease-out;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 1px 0 1px rgba(0, 0, 0, 0.05),
+      0 4px 6px 0 rgba(0, 0, 0, 0.05);
+    margin-bottom: 12px;
+    user-select: none;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    &:active {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &__gridnav {
+    margin-left: 50px;
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  .control-panel {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+
+    &__gridnav {
+      margin-left: 0;
+      margin-bottom: 10px;
+      box-shadow: none !important;
+    }
+
+    &__wrap {
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    &__datepicker {
+      top: 100px;
+      left: 0 !important;
+      width: 100%;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+    }
+
+    &__range-btn {
+      box-shadow: none !important;
+      // font-size: 14px;
+      padding: 6px 20px;
+      margin-right: 0px;
+    }
+
+    &__btns-wrap {
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .header {
+    &__gridnav {
+      // margin:  0 auto 10px auto;
+    }
+    &__btns-wrap {
+      // flex-direction: column-reverse;
+      // justify-content: center;
+    }
+  }
+}

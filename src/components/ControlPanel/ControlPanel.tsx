@@ -11,7 +11,7 @@ import { useClickOutside } from '../supports/hooks';
 import { GridNav, DatePicker, RangeBtn } from '../../components';
 import { useHistory } from 'react-router-dom';
 
-const HeaderBottom: React.FC = () => {
+const ControlPanel: React.FC = () => {
   const dispatch = useDispatch();
   const {
     datePicker: { date, isVisible },
@@ -52,24 +52,24 @@ const HeaderBottom: React.FC = () => {
   const datePickerRef = useClickOutside(setVisibleCallback);
 
   return (
-    <div className='header__bot-line'>
-      <div ref={datePickerRef} className='header__date-wrap'>
-        <div onClick={onSelectedDateClick} className='header__selected-date'>
-          <div className='header__selected-month'>{selectedMonth}</div>
-          <div className='header__selected-year'>{selectedYear}</div>
+    <div className='control-panel'>
+      <div ref={datePickerRef} className='control-panel__date-wrap'>
+        <div onClick={onSelectedDateClick} className='control-panel__selected-date'>
+          <div className='control-panel__selected-month'>{selectedMonth}</div>
+          <div className='control-panel__selected-year'>{selectedYear}</div>
         </div>
         <div className='datepicker__wrap'>
           {isVisible && (
             <DatePicker
               date={date}
               setDate={setDatePickerDate}
-              owner={'header'}
+              owner={'control-panel'}
               setVisible={setVisibleCallback}
             ></DatePicker>
           )}
         </div>
       </div>
-      <div className='header__btns-wrap'>
+      <div className='control-panel__btns-wrap'>
         <GridNav setDate={setGridDate}></GridNav>
         <RangeBtn></RangeBtn>
       </div>
@@ -77,4 +77,4 @@ const HeaderBottom: React.FC = () => {
   );
 };
 
-export default HeaderBottom;
+export default ControlPanel;

@@ -22,7 +22,7 @@ const RangeBtn: React.FC = () => {
       {location.pathname === '/day' ? (
         <NavLink
           onClick={onRangeBtnClick}
-          className='link header__range-btn'
+          className='link control-panel__range-btn'
           exact
           to={{
             pathname: `/schedule/range`,
@@ -36,7 +36,7 @@ const RangeBtn: React.FC = () => {
       ) : (
         <NavLink
           onClick={onRangeBtnClick}
-          className='link header__range-btn'
+          className='link control-panel__range-btn'
           exact
           to={{
             pathname: `/day`,

@@ -19,9 +19,9 @@ import {
   NextDays,
   NextEvents,
   NotFound,
-  HeaderBottom,
   PrivateRoute,
-  PublicRoute
+  PublicRoute,
+  ControlPanel
 } from '../components';
 
 const SchedulePage: React.FC = () => {
@@ -59,7 +59,8 @@ const SchedulePage: React.FC = () => {
 
   return (
     <>
-      <HeaderBottom></HeaderBottom>
+      <ControlPanel></ControlPanel>
+
       <div className='schedule-range'>
         <nav className='schedule-range__nav'>
           <NavLink

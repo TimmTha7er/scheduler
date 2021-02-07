@@ -103,7 +103,7 @@ const GridNav: React.FC<GridNavProps> = ({ setDate }) => {
   };
 
   return (
-    <div className='gridnav header__gridnav'>
+    <div className='gridnav control-panel__gridnav'>
       <button
         onClick={onPrevBtnClick}
         // className='gridnav__btn gridnav__btn_prev icon icon-left-open-big'
