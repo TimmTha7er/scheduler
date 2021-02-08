@@ -27,7 +27,6 @@ import {
 import {
   Header,
   Popups,
-  NotFound,
   AppLoader,
   PublicRoute,
   PrivateRoute,
@@ -37,25 +36,13 @@ import '../scss/index.scss';
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state: RootState) => state.auth);
-  const history = useHistory();
-  const match = useRouteMatch();
-  const params = useParams();
-  const location = useLocation();
 
   // Check if user exists
   useEffect(() => {
-    console.log('app useEffect');
-
     dispatch(setLoading(true));
 
     const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
-        console.log('app useEffect if user');
-        // console.log(' history', history);
-        // console.log(' match', match);
-        // console.log(' params', params);
-        // console.log(' location', location);
-
         dispatch(setLoading(true));
         await dispatch(getUserById(user.uid));
 
@@ -63,11 +50,8 @@ const App: React.FC = () => {
           dispatch(setNeedVerification());
         }
 
-        //
+        // get events
         dispatch(fetchEvents());
-
-        // location.state({app: 'fa'});
-        // history.push({ state: { from: location } });
       }
 
       dispatch(setLoading(false));
@@ -79,7 +63,12 @@ const App: React.FC = () => {
   }, [dispatch]);
 
   if (loading) {
-    return <AppLoader />;
+    return (
+      <div className='container'>
+        <Header></Header>
+        <AppLoader />
+      </div>
+    );
   }
 
   return (
