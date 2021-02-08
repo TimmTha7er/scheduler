@@ -13,7 +13,6 @@ const RangeBtn: React.FC = () => {
   const location = useLocation();
 
   const onRangeBtnClick = (): void => {
-    console.log('onRangeBtnClick location', location);
     dispatch(setALLPopupsUnvisible());
     dispatch(setRowDate(null));
   };

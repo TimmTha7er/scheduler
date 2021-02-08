@@ -59,9 +59,10 @@
   color: rgb(36, 68, 113);
   background-color: rgba(72, 135, 225, 0.25);
   height: 100%;
+  overflow: hidden;
 
   &__inner {
-    max-width: 240px;
+    max-width: 500px;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 3;

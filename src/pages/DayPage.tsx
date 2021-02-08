@@ -6,12 +6,7 @@ import { useQuery } from '../components/supports/hooks';
 import { useHistory } from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/ru';
-import {
-  TimeRuler,
-  DayGrid,
-  Message,
-  ControlPanel,
-} from '../components';
+import { TimeRuler, DayGrid, Message, ControlPanel } from '../components';
 
 const DayPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -32,10 +27,8 @@ const DayPage: React.FC = () => {
 
   useEffect(() => {
     // console.log('history day page', history);
-    
     // history.push({ state: { fromDayPage: true } });
     // dispatch(fetchEvents());
-
     // if (showDate === '') {
     //   history.push({
     //     search: `?date=${date.format('YYYY-MM-DD')}`,
@@ -50,19 +43,21 @@ const DayPage: React.FC = () => {
   return (
     <>
       {needVerification && (
-        <Message type='success' msg='Please verify your email address.' />
+        <Message
+          className='main__msg'
+          type='success'
+          msg='Please verify your email address.'
+        />
       )}
-
-      <ControlPanel></ControlPanel>
+      <ControlPanel />
       <div className='day'>
         <div className='day__left-col'>
-          <TimeRuler></TimeRuler>
+          <TimeRuler />
         </div>
         <div className='day__right-col'>
-          <DayGrid></DayGrid>
+          <DayGrid />
         </div>
       </div>
-      {/* <Popups /> */}
     </>
   );
 };

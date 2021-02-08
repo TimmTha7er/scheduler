@@ -294,7 +294,7 @@
   }
 
   &__title-inner {
-    max-width: 340px;
+    max-width: 250px;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -345,6 +345,10 @@
 
 @media only screen and (max-width: 580px) {
   .tooltip {
+    &__title-inner {
+      max-width: 150px;
+    }
+
     &__circle {
       margin-right: 15px;
       margin-left: 15px;
