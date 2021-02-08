@@ -16,6 +16,7 @@ const ForgotPassword: FC = () => {
       if (error) {
         dispatch(setError(''));
       }
+
       if (success) {
         dispatch(setSuccess(''));
       }
@@ -24,12 +25,15 @@ const ForgotPassword: FC = () => {
 
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
+
     if (success) {
       dispatch(setSuccess(''));
     }
+
     if (error) {
       dispatch(setError(''));
     }
+    
     setLoading(true);
     await dispatch(
       sendPasswordResetEmail(

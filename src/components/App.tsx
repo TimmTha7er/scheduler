@@ -8,7 +8,13 @@ import {
   setNeedVerification,
   fetchEvents,
 } from '../redux/actions';
-import { Switch } from 'react-router-dom';
+import {
+  Switch,
+  useHistory,
+  useParams,
+  useRouteMatch,
+  useLocation,
+} from 'react-router-dom';
 import firebase from '../services/firebase/config';
 import {
   HomePage,
@@ -31,13 +37,25 @@ import '../scss/index.scss';
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state: RootState) => state.auth);
+  const history = useHistory();
+  const match = useRouteMatch();
+  const params = useParams();
+  const location = useLocation();
 
   // Check if user exists
   useEffect(() => {
+    console.log('app useEffect');
+
     dispatch(setLoading(true));
 
     const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
+        console.log('app useEffect if user');
+        // console.log(' history', history);
+        // console.log(' match', match);
+        // console.log(' params', params);
+        // console.log(' location', location);
+
         dispatch(setLoading(true));
         await dispatch(getUserById(user.uid));
 
@@ -45,8 +63,11 @@ const App: React.FC = () => {
           dispatch(setNeedVerification());
         }
 
-        // 
+        //
         dispatch(fetchEvents());
+
+        // location.state({app: 'fa'});
+        // history.push({ state: { from: location } });
       }
 
       dispatch(setLoading(false));
@@ -74,7 +95,7 @@ const App: React.FC = () => {
               <PublicRoute path='/sign-up' component={SignUp} />
               <PublicRoute path='/sign-in' component={SignIn} />
               <PublicRoute path='/forgot-password' component={ForgotPassword} />
-              <PublicRoute component={NotFound} />
+              {/* <PublicRoute component={NotFound} /> */}
             </Switch>
           </main>
         </div>

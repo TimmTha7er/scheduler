@@ -66,3 +66,24 @@
     }
   }
 }
+
+@media only screen and (max-width: 480px) {
+  .header {
+    padding: 10px 10px 0px 10px;
+  }
+
+  .logo {
+    &__img {
+      max-width: 60px;
+      max-height: 60px;
+    }
+
+    &__title {
+      font-size: 33px;
+    }
+  
+    &__subtitle {
+      font-size: 23px;
+    }
+  }
+}

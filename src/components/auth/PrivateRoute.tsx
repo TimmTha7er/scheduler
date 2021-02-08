@@ -1,20 +1,36 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { Route, Redirect, RouteProps } from 'react-router-dom';
+import { Route, Redirect, RouteProps, useLocation } from 'react-router-dom';
 
-interface Props extends RouteProps {
-  component: any;
+interface PrivateRouteProps extends RouteProps {
+  component: React.ComponentType<RouteProps>;
 }
 
-const PrivateRoute: React.FC<Props> = ({ component: Component, ...rest }) => {
+const PrivateRoute: React.FC<PrivateRouteProps> = ({
+  component: Component,
+  ...rest
+}) => {
   const { authenticated } = useSelector((state: RootState) => state.auth);
+  const location = useLocation();
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        authenticated ? <Component {...props} /> : <Redirect to='/sign-in' />
+        authenticated ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/sign-in',
+              state: {
+                from: location.pathname,
+                query: location.search,
+              },
+            }}
+          />
+        )
       }
     />
   );

@@ -49,6 +49,10 @@ const Range: React.FC = () => {
       search: `?start=${value.format('YYYY-MM-DD')}&end=${endOfRange.format(
         'YYYY-MM-DD'
       )}`,
+      // state: {
+      //   from: history.location.pathname,
+      //   query: `?start=${startDate}&end=${endDate}`,
+      // },
     });
     return setStartOFRange(value);
   };
@@ -58,6 +62,10 @@ const Range: React.FC = () => {
       search: `?start=${startOfRange.format('YYYY-MM-DD')}&end=${value.format(
         'YYYY-MM-DD'
       )}`,
+      // state: {
+      //   from: history.location.pathname,
+      //   query: `?start=${startDate}&end=${endDate}`,
+      // },
     });
 
     return setEndOFRange(value);

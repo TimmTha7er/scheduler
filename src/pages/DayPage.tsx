@@ -31,13 +31,16 @@ const DayPage: React.FC = () => {
   }, [success, dispatch]);
 
   useEffect(() => {
+    // console.log('history day page', history);
+    
+    // history.push({ state: { fromDayPage: true } });
     // dispatch(fetchEvents());
 
-    if (showDate === '') {
-      history.push({
-        search: `?date=${date.format('YYYY-MM-DD')}`,
-      });
-    }
+    // if (showDate === '') {
+    //   history.push({
+    //     search: `?date=${date.format('YYYY-MM-DD')}`,
+    //   });
+    // }
   }, []);
 
   useEffect(() => {

@@ -2,6 +2,7 @@ import React, { useState, FormEvent, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { signup, setError } from '../redux/actions';
+import { Link } from 'react-router-dom';
 import { Message } from '../components';
 
 const SignUp: React.FC = () => {
@@ -20,7 +21,7 @@ const SignUp: React.FC = () => {
     };
   }, [error, dispatch]);
 
-  const submitHandler = (e: FormEvent) => {
+  const onSubmitClick = (e: FormEvent) => {
     e.preventDefault();
 
     if (error) {
@@ -34,7 +35,7 @@ const SignUp: React.FC = () => {
   return (
     <div className='sign-up'>
       <h2 className='sign-up__title'>Регистрация</h2>
-      <form className='sign-up__form' onSubmit={submitHandler}>
+      <form className='sign-up__form' onSubmit={onSubmitClick}>
         {error && (
           <Message className='sign-up__message' type='danger' msg={error} />
         )}
@@ -80,6 +81,10 @@ const SignUp: React.FC = () => {
             autoComplete='off'
           />
         </div>
+
+        <Link to='/sign-in' className='sign-up__already-registered link'>
+          Уже есть аккаунт?
+        </Link>
 
         <button className='sign-up__btn form-button' disabled={loading}>
           {loading ? 'Loading...' : 'Зарегистрироваться'}

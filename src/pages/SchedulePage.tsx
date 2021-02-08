@@ -13,6 +13,7 @@ import {
   useRouteMatch,
   NavLink,
   useHistory,
+  useLocation,
 } from 'react-router-dom';
 import {
   Range,
@@ -21,7 +22,7 @@ import {
   NotFound,
   PrivateRoute,
   PublicRoute,
-  ControlPanel
+  ControlPanel,
 } from '../components';
 
 const SchedulePage: React.FC = () => {
@@ -36,21 +37,32 @@ const SchedulePage: React.FC = () => {
   const match = useRouteMatch();
 
   const history = useHistory();
+  // const location = useLocation();
   const query = useQuery();
-  const showDate = query.get('date') || '';
 
   // ????
   useEffect(() => {
     // dispatch(fetchEvents());
+    // const start = query.get('start');
+    // const end = query.get('end');
 
-    if (showDate === '') {
-      history.push({
-        search: `?start=${startOfRange.format(
-          'YYYY-MM-DD'
-        )}&end=${endOfRange.format('YYYY-MM-DD')}`,
-      });
-    }
-  }, []);
+    // console.log('start', start);
+    // console.log('end', end);
+
+    // if (!start || !end) {
+    //   history.push({
+    //     search: `?start=${startOfRange.format(
+    //       'YYYY-MM-DD'
+    //     )}&end=${endOfRange.format('YYYY-MM-DD')}`,
+    //     state: {
+    //       from: history.location.pathname,
+    //       query: `?start=${startOfRange.format(
+    //         'YYYY-MM-DD'
+    //       )}&end=${endOfRange.format('YYYY-MM-DD')}`,
+    //     },
+    //   });
+    // }
+  });
 
   const onLinkClick = () => {
     dispatch(setALLPopupsUnvisible());
@@ -107,7 +119,7 @@ const SchedulePage: React.FC = () => {
             path={`${match.path}/n-events`}
             component={NextEvents}
           />
-          <PublicRoute component={NotFound} />
+          {/* <PublicRoute component={NotFound} /> */}
         </Switch>
       </div>
     </>

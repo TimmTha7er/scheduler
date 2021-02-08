@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { setALLPopupsUnvisible, setRowDate } from '../../redux/actions';
 import { RootState } from '../../redux/store';
 
@@ -13,6 +13,7 @@ const RangeBtn: React.FC = () => {
   const location = useLocation();
 
   const onRangeBtnClick = (): void => {
+    console.log('onRangeBtnClick location', location);
     dispatch(setALLPopupsUnvisible());
     dispatch(setRowDate(null));
   };
@@ -20,10 +21,9 @@ const RangeBtn: React.FC = () => {
   return (
     <>
       {location.pathname === '/day' ? (
-        <NavLink
+        <Link
           onClick={onRangeBtnClick}
           className='link control-panel__range-btn'
-          exact
           to={{
             pathname: `/schedule/range`,
             search: `start=${startOfRange.format(
@@ -32,19 +32,18 @@ const RangeBtn: React.FC = () => {
           }}
         >
           Расписание
-        </NavLink>
+        </Link>
       ) : (
-        <NavLink
+        <Link
           onClick={onRangeBtnClick}
           className='link control-panel__range-btn'
-          exact
           to={{
             pathname: `/day`,
             search: `date=${date.format('YYYY-MM-DD')}`,
           }}
         >
           День
-        </NavLink>
+        </Link>
       )}
     </>
   );

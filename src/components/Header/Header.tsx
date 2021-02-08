@@ -17,19 +17,16 @@ const Header: React.FC = () => {
 
   return (
     <header className='header'>
-      <a href='/' className='header__logo logo link'>
+      <Link to='/' className='header__logo logo link'>
         <img className='logo__img' src={logoImg} alt='logo cat' />
         <div className='logo__text'>
           <h4 className='logo__subtitle'>Мурр-Мяуу</h4>
           <h1 className='logo__title'>Календарь</h1>
         </div>
-      </a>
+      </Link>
       <div className='user-bar'>
         {!authenticated ? (
           <div className='buttons'>
-            {/* <Link to='/sign-up' className='user-bar__sing-up-btn  link'>
-                Регистрация
-              </Link> */}
             <Link to='/sign-in' className='user-bar__sing-in-btn  link'>
               Войти
             </Link>

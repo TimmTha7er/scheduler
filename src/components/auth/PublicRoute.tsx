@@ -1,21 +1,48 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Route, Redirect, RouteProps } from 'react-router-dom';
+import {
+  Route,
+  Redirect,
+  RouteProps,
+  // useHistory,
+  // useRouteMatch,
+  // useParams,
+  useLocation,
+} from 'react-router-dom';
 
 import { RootState } from '../../redux/store';
 
-interface Props extends RouteProps {
+interface PublicRouteProps extends RouteProps {
   component: any;
 }
 
-const PublicRoute: React.FC<Props> = ({ component: Component, ...rest }) => {
-  const { authenticated } = useSelector((state: RootState) => state.auth);
+const PublicRoute: React.FC<PublicRouteProps> = ({
+  component: Component,
+  ...rest
+}) => {
+  const {
+    auth: { authenticated },
+    datePicker: { date },
+  } = useSelector((state: RootState) => state);
+  // const history = useHistory();
+  const { state } = useLocation<{ from: string; query: string }>();
+  const { from, query } = state || {};
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        !authenticated ? <Component {...props} /> : <Redirect to='/day' />
+        !authenticated ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: from || '/day',
+              search: query || `?date=${date.format('YYYY-MM-DD')}`,
+              // state: history.location.state,
+            }}
+          />
+        )
       }
     />
   );

@@ -21,6 +21,8 @@ const schedulerService = new SchedulerService();
 export const fetchEvents = (): GridThunkActionType => {
   return async (dispatch) => {
     try {
+      // console.log('fetch events');
+      
       dispatch(eventsRequested());
       const events = await schedulerService.getEvents();
       dispatch(eventsLoaded(events));

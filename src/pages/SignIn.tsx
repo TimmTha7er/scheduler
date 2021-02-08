@@ -21,7 +21,7 @@ const SignIn: React.FC = () => {
     };
   }, [error, dispatch]);
 
-  const submitHandler = (e: FormEvent) => {
+  const onSubmitClick = (e: FormEvent) => {
     e.preventDefault();
 
     if (error) {
@@ -39,7 +39,7 @@ const SignIn: React.FC = () => {
   return (
     <div className='sign-in'>
       <h2 className='sign-in__title'>Войдите, чтобы продолжить</h2>
-      <form className='sign-in__form' onSubmit={submitHandler}>
+      <form className='sign-in__form' onSubmit={onSubmitClick}>
         {error && (
           <Message className='sign-in__message' type='danger' msg={error} />
         )}
