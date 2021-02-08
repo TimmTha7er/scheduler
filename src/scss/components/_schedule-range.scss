@@ -70,8 +70,6 @@
     margin-right: 15px;
   }
 
-  // &__start-date,
-  // &__end-date {
   &__start-date,
   &__end-date {
     font-size: 25px;
@@ -203,14 +201,12 @@
     padding-right: 10px;
     padding-left: 20px;
     user-select: none;
-    // white-space: nowrap;
   }
 
   &__input {
     max-width: 60px;
     color: #000;
     padding: 7px;
-    // margin-right: 15px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     transition: border-color 0.15s ease-out, border-width 0.15s ease-out,
       outline-color 0.25s ease-out;
@@ -241,7 +237,6 @@
 @media only screen and (max-width: 580px) {
   .schedule-range {
     &__datepicker {
-      // left: -130px !important;
       box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
     }
 
@@ -277,7 +272,6 @@
   .next-events {
     &__label {
       padding-left: 0px;
-     
     }
 
     &__input {
@@ -293,13 +287,11 @@
       align-items: flex-start;
     }
     &__input {
-      // width: 90%;
       max-width: 200px;
       margin-bottom: 10px;
     }
     &__label {
       margin-bottom: 10px;
-      // display: block;
     }
   }
 }
@@ -360,19 +352,6 @@
   .event-list {
     &__title-inner {
       max-width: 140px;
-    }
-  }
-
-  .next-events,
-  .next-days {
-    &__field {
-      // margin-left: 0px;
-      // padding-left: 0;
-      // font-size: 19px;
-    }
-
-    &__label {
-      // padding-left: 10px;
     }
   }
 }

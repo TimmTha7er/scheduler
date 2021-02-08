@@ -14,10 +14,6 @@ const DayListLoader: React.FC = () => {
         backgroundColor='#f3f3f3'
         foregroundColor='#ecebeb'
       >
-        {/* header */}
-        {/* <rect x='15' y='10' rx='10' ry='10' width='250' height='70' />
-        <rect x='850' y='10' rx='10' ry='10' width='120' height='70' /> */}
-
         {/* control panel */}
         <rect x='5' y='10' rx='10' ry='10' width='125' height='25' />
         <rect x='170' y='10' rx='10' ry='10' width='220' height='25' />

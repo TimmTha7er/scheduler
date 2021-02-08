@@ -43,7 +43,7 @@ const NextDays: React.FC<any> = () => {
     const inputValue = event.currentTarget.value;
     const pattern = /^[0-9\b]+$/;
 
-    if (pattern.test(inputValue)) {
+    if (pattern.test(inputValue) || inputValue === '') {
       history.push({
         search: `?num=${inputValue}&interval=${interval}`,
       });

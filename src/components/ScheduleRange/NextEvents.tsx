@@ -48,7 +48,7 @@ const NextEvents: React.FC = () => {
     const inputValue = event.currentTarget.value;
     const pattern = /^[0-9\b]+$/;
 
-    if (pattern.test(inputValue)) {
+    if (pattern.test(inputValue) || inputValue === '') {
       history.push({
         search: `?num=${inputValue}`,
       });
