@@ -14,7 +14,7 @@ const NextEvents: React.FC = () => {
   const {
     grid: { events },
   } = useSelector((state: RootState) => state);
-  const [range, setRange] = useState<RangeType>([]);
+  const [range, setRange] = useState<RangeType | null>(null);
   const inputRef = useFocus();
 
   const history = useHistory();

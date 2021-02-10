@@ -36,6 +36,7 @@ import '../scss/index.scss';
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state: RootState) => state.auth);
+  const location = useLocation();
 
   // Check if user exists
   useEffect(() => {
@@ -62,7 +63,9 @@ const App: React.FC = () => {
     };
   }, [dispatch]);
 
-  if (loading) {
+  if (loading ) {
+
+    
     return (
       <div className='container'>
         <Header></Header>

@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/ru';
 import { buildRange, RangeType } from './buildRange';
-import { DayList, RangeDatePicker, EmptyDayList } from '../../components';
+import { DayList, RangeDatePicker } from '../../components';
 import { useQuery } from '../supports/hooks';
 
 const Range: React.FC = () => {
@@ -25,7 +25,7 @@ const Range: React.FC = () => {
       isRightDatePickerVisible,
     },
   } = useSelector((state: RootState) => state);
-  const [range, setRange] = useState<RangeType>([]);
+  const [range, setRange] = useState<RangeType | null>(null);
   const history = useHistory();
 
   let query = useQuery();

@@ -1,5 +1,5 @@
 .home {
-  padding-top: 30px;
+  padding-top: 85px;
   text-align: center;
 
   &__greeting {
@@ -14,7 +14,7 @@
 
 @media only screen and (max-width: 480px) {
   .home {
-    padding-top: 15px;
+    padding-top: 55px;
 
     &__greeting {
       font-size: 18px;

@@ -15,7 +15,7 @@ const NextDays: React.FC<any> = () => {
     grid: { events },
     range: { selectValue },
   } = useSelector((state: RootState) => state);
-  const [range, setRange] = useState<RangeType>([]);
+  const [range, setRange] = useState<RangeType | null>(null);
   const inputRef = useFocus();
 
   const history = useHistory();
