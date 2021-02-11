@@ -2,7 +2,6 @@ import firebase from './firebase/config';
 import { IUser } from '../redux/interfaces';
 
 export default class AuthService {
-  // auth
   signUp = async (email: string, password: string, firstName: string) => {
     const res = await firebase
       .auth()
@@ -19,6 +18,7 @@ export default class AuthService {
       firstName: firstName,
       id: res.user.uid,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      role: 'user',
     };
 
     await firebase

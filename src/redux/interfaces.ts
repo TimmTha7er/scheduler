@@ -263,6 +263,7 @@ export interface IUser {
   email: string;
   id: string;
   createdAt: any;
+  role: 'user' | 'admin';
 }
 
 export interface IAuthState {

@@ -42,5 +42,6 @@ export { default as Message } from './supports/Message';
 
 export { default as PublicRoute } from './auth/PublicRoute';
 export { default as PrivateRoute } from './auth/PrivateRoute';
+export { default as AdminRoute } from './auth/AdminRoute';
 
 export { default as App } from './App';

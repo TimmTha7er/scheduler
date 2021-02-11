@@ -23,6 +23,7 @@ import {
   SignUp,
   SignIn,
   ForgotPassword,
+  AdminPage,
 } from '../pages';
 import {
   Header,
@@ -30,6 +31,7 @@ import {
   AppLoader,
   PublicRoute,
   PrivateRoute,
+  AdminRoute,
 } from '../components';
 import '../scss/index.scss';
 
@@ -63,9 +65,7 @@ const App: React.FC = () => {
     };
   }, [dispatch]);
 
-  if (loading ) {
-
-    
+  if (loading) {
     return (
       <div className='container'>
         <Header></Header>
@@ -87,6 +87,9 @@ const App: React.FC = () => {
               <PublicRoute path='/sign-up' component={SignUp} />
               <PublicRoute path='/sign-in' component={SignIn} />
               <PublicRoute path='/forgot-password' component={ForgotPassword} />
+
+              <AdminRoute path='/admin' component={AdminPage} />
+
               {/* <PublicRoute component={NotFound} /> */}
             </Switch>
           </main>
