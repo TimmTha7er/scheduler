@@ -6,21 +6,21 @@ import {
   gridReducer,
   rangeReducer,
   authReducer,
+  adminReducer,
 } from './reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { History, createBrowserHistory } from 'history';
-import {
-  connectRouter,
-  routerMiddleware,
-} from 'connected-react-router';
 
 const history: History = createBrowserHistory();
+
 const rootReducer = combineReducers({
   datePicker: datePickerReducer,
   popups: popupsReducer,
   grid: gridReducer,
   range: rangeReducer,
   auth: authReducer,
+  admin: adminReducer,
   router: connectRouter(history),
 });
 
@@ -31,4 +31,3 @@ const store = createStore(
 
 export type RootState = ReturnType<typeof rootReducer>;
 export { history, store };
-

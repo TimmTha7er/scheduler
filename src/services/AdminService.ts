@@ -7,6 +7,7 @@ export default class AuthService {
 
 		// // Set the 'capital' field of the city
 		// const res = await cityRef.update({capital: true});
+
 	}
 
 	getUserById = async (id: string) => {

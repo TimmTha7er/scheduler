@@ -28,6 +28,9 @@ import {
   SET_ERROR,
   NEED_VERIFICATION,
   SET_SUCCESS,
+  FETCH_USERS_REQUESTED,
+  FETCH_USERS_LOADED,
+  FETCH_USERS_ERROR,
 } from './action-types';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from './store';
@@ -328,4 +331,37 @@ export type AuthThunkActionType = ThunkAction<
   RootState,
   null,
   AuthActionsType
+>;
+
+// ----------------------------------------------
+//		admin
+// ----------------------------------------------
+// reducer
+export interface IAdminState {
+  users: IUser[];
+  loading: boolean;
+  error: null | {};
+}
+
+// actions
+interface IUsersRequested {
+  type: typeof FETCH_USERS_REQUESTED;
+}
+
+interface IUsersLoaded {
+  type: typeof FETCH_USERS_LOADED;
+  payload: IUser[];
+}
+
+interface IUsersEror {
+  type: typeof FETCH_USERS_ERROR;
+  payload: {};
+}
+
+export type AdminActionsType = IUsersRequested | IUsersLoaded | IUsersEror;
+export type AdminThunkActionType = ThunkAction<
+  void,
+  RootState,
+  null,
+  AdminActionsType
 >;

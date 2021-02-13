@@ -1,39 +1,55 @@
-import {} from '../action-types';
-import {} from '../interfaces';
+import {
+  FETCH_USERS_REQUESTED,
+  FETCH_USERS_LOADED,
+  FETCH_USERS_ERROR,
+  EDIT_USER,
+} from '../action-types';
+import { IAdminState, AdminActionsType } from '../interfaces';
 
-// const initialState: IAdminState = {
-//   users: null,
-//   loading: true,
-//   error: null,
-// };
+const initialState: IAdminState = {
+  users: [],
+  loading: true,
+  error: null,
+};
 
-// const authReducer = (
-//   state = initialState,
-//   action: AdminActionsType
-// ): IAdminState => {
-//   if (action.type === SET_USERS) {
-//     return {
-//       ...state,
-//       user: action.payload,
-//       authenticated: true,
-//     };
-//   }
+const adminReducer = (
+  state = initialState,
+  action: AdminActionsType
+): IAdminState => {
+  if (action.type === FETCH_USERS_REQUESTED) {
+    return {
+      ...state,
+      loading: true,
+      error: null,
+    };
+  }
 
-//   if (action.type === SET_LOADING) {
-//     return {
-//       ...state,
-//       loading: action.payload,
-//     };
-//   }
+  if (action.type === FETCH_USERS_LOADED) {
+    return {
+      ...state,
+      users: action.payload,
+      loading: false,
+      error: null,
+    };
+  }
 
-//   if (action.type === SET_ERROR) {
-//     return {
-//       ...state,
-//       error: action.payload,
-//     };
-//   }
+  if (action.type === FETCH_USERS_ERROR) {
+    return {
+      ...state,
+      users: [],
+      loading: false,
+      error: action.payload,
+    };
+  }
 
-//   return state;
-// };
+  // if (action.type === EDIT_USER) {
+  //   return {
+  //     ...state,
+  //     users: [...state.users, ...action.payload],
+  //   };
+  // }
 
-// export { authReducer };
+  return state;
+};
+
+export { adminReducer };
