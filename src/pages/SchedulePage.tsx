@@ -1,73 +1,39 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
-import { useQuery } from '../components/supports/hooks';
-import {
-  fetchEvents,
-  setALLPopupsUnvisible,
-  setRowDate,
-} from '../redux/actions';
-import {
-  Route,
-  Switch,
-  useRouteMatch,
-  NavLink,
-  useHistory,
-  useLocation,
-} from 'react-router-dom';
+import { setALLPopupsUnvisible, setRowDate } from '../redux/actions';
+import { Switch, useRouteMatch, NavLink } from 'react-router-dom';
 import {
   Range,
   NextDays,
   NextEvents,
-  NotFound,
   PrivateRoute,
-  PublicRoute,
   ControlPanel,
+  AppLoader,
 } from '../components';
 
 const SchedulePage: React.FC = () => {
   const dispatch = useDispatch();
   const {
-    nextEventsNum,
-    nextDaysNum,
-    startOfRange,
-    endOfRange,
-    selectValue,
-  } = useSelector((state: RootState) => state.range);
+    range: {
+      nextEventsNum,
+      nextDaysNum,
+      startOfRange,
+      endOfRange,
+      selectValue,
+    },
+    grid: { loading },
+  } = useSelector((state: RootState) => state);
   const match = useRouteMatch();
-
-  const history = useHistory();
-  // const location = useLocation();
-  const query = useQuery();
-
-  // ????
-  useEffect(() => {
-    // dispatch(fetchEvents());
-    // const start = query.get('start');
-    // const end = query.get('end');
-
-    // console.log('start', start);
-    // console.log('end', end);
-
-    // if (!start || !end) {
-    //   history.push({
-    //     search: `?start=${startOfRange.format(
-    //       'YYYY-MM-DD'
-    //     )}&end=${endOfRange.format('YYYY-MM-DD')}`,
-    //     state: {
-    //       from: history.location.pathname,
-    //       query: `?start=${startOfRange.format(
-    //         'YYYY-MM-DD'
-    //       )}&end=${endOfRange.format('YYYY-MM-DD')}`,
-    //     },
-    //   });
-    // }
-  });
 
   const onLinkClick = () => {
     dispatch(setALLPopupsUnvisible());
     dispatch(setRowDate(null));
   };
+
+  if (loading) {
+    return <AppLoader />;
+  }
 
   return (
     <>

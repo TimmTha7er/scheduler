@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { Route, Redirect, RouteProps, useLocation } from 'react-router-dom';
+import { AppLoader } from '../../components';
 
 interface PrivateRouteProps extends RouteProps {
   component: React.ComponentType<RouteProps>;
@@ -11,14 +12,22 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({
   component: Component,
   ...rest
 }) => {
-  const { authenticated } = useSelector((state: RootState) => state.auth);
+  const { authenticated, loading } = useSelector(
+    (state: RootState) => state.auth
+  );
   const location = useLocation();
+
+  // console.log('location', location);
+
+  // if (loading) {
+  //   return <AppLoader />;
+  // }
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        authenticated ? (
+        loading || authenticated ? (
           <Component {...props} />
         ) : (
           <Redirect

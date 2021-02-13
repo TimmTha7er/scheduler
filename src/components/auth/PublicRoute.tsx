@@ -21,12 +21,16 @@ const PublicRoute: React.FC<PublicRouteProps> = ({
   ...rest
 }) => {
   const {
-    auth: { authenticated },
+    auth: { authenticated, loading },
     datePicker: { date },
   } = useSelector((state: RootState) => state);
   // const history = useHistory();
   const { state } = useLocation<{ from: string; query: string }>();
   const { from, query } = state || {};
+
+  // if (loading) {
+  //   return <div>loading...</div>
+  // }
 
   return (
     <Route

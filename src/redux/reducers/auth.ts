@@ -11,7 +11,7 @@ import { AuthActionsType, IAuthState } from '../interfaces';
 const initialState: IAuthState = {
   user: null,
   authenticated: false,
-  loading: false,
+  loading: true,
   error: '',
   needVerification: false,
   success: '',

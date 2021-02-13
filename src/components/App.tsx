@@ -1,20 +1,13 @@
 import React, { useEffect } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
+import { useDispatch } from 'react-redux';
 import {
   setLoading,
   getUserById,
   setNeedVerification,
   fetchEvents,
 } from '../redux/actions';
-import {
-  Switch,
-  useHistory,
-  useParams,
-  useRouteMatch,
-  useLocation,
-} from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import firebase from '../services/firebase/config';
 import {
   HomePage,
@@ -28,17 +21,15 @@ import {
 import {
   Header,
   Popups,
-  AppLoader,
   PublicRoute,
   PrivateRoute,
   AdminRoute,
+  NotFound,
 } from '../components';
 import '../scss/index.scss';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const { loading } = useSelector((state: RootState) => state.auth);
-  const location = useLocation();
 
   // Check if user exists
   useEffect(() => {
@@ -65,15 +56,6 @@ const App: React.FC = () => {
     };
   }, [dispatch]);
 
-  if (loading) {
-    return (
-      <div className='container'>
-        <Header></Header>
-        <AppLoader />
-      </div>
-    );
-  }
-
   return (
     <>
       <PerfectScrollbar>
@@ -90,7 +72,7 @@ const App: React.FC = () => {
 
               <AdminRoute path='/admin' component={AdminPage} />
 
-              {/* <PublicRoute component={NotFound} /> */}
+              {/* <Route exact path='*' component={NotFound} /> */}
             </Switch>
           </main>
         </div>
