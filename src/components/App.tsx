@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 import {
   setLoading,
   getUserById,
   setNeedVerification,
   fetchEvents,
+  fetchUsers,
 } from '../redux/actions';
 import { Switch } from 'react-router-dom';
 import firebase from '../services/firebase/config';
@@ -30,6 +32,9 @@ import '../scss/index.scss';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
+  const {
+    auth: { user: authUser},
+  } = useSelector((state: RootState) => state);
 
   // Check if user exists
   useEffect(() => {
@@ -46,6 +51,10 @@ const App: React.FC = () => {
 
         // get events
         dispatch(fetchEvents());
+
+        // ??? временно
+        // get users
+        dispatch(fetchUsers());
       }
 
       dispatch(setLoading(false));

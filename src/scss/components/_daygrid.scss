@@ -44,6 +44,9 @@
     &:hover {
       background-color: rgba(0, 0, 0, 0.02);
     }
+    &:active {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
 
     &_selected {
       background-color: rgba(72, 135, 225, 0.15);

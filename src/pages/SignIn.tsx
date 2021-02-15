@@ -73,7 +73,7 @@ const SignIn: React.FC = () => {
         </div>
 
         <Link to='/forgot-password' className='sign-in__forgot-password link'>
-          Забыли параль?
+          Забыли пароль?
         </Link>
         <button className='sign-in__btn form-button' disabled={loading}>
           {loading ? 'Loading...' : 'Вход'}

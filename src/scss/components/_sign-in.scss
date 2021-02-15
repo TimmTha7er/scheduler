@@ -1,6 +1,10 @@
 .sign-in {
-  max-width: 360px;
-  margin: 0px auto;
+  max-width: 480px;
+  margin: 25px auto 0px auto;
+
+  border: solid 1px #e5e5e5;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
+  padding: 30px;
 
   &__field {
     margin-bottom: 5px;
@@ -50,5 +54,13 @@
 
   &__message {
     margin-bottom: 5px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .sign-in {
+    border: none;
+    box-shadow: none;
+    padding: 5px;
   }
 }
