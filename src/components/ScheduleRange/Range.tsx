@@ -17,6 +17,7 @@ import { useQuery } from '../supports/hooks';
 const Range: React.FC = () => {
   const dispatch = useDispatch();
   const {
+    auth: { user },
     grid: { events },
     range: {
       startOfRange,

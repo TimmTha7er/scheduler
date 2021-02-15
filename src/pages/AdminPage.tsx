@@ -1,11 +1,16 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
+import { fetchEvents } from '../redux/actions';
 import { EventList, EmptyDayList } from '../components';
+import SchedulerService from '../services/SchedulerService';
 import moment from 'moment';
 import 'moment/locale/ru';
 
+const schedulerService = new SchedulerService();
+
 const AdminPage: React.FC = () => {
+  const dispatch = useDispatch();
   const {
     admin: { loading, users },
   } = useSelector((state: RootState) => state);
@@ -13,6 +18,12 @@ const AdminPage: React.FC = () => {
   if (loading) {
     return <div>admin loading...</div>;
   }
+
+  const onUserClick = (id: string) => async () => {
+    console.log(`click on user ${id}`);
+    console.log('events', await schedulerService.getEvents(id));
+    dispatch(fetchEvents(id));
+  };
 
   return (
     <div className='admin'>
@@ -22,11 +33,12 @@ const AdminPage: React.FC = () => {
             <th className='user-list__head-cell'>Имя</th>
             <th className='user-list__head-cell'>Почта</th>
             <th className='user-list__head-cell'>Дата регистрации</th>
+            <th className='user-list__head-cell'>ID</th>
           </tr>
         </thead>
 
         <tbody className='user-list__body'>
-          {users.map(({ firstName, email, createdAt }, idx: number) => {
+          {users.map(({ firstName, email, createdAt, id }, idx: number) => {
             const date = moment(
               new Date(1970, 0, 1).setSeconds(createdAt.seconds)
             )
@@ -34,7 +46,11 @@ const AdminPage: React.FC = () => {
               .format('DD MM YYYY');
 
             return (
-              <tr key={idx} className='user-list__row'>
+              <tr
+                onClick={onUserClick(id)}
+                key={idx}
+                className='user-list__row'
+              >
                 <td className='user-list__body-cell' data-label='Имя'>
                   {firstName}
                 </td>
@@ -46,6 +62,9 @@ const AdminPage: React.FC = () => {
                   data-label='Дата регистрации'
                 >
                   {date}
+                </td>
+                <td className='user-list__body-cell' data-label='ID'>
+                  {id}
                 </td>
               </tr>
             );

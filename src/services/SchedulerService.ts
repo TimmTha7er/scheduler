@@ -2,20 +2,24 @@ import firebase from './firebase/config';
 import { IEvent, ICreatedEvent } from '../redux/interfaces';
 
 export default class SchedulerService {
-  _apiBase = () => `calendar/users/${this.getUid()}/events`;
+  _apiBase = (uid?: string) => {
+    return uid
+      ? `calendar/users/${uid}/events`
+      : `calendar/users/${this._getUid()}/events`;
+  };
 
   _getResource = (url: string) => {
     return firebase.database().ref(`${url}`);
   };
 
   // grid
-  getUid() {
+  _getUid() {
     const user = firebase.auth().currentUser;
-    return user ? user.uid : null;
+    return user ? user.uid : undefined;
   }
 
-  getEvents = async () => {
-    const snapshot = await this._getResource(this._apiBase()).once('value');
+  getEvents = async (uid?: string) => {
+    const snapshot = await this._getResource(this._apiBase(uid)).once('value');
 
     // ??
     if (!snapshot.exists) {

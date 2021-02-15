@@ -18,13 +18,13 @@ import SchedulerService from '../../services/SchedulerService';
 
 const schedulerService = new SchedulerService();
 
-export const fetchEvents = (): GridThunkActionType => {
+export const fetchEvents = (uid?: string): GridThunkActionType => {
   return async (dispatch) => {
     try {
       // console.log('fetch events');
       
       dispatch(eventsRequested());
-      const events = await schedulerService.getEvents();
+      const events = await schedulerService.getEvents(uid);
       dispatch(eventsLoaded(events));
     } catch (error) {
       dispatch(eventsError(error));

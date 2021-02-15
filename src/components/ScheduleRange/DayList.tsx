@@ -5,6 +5,8 @@ import { RangeType, DayOfRangeType } from './buildRange';
 import { setPreviewPopupVisible, setRowDate } from '../../redux/actions';
 import { EventList, EmptyDayList } from '../../components';
 
+import AdminEventList from './AdminEventList';
+
 interface DayListProps {
   range: RangeType | null;
   msg: string;
@@ -13,6 +15,7 @@ interface DayListProps {
 const DayList: React.FC<DayListProps> = ({ range, msg }) => {
   const dispatch = useDispatch();
   const {
+    auth: { user },
     grid: { rowDate },
     popups: { isPreviewPopupVisible },
   } = useSelector((state: RootState) => state);
@@ -47,12 +50,22 @@ const DayList: React.FC<DayListProps> = ({ range, msg }) => {
                 <div className='schedule-range__dayOfWeek'>{dayOfWeek}</div>
               </div>
 
-              <EventList
+              {/* <EventList
                 day={day}
                 rowDate={rowDate}
                 isPreviewPopupVisible={isPreviewPopupVisible}
                 onEventClick={onEventClick}
-              ></EventList>
+              /> */}
+              {user && user.role === 'admin' ? (
+                <AdminEventList day={day} />
+              ) : (
+                <EventList
+                  day={day}
+                  rowDate={rowDate}
+                  isPreviewPopupVisible={isPreviewPopupVisible}
+                  onEventClick={onEventClick}
+                />
+              )}
             </div>
           );
         })}
