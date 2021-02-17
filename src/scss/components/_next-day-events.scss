@@ -35,6 +35,7 @@
     border: 1px solid rgba(0, 0, 0, 0.2);
     transition: border-color 0.15s ease-out, border-width 0.15s ease-out,
       outline-color 0.25s ease-out;
+    z-index: 1;
 
     &:hover {
       border-color: rgba(0, 0, 0, 0.5);
@@ -56,11 +57,24 @@
 
   &__btn-subtract,
   &__btn-add {
+    position: relative;
+    width: 42px;
+    height: 36px;
+
     padding: 5px 18px 5px 18px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     background-color: #fafafa;
     cursor: pointer;
     transition: background-color 0.15s ease-out;
+    z-index: 0;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
 
     &:hover {
       background-color: #f0f0f0;
@@ -76,6 +90,10 @@
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-left: none;
+
+    &::before {
+      content: '-';
+    }
   }
 
   &__btn-add {
@@ -83,6 +101,10 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     border-right: none;
+
+    &::before {
+      content: '+';
+    }
   }
 }
 

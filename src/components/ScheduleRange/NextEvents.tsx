@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useInput1, useFocus, useQuery } from '../supports/hooks';
+import { useInput, useFocus, useQuery } from '../supports/hooks';
 import { RootState } from '../../redux/store';
 import { push } from 'connected-react-router';
 import moment from 'moment';
@@ -20,10 +20,10 @@ const NextEvents: React.FC = () => {
   const query = useQuery();
   const num = query.get('num') || '';
   const pattern = /^(?:\d{1}|\d{2})$/;
-  const input = useInput1(num, 2, pattern);
+  const input = useInput(num, 2, pattern);
 
   useEffect(() => {
-    if (!num || !pattern.test(num)) {
+    if (!pattern.test(num)) {
       dispatch(
         push({
           search: `?num=${nextEventsNum}`,
@@ -33,7 +33,7 @@ const NextEvents: React.FC = () => {
       input.onChange(num);
       dispatch(setNextEventsNum(num));
     }
-  }, [dispatch, num]);
+  }, [num]);
 
   useEffect(() => {
     const startOfRange = moment().clone().startOf('hour');
@@ -111,9 +111,10 @@ const NextEvents: React.FC = () => {
           </label>
           <div className='next-events__wrap'>
             <div className='next-events__change-count'>
-              <button onClick={onAddBtnClick} className='next-events__btn-add'>
-                +
-              </button>
+              <button
+                onClick={onAddBtnClick}
+                className='next-events__btn-add'
+              ></button>
               <input
                 value={input.value}
                 onChange={handleChange}
@@ -126,9 +127,7 @@ const NextEvents: React.FC = () => {
               <button
                 onClick={onSubBtnClick}
                 className='next-events__btn-subtract'
-              >
-                -
-              </button>
+              ></button>
             </div>
             <span className='next-events__text'>событий</span>
           </div>

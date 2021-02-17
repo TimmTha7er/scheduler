@@ -1,4 +1,5 @@
 export { default as Header } from './Header/Header';
+export { default as UserBar } from './Header/UserBar';
 
 export { default as ControlPanel } from './ControlPanel/ControlPanel';
 export { default as GridNav } from './ControlPanel/GridNav';
@@ -36,6 +37,7 @@ export { default as Popups } from './Popups/Popups';
 
 export { default as ErrorIndicator } from './supports/ErrorIndicator';
 export { default as DayListLoader } from './supports/DayListLoader';
+export { default as UserBarLoader } from './supports/UserBarLoader';
 export { default as AppLoader } from './supports/AppLoader';
 export { default as NotFound } from './supports/NotFound';
 export { default as Message } from './supports/Message';

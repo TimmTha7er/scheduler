@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useInput1, useFocus, useQuery } from '../supports/hooks';
+import { useInput, useFocus, useQuery } from '../supports/hooks';
 import { RootState } from '../../redux/store';
 import moment from 'moment';
 import 'moment/locale/ru';
@@ -25,7 +25,7 @@ const NextDays: React.FC = () => {
   const interval = query.get('interval') || '';
   const numPattern = /^(?:\d{1}|\d{2})$/;
   const intervalPattern = /суток|часов/;
-  const input = useInput1(num, 2, numPattern);
+  const input = useInput(num, 2, numPattern);
 
   useEffect(() => {
     if (!numPattern.test(num) || !intervalPattern.test(interval)) {
@@ -41,7 +41,7 @@ const NextDays: React.FC = () => {
     input.onChange(num);
     dispatch(setNextDaysNum(num));
     dispatch(setSelectValue(interval));
-  }, [dispatch, num, interval]);
+  }, [num, interval]);
 
   useEffect(() => {
     const startOfRange = moment().clone().startOf('hour');
@@ -119,9 +119,10 @@ const NextDays: React.FC = () => {
           </label>
           <div className='next-events__wrap'>
             <div className='next-days__change-count'>
-              <button onClick={onAddBtnClick} className='next-days__btn-add'>
-                +
-              </button>
+              <button
+                onClick={onAddBtnClick}
+                className='next-days__btn-add'
+              ></button>
               <input
                 value={input.value}
                 onChange={handleChange}
@@ -134,9 +135,7 @@ const NextDays: React.FC = () => {
               <button
                 onClick={onSubBtnClick}
                 className='next-days__btn-subtract'
-              >
-                -
-              </button>
+              ></button>
             </div>
             <div className='next-days__text'>
               <Select

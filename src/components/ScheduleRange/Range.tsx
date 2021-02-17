@@ -35,16 +35,29 @@ const Range: React.FC = () => {
   const endDate = query.get('end');
 
   useEffect(() => {
+    if (
+      !moment(startDate, 'YYYY-MM-DD', true).isValid() ||
+      !moment(endDate, 'YYYY-MM-DD', true).isValid()
+    ) {
+      dispatch(
+        push({
+          search: `?start=${startOfRange.format(
+            'YYYY-MM-DD'
+          )}&end=${endOfRange.format('YYYY-MM-DD')}`,
+        })
+      );
+    } else {
+      dispatch(setStartOFRange(moment(startDate, 'YYYY-MM-DD')));
+      dispatch(setEndOFRange(moment(endDate, 'YYYY-MM-DD')));
+    }
+  }, [startDate, endDate]);
+
+  useEffect(() => {
     const start = startOfRange.clone().startOf('day');
     const end = endOfRange.clone().add(1, 'day').startOf('day');
 
     setRange(buildRange(events, start, end));
   }, [events, startOfRange, endOfRange]);
-
-  useEffect(() => {
-    dispatch(setStartOFRange(moment(startDate, 'YYYY-MM-DD')));
-    dispatch(setEndOFRange(moment(endDate, 'YYYY-MM-DD')));
-  }, [startDate, endDate, dispatch]);
 
   const setStart = (value: moment.Moment) => {
     dispatch(

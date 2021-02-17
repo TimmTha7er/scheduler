@@ -26,6 +26,14 @@ const CreateEditPopupView: React.FC<CreateEditPopupViewProps> = ({
   const { value: textareaValue, onChange: textareaOnChange } = useInput(descr);
   const inputRef = useFocus();
 
+  const onInputChange = (event: React.FormEvent<HTMLInputElement>) => {
+    inputOnChange(event.currentTarget.value);
+  };
+
+  const onTextareaChange = (event: React.FormEvent<HTMLTextAreaElement>) => {
+    textareaOnChange(event.currentTarget.value);
+  };
+
   return (
     <div className='create-popup'>
       <div className='create-popup__header'>
@@ -49,7 +57,7 @@ const CreateEditPopupView: React.FC<CreateEditPopupViewProps> = ({
             </label>
             <input
               value={inputValue}
-              onChange={inputOnChange}
+              onChange={onInputChange}
               className='form__input'
               type='text'
               autoComplete='off'
@@ -64,7 +72,7 @@ const CreateEditPopupView: React.FC<CreateEditPopupViewProps> = ({
             </label>
             <textarea
               value={textareaValue}
-              onChange={textareaOnChange}
+              onChange={onTextareaChange}
               className='form__textarea'
               cols={30}
               rows={10}

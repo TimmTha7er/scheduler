@@ -30,7 +30,7 @@ const RadioBtn: React.FC<RadioBtnProps> = ({
       search: href.search,
     });
 
-    input.onChange(event);
+    input.onChange(event.currentTarget.value);
     onLabelClick(event.currentTarget.value);
   };
 

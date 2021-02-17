@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 
 type IUseClickOutside = React.RefObject<HTMLDivElement>;
@@ -33,10 +33,9 @@ export const useClickOutside = (
   return ref;
 };
 
-type IFormEvent = React.FormEvent<HTMLInputElement | HTMLTextAreaElement>;
 interface IUseInput {
   value: string;
-  onChange: (event: IFormEvent) => void;
+  onChange: (value: string) => void;
 }
 
 export const useInput = (
@@ -46,47 +45,18 @@ export const useInput = (
 ): IUseInput => {
   const [value, setValue] = useState<string>(initialValue);
 
-  // useCallback ???
-  const onChange = (event: IFormEvent): void => {
-    const value = event.currentTarget.value;
-
-    if (!(maxLength !== undefined && value.length > maxLength)) {
-      if (pattern === undefined) {
-        setValue(value);
-      } else if (value === '' || pattern.test(value)) {
-        setValue(value);
+  const onChange = useCallback(
+    (value: string): void => {
+      if (!(maxLength !== undefined && value.length > maxLength)) {
+        if (pattern === undefined) {
+          setValue(value);
+        } else if (value === '' || pattern.test(value)) {
+          setValue(value);
+        }
       }
-    }
-  };
-
-  return {
-    value,
-    onChange,
-  };
-};
-
-interface IUseInput1 {
-  value: string;
-  onChange: (value: string) => void;
-}
-// ???
-export const useInput1 = (
-  initialValue: string,
-  maxLength?: number,
-  pattern?: RegExp
-): IUseInput1 => {
-  const [value, setValue] = useState<string>(initialValue);
-
-  // useCallback ???
-  const onChange = (value: string): void => {
-    if (!(maxLength !== undefined && value.length > maxLength)) {
-      if (pattern === undefined) {
-        setValue(value);
-      } else if (value === '' || pattern.test(value)) {
-        setValue(value);
-      }
-    }
-  };
+    },
+    [maxLength, pattern]
+  );
 
   return {
     value,
