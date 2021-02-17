@@ -12,7 +12,7 @@ import moment from 'moment';
 import 'moment/locale/ru';
 import leftBtnImg from '../../img/angle-left.svg';
 import rightBtnImg from '../../img/angle-right.svg';
-import { useHistory, useLocation } from 'react-router-dom';
+import { push } from 'connected-react-router';
 
 interface GridNavProps {
   setDate: (date: moment.Moment) => DatePickerActionTypes;
@@ -23,9 +23,8 @@ const GridNav: React.FC<GridNavProps> = ({ setDate }) => {
   const {
     datePicker: { date },
     range: { startOfRange, endOfRange },
+    router: { location },
   } = useSelector((state: RootState) => state);
-  const history = useHistory();
-  const location = useLocation();
 
   const onPrevBtnClick = (): void => {
     dispatch(setALLPopupsUnvisible());
@@ -37,18 +36,22 @@ const GridNav: React.FC<GridNavProps> = ({ setDate }) => {
       dispatch(setStartOFRange(moment(start, 'YYYY-MM-DD')));
       dispatch(setEndOFRange(moment(end, 'YYYY-MM-DD')));
 
-      history.push({
-        search: `start=${start.format('YYYY-MM-DD')}&end=${end.format(
-          'YYYY-MM-DD'
-        )}`,
-      });
+      dispatch(
+        push({
+          search: `start=${start.format('YYYY-MM-DD')}&end=${end.format(
+            'YYYY-MM-DD'
+          )}`,
+        })
+      );
     } else if (location.pathname === '/day') {
       const prevDay: moment.Moment = date.clone().subtract(1, 'day');
       setDate(moment(prevDay, 'YYYY-MM-DD'));
 
-      history.push({
-        search: `?date=${prevDay.format('YYYY-MM-DD')}`,
-      });
+      dispatch(
+        push({
+          search: `?date=${prevDay.format('YYYY-MM-DD')}`,
+        })
+      );
     }
   };
 
@@ -62,18 +65,22 @@ const GridNav: React.FC<GridNavProps> = ({ setDate }) => {
       dispatch(setStartOFRange(moment(start, 'YYYY-MM-DD')));
       dispatch(setEndOFRange(moment(end, 'YYYY-MM-DD')));
 
-      history.push({
-        search: `start=${start.format('YYYY-MM-DD')}&end=${end.format(
-          'YYYY-MM-DD'
-        )}`,
-      });
+      dispatch(
+        push({
+          search: `start=${start.format('YYYY-MM-DD')}&end=${end.format(
+            'YYYY-MM-DD'
+          )}`,
+        })
+      );
     } else if (location.pathname === '/day') {
       const today: moment.Moment = moment();
       setDate(moment(today, 'YYYY-MM-DD'));
 
-      history.push({
-        search: `?date=${today.format('YYYY-MM-DD')}`,
-      });
+      dispatch(
+        push({
+          search: `?date=${today.format('YYYY-MM-DD')}`,
+        })
+      );
     }
   };
 
@@ -87,18 +94,22 @@ const GridNav: React.FC<GridNavProps> = ({ setDate }) => {
       dispatch(setStartOFRange(moment(start, 'YYYY-MM-DD')));
       dispatch(setEndOFRange(moment(end, 'YYYY-MM-DD')));
 
-      history.push({
-        search: `start=${start.format('YYYY-MM-DD')}&end=${end.format(
-          'YYYY-MM-DD'
-        )}`,
-      });
+      dispatch(
+        push({
+          search: `start=${start.format('YYYY-MM-DD')}&end=${end.format(
+            'YYYY-MM-DD'
+          )}`,
+        })
+      );
     } else if (location.pathname === '/day') {
       const nextDay: moment.Moment = date.clone().add(1, 'day');
       setDate(moment(nextDay, 'YYYY-MM-DD'));
 
-      history.push({
-        search: `?date=${nextDay.format('YYYY-MM-DD')}`,
-      });
+      dispatch(
+        push({
+          search: `?date=${nextDay.format('YYYY-MM-DD')}`,
+        })
+      );
     }
   };
 
@@ -132,4 +143,3 @@ const GridNav: React.FC<GridNavProps> = ({ setDate }) => {
 };
 
 export default React.memo(GridNav);
-// export default GridNav;

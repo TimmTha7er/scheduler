@@ -257,6 +257,13 @@ export type RangeActionsType =
   | TSetNextEventsNum
   | TSetSelectValue;
 
+export type RangeThunkActionType = ThunkAction<
+  void,
+  RootState,
+  null,
+  RangeActionsType
+>;
+
 // ----------------------------------------------
 //		auth
 // ----------------------------------------------

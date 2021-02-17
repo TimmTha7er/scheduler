@@ -133,134 +133,9 @@
   }
 }
 
-.event-list,
-.admin-event-list {
-  flex: 1;
-
-  &__event {
-    display: flex;
-    justify-content: flex-start;
-    font-size: 17px;
-    line-height: 24px;
-    padding: 10px 13px;
-    transition: background-color 0.15s ease-out, outline 0.15s ease-out;
-    cursor: pointer;
-
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.03);
-    }
-  }
-
-  &__event-title {
-    flex: 1;
-  }
-
-  &__title-inner {
-    max-width: 340px;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: horizontal;
-    overflow: hidden;
-    // cursor: pointer;
-    white-space: nowrap;
-  }
-
-  &__time {
-    white-space: nowrap;
-    color: #999;
-  }
-
-  &__circle {
-    flex-shrink: 0;
-    width: 12px;
-    height: 12px;
-    color: rgb(72, 135, 225);
-    border-radius: 50%;
-    background-color: currentColor;
-    margin-top: 6px;
-    margin-right: 30px;
-    margin-left: 30px;
-  }
-}
-
-.admin-event-list {
-  &__event {
-    flex-direction: column;
-    cursor: auto;
-
-    &:hover {
-      background-color: transparent;
-    }
-  }
-
-  &__head {
-    display: flex;
-    justify-content: flex-start;
-  }
-
-  &__event-descr{
-    margin-top: 5px;
-    // ???
-    margin-left: 160px;
-  }
-
-  &__descr-item {
-    display: block;
-    margin-bottom: 3px;
-  }
-}
-
-.next-events,
-.next-days {
-  display: flex;
-
-  &__field {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    margin-left: 20px;
-    font-size: 21px;
-  }
-
-  &__label {
-    color: rgba(0, 0, 0, 0.6);
-    padding-right: 10px;
-    padding-left: 20px;
-    user-select: none;
-  }
-
-  &__input {
-    max-width: 60px;
-    color: #000;
-    padding: 7px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    transition: border-color 0.15s ease-out, border-width 0.15s ease-out,
-      outline-color 0.25s ease-out;
-
-    &:hover {
-      border-color: rgba(0, 0, 0, 0.5);
-    }
-
-    &:focus {
-      border-color: transparent;
-      outline: solid 2px #ffdb4d;
-    }
-  }
-}
-
-
-
 @media only screen and (max-width: 768px) {
   .schedule-range {
     padding: 15px;
-  }
-
-  .event-list, .admin-event-list {
-    &__title-inner {
-      max-width: 220px;
-    }
   }
 }
 
@@ -288,50 +163,6 @@
         border-radius: 4px;
         transform: translateY(-1px);
       }
-    }
-  }
-
-  .event-list, .admin-event-list {
-    &__circle {
-      margin-right: 15px;
-      margin-left: 15px;
-    }
-
-    &__title-inner {
-      max-width: 130px;
-    }
-  }
-
-  .admin-event-list {
-    &__event-descr {
-      margin-left: 130px;
-    }
-  }
-
-  .next-days,
-  .next-events {
-    &__label {
-      padding-left: 0px;
-    }
-
-    &__input {
-      margin-right: 10px;
-    }
-  }
-
-  .next-days {
-    &__field {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
-    }
-    &__input {
-      max-width: 200px;
-      margin-bottom: 10px;
-    }
-    &__label {
-      margin-bottom: 10px;
     }
   }
 }
@@ -386,12 +217,6 @@
     &__datepicker {
       top: 200px;
       left: 20px !important;
-    }
-  }
-
-  .event-list, .admin-event-list {
-    &__title-inner {
-      max-width: 140px;
     }
   }
 }

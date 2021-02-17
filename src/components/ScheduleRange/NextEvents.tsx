@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useInput, useFocus, useQuery } from '../supports/hooks';
+import { useInput1, useFocus, useQuery } from '../supports/hooks';
 import { RootState } from '../../redux/store';
-import { useHistory } from 'react-router-dom';
+import { push } from 'connected-react-router';
 import moment from 'moment';
 import 'moment/locale/ru';
 import { setNextEventsNum } from '../../redux/actions';
@@ -13,14 +13,27 @@ const NextEvents: React.FC = () => {
   const dispatch = useDispatch();
   const {
     grid: { events },
+    range: { nextEventsNum },
   } = useSelector((state: RootState) => state);
   const [range, setRange] = useState<RangeType | null>(null);
   const inputRef = useFocus();
-
-  const history = useHistory();
   const query = useQuery();
   const num = query.get('num') || '';
-  const input = useInput(num, 2, /^[0-9\b]+$/);
+  const pattern = /^(?:\d{1}|\d{2})$/;
+  const input = useInput1(num, 2, pattern);
+
+  useEffect(() => {
+    if (!num || !pattern.test(num)) {
+      dispatch(
+        push({
+          search: `?num=${nextEventsNum}`,
+        })
+      );
+    } else {
+      input.onChange(num);
+      dispatch(setNextEventsNum(num));
+    }
+  }, [dispatch, num]);
 
   useEffect(() => {
     const startOfRange = moment().clone().startOf('hour');
@@ -37,24 +50,55 @@ const NextEvents: React.FC = () => {
         events,
         startOfRange,
         endOfRange.clone().add(1, 'day'),
-        parseInt(input.value) || 0
+        +nextEventsNum
       )
     );
-
-    dispatch(setNextEventsNum(num));
-  }, [dispatch, events, input.value, num]);
+  }, [dispatch, events, nextEventsNum]);
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     const inputValue = event.currentTarget.value;
-    const pattern = /^[0-9\b]+$/;
 
     if (pattern.test(inputValue) || inputValue === '') {
-      history.push({
-        search: `?num=${inputValue}`,
-      });
+      input.onChange(inputValue);
+      dispatch(setNextEventsNum(inputValue));
 
-      input.onChange(event);
-      dispatch(setNextEventsNum(event.currentTarget.value));
+      dispatch(
+        push({
+          search: `?num=${inputValue}`,
+        })
+      );
+    }
+  };
+
+  const onAddBtnClick = (event: React.FormEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const inputValue = (+input.value + 1).toString();
+
+    if (pattern.test(inputValue)) {
+      input.onChange(inputValue);
+      dispatch(setNextEventsNum(input.value));
+
+      dispatch(
+        push({
+          search: `?num=${inputValue}`,
+        })
+      );
+    }
+  };
+
+  const onSubBtnClick = (event: React.FormEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const inputValue = (+input.value - 1).toString();
+
+    if (pattern.test(inputValue)) {
+      input.onChange(inputValue);
+      dispatch(setNextEventsNum(input.value));
+
+      dispatch(
+        push({
+          search: `?num=${inputValue}`,
+        })
+      );
     }
   };
 
@@ -65,18 +109,29 @@ const NextEvents: React.FC = () => {
           <label className='next-events__label' htmlFor=''>
             Ближайшие
           </label>
-          {/* <button>+</button> */}
-          <input
-            value={num}
-            onChange={handleChange}
-            className='next-events__input'
-            type='text'
-            autoComplete='off'
-            maxLength={2}
-            ref={inputRef}
-          />
-          {/* <button>-</button> */}
-          <span className='next-events__label'>событий</span>
+          <div className='next-events__wrap'>
+            <div className='next-events__change-count'>
+              <button onClick={onAddBtnClick} className='next-events__btn-add'>
+                +
+              </button>
+              <input
+                value={input.value}
+                onChange={handleChange}
+                className='next-events__input'
+                type='text'
+                autoComplete='off'
+                maxLength={2}
+                ref={inputRef}
+              />
+              <button
+                onClick={onSubBtnClick}
+                className='next-events__btn-subtract'
+              >
+                -
+              </button>
+            </div>
+            <span className='next-events__text'>событий</span>
+          </div>
         </div>
       </form>
 

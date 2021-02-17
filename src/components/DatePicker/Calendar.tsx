@@ -60,11 +60,3 @@ const Calendar: React.FC<CalendarProps> = ({ value, onDayClick }) => {
 };
 
 export default React.memo(Calendar);
-// export default React.memo(Calendar, (prev, next) => {
-//   console.log('prev', prev.value.format());
-//   console.log('next', next.value.format());
-//   console.log('===', prev.value.format() === next.value.format());
-//   return prev.value.format() === next.value.format();
-// });
-
-// export default Calendar;

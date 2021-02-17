@@ -94,4 +94,3 @@ const YearDwopdown: React.FC<CalendarProps> = ({
 };
 
 export default React.memo(YearDwopdown);
-// export default YearDwopdown;

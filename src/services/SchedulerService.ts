@@ -2,23 +2,22 @@ import firebase from './firebase/config';
 import { IEvent, ICreatedEvent } from '../redux/interfaces';
 
 export default class SchedulerService {
-  _apiBase = (uid?: string) => {
+  private _apiBase = (uid?: string) => {
     return uid
       ? `calendar/users/${uid}/events`
       : `calendar/users/${this._getUid()}/events`;
   };
 
-  _getResource = (url: string) => {
+  private _getResource = (url: string) => {
     return firebase.database().ref(`${url}`);
   };
 
-  // grid
-  _getUid() {
+  private _getUid() {
     const user = firebase.auth().currentUser;
     return user ? user.uid : undefined;
   }
 
-  getEvents = async (uid?: string) => {
+  public getEvents = async (uid?: string) => {
     const snapshot = await this._getResource(this._apiBase(uid)).once('value');
 
     // ??
@@ -31,18 +30,18 @@ export default class SchedulerService {
     return events;
   };
 
-  addEvent = async (newEvent: ICreatedEvent) => {
+  public addEvent = async (newEvent: ICreatedEvent) => {
     const res = await this._getResource(this._apiBase()).push(newEvent);
     const event: IEvent = this._transformEvent(newEvent, res.key!.toString());
 
     return event;
   };
 
-  removeEvent = async (id: string) => {
+  public removeEvent = async (id: string) => {
     await this._getResource(`${this._apiBase()}/${id}`).remove();
   };
 
-  editEvent = async (
+  public editEvent = async (
     id: string,
     date: string,
     updates: { title: string; descr: string }
@@ -61,7 +60,7 @@ export default class SchedulerService {
     return newEvent;
   };
 
-  _transformEvent = (newEvent: ICreatedEvent, id: string) => {
+  private _transformEvent = (newEvent: ICreatedEvent, id: string) => {
     return {
       [newEvent.time.toString()]: {
         title: newEvent.title,
@@ -70,7 +69,7 @@ export default class SchedulerService {
       },
     };
   };
-  _transformEvents = (snapshot: firebase.database.DataSnapshot) => {
+  private _transformEvents = (snapshot: firebase.database.DataSnapshot) => {
     const events: IEvent = {};
 
     snapshot.forEach((childSnapshot) => {

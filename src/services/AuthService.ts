@@ -2,7 +2,7 @@ import firebase from './firebase/config';
 import { IUser } from '../redux/interfaces';
 
 export default class AuthService {
-  signUp = async (email: string, password: string, firstName: string) => {
+  public signUp = async (email: string, password: string, firstName: string) => {
     const res = await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password);
@@ -31,19 +31,19 @@ export default class AuthService {
     return userData;
   };
 
-  signIn = async (email: string, password: string) => {
+  public signIn = async (email: string, password: string) => {
     await firebase.auth().signInWithEmailAndPassword(email, password);
   };
 
-  signOut = async () => {
+  public signOut = async () => {
     await firebase.auth().signOut();
   };
 
-  sendPasswordResetEmail = async (email: string) => {
+  public sendPasswordResetEmail = async (email: string) => {
     await firebase.auth().sendPasswordResetEmail(email);
   };
 
-  getUserById = async (id: string) => {
+  public getUserById = async (id: string) => {
     const user = await firebase.firestore().collection('users').doc(id).get();
 
     if (!user.exists) {

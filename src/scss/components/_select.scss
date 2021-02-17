@@ -1,7 +1,7 @@
 .select {
   position: relative;
   display: inline-block;
-	min-height: 40px;
+  min-height: 36px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 3px;
   transition: border-color 0.15s ease-out, border-width 0.15s ease-out,
@@ -49,7 +49,7 @@
     cursor: pointer;
     transition: color 0.15s ease-out;
     user-select: none;
-    padding: 7px 15px;
+    padding: 5px 15px;
     min-width: 200px;
   }
 
@@ -81,6 +81,14 @@
       background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNiI+PHBhdGggZD0iTTEzLjUuNWwtOCAxMkwxLjcgOGwtMSAxLjZMNS42IDE1bDkuMS0xMy40eiIvPjwvc3ZnPgo=);
       background-position: 15px center;
       background-repeat: no-repeat;
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .select {
+    &__selected-text {
+      min-width: 130px;
     }
   }
 }

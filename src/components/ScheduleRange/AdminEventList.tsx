@@ -3,36 +3,17 @@ import { EventType } from './buildRange';
 
 interface AdminEventListProps {
   day: EventType[];
-  // rowDate: moment.Moment | null;
-  // isPreviewPopupVisible: boolean;
-  // onEventClick: (time: moment.Moment) => () => void;
 }
 
-const AdminEventList: React.FC<AdminEventListProps> = ({
-  day,
-  // rowDate,
-  // isPreviewPopupVisible,
-  // onEventClick,
-}) => {
+const AdminEventList: React.FC<AdminEventListProps> = ({ day }) => {
   return (
     <div className='admin-event-list'>
       {day.map(({ time, title, descr }: EventType, idx: number) => {
         const start: string = time.clone().format('HH:mm');
         const end: string = time.clone().add(1, 'hour').format('HH:mm');
 
-        // const selectedEvent: string =
-        //   time.isSame(rowDate) && isPreviewPopupVisible
-        //     ? 'daygrid__row_selected'
-        //     : '';
-
-        console.log('descr', descr.split('\n'));
-
         return (
-          <div
-            // onClick={onEventClick(time)}
-            key={idx}
-            className={`admin-event-list__event`}
-          >
+          <div key={idx} className={`admin-event-list__event`}>
             <div className='admin-event-list__head'>
               <div className='admin-event-list__time'>
                 {start}

@@ -1,3 +1,4 @@
+import { push } from 'connected-react-router';
 import {
   // TOGGLE_RANGE_VISIBLE,
   SET_START_OF_RANGE,
@@ -9,7 +10,7 @@ import {
   SET_NEXT_EVENTS_NUM,
   SET_SELECT_VALUE,
 } from '../action-types';
-import { RangeActionsType } from '../interfaces';
+import { RangeActionsType, RangeThunkActionType } from '../interfaces';
 
 // export const toggleRangeVisible = (): RangeActionsType => {
 //   return {
@@ -52,12 +53,28 @@ export const setRightDatePickerVisible = (value: boolean): RangeActionsType => {
 //   };
 // };
 
-export const setNextEventsNum = (value: string): RangeActionsType => {
-  return {
-    type: SET_NEXT_EVENTS_NUM,
-    payload: value,
+export const setNextEventsNum = (value: string): RangeThunkActionType => {
+  return async (dispatch) => {
+    // dispatch(
+    //   // @ts-ignore
+    //   push({
+    //     search: `?num=${value}`,
+    //   })
+    // );
+
+    dispatch({
+      type: SET_NEXT_EVENTS_NUM,
+      payload: value,
+    });
   };
 };
+
+// export const setNextEventsNum = (value: string): RangeActionsType => {
+//   return {
+//     type: SET_NEXT_EVENTS_NUM,
+//     payload: value,
+//   };
+// };
 
 export const setNextDaysNum = (value: string): RangeActionsType => {
   return {

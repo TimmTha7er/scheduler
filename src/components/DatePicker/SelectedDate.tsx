@@ -73,5 +73,5 @@ const SelectedDate: React.FC<SelectedDateProps> = ({
     </div>
   );
 };
+
 export default React.memo(SelectedDate);
-// export default SelectedDate

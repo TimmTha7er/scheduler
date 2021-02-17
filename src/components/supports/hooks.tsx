@@ -65,6 +65,35 @@ export const useInput = (
   };
 };
 
+interface IUseInput1 {
+  value: string;
+  onChange: (value: string) => void;
+}
+// ???
+export const useInput1 = (
+  initialValue: string,
+  maxLength?: number,
+  pattern?: RegExp
+): IUseInput1 => {
+  const [value, setValue] = useState<string>(initialValue);
+
+  // useCallback ???
+  const onChange = (value: string): void => {
+    if (!(maxLength !== undefined && value.length > maxLength)) {
+      if (pattern === undefined) {
+        setValue(value);
+      } else if (value === '' || pattern.test(value)) {
+        setValue(value);
+      }
+    }
+  };
+
+  return {
+    value,
+    onChange,
+  };
+};
+
 type IUseFocus = React.RefObject<HTMLInputElement>;
 
 export const useFocus = (): IUseFocus => {

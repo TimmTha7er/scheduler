@@ -1,19 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import {
-  Route,
-  Redirect,
-  RouteProps,
-  // useHistory,
-  // useRouteMatch,
-  // useParams,
-  useLocation,
-} from 'react-router-dom';
-
+import { Route, Redirect, RouteProps } from 'react-router-dom';
 import { RootState } from '../../redux/store';
 
 interface PublicRouteProps extends RouteProps {
-  component: any;
+  component: React.ComponentType<RouteProps>;
 }
 
 const PublicRoute: React.FC<PublicRouteProps> = ({
@@ -21,16 +12,11 @@ const PublicRoute: React.FC<PublicRouteProps> = ({
   ...rest
 }) => {
   const {
-    auth: { authenticated, loading },
+    auth: { authenticated },
     datePicker: { date },
+    router: { location },
   } = useSelector((state: RootState) => state);
-  // const history = useHistory();
-  const { state } = useLocation<{ from: string; query: string }>();
-  const { from, query } = state || {};
-
-  // if (loading) {
-  //   return <div>loading...</div>
-  // }
+  const { from, query }: any = location.state || {};
 
   return (
     <Route
@@ -43,7 +29,6 @@ const PublicRoute: React.FC<PublicRouteProps> = ({
             to={{
               pathname: from || '/day',
               search: query || `?date=${date.format('YYYY-MM-DD')}`,
-              // state: history.location.state,
             }}
           />
         )
