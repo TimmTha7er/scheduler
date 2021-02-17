@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useInput, useFocus, useQuery } from '../supports/hooks';
 import { RootState } from '../../redux/store';
-import { push } from 'connected-react-router';
+import { useHistory } from 'react-router';
 import moment from 'moment';
 import 'moment/locale/ru';
 import { setNextEventsNum } from '../../redux/actions';
@@ -17,6 +17,8 @@ const NextEvents: React.FC = () => {
   } = useSelector((state: RootState) => state);
   const [range, setRange] = useState<RangeType | null>(null);
   const inputRef = useFocus();
+
+  const history = useHistory();
   const query = useQuery();
   const num = query.get('num') || '';
   const pattern = /^(?:\d{1}|\d{2})$/;
@@ -24,11 +26,9 @@ const NextEvents: React.FC = () => {
 
   useEffect(() => {
     if (!pattern.test(num)) {
-      dispatch(
-        push({
-          search: `?num=${nextEventsNum}`,
-        })
-      );
+      history.push({
+        search: `?num=${nextEventsNum}`,
+      });
     } else {
       input.onChange(num);
       dispatch(setNextEventsNum(num));
@@ -62,11 +62,9 @@ const NextEvents: React.FC = () => {
       input.onChange(inputValue);
       dispatch(setNextEventsNum(inputValue));
 
-      dispatch(
-        push({
-          search: `?num=${inputValue}`,
-        })
-      );
+      history.push({
+        search: `?num=${inputValue}`,
+      });
     }
   };
 
@@ -78,11 +76,9 @@ const NextEvents: React.FC = () => {
       input.onChange(inputValue);
       dispatch(setNextEventsNum(input.value));
 
-      dispatch(
-        push({
-          search: `?num=${inputValue}`,
-        })
-      );
+      history.push({
+        search: `?num=${inputValue}`,
+      });
     }
   };
 
@@ -94,11 +90,9 @@ const NextEvents: React.FC = () => {
       input.onChange(inputValue);
       dispatch(setNextEventsNum(input.value));
 
-      dispatch(
-        push({
-          search: `?num=${inputValue}`,
-        })
-      );
+      history.push({
+        search: `?num=${inputValue}`,
+      });
     }
   };
 

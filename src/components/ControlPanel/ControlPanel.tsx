@@ -9,13 +9,14 @@ import {
 import { RootState } from '../../redux/store';
 import { useClickOutside } from '../supports/hooks';
 import { GridNav, DatePicker, RangeBtn } from '../../components';
-import { push } from 'connected-react-router';
+import { useHistory } from 'react-router';
 
 const ControlPanel: React.FC = () => {
   const dispatch = useDispatch();
   const {
     datePicker: { date, isVisible },
   } = useSelector((state: RootState) => state);
+  const history = useHistory();
   const selectedMonth: string = date.format('MMMM');
   const selectedYear: string = date.format('YYYY');
 
@@ -27,12 +28,10 @@ const ControlPanel: React.FC = () => {
 
   const setDatePickerDate = useCallback(
     (date: moment.Moment) => {
-      dispatch(
-        push({
-          pathname: `/day`,
-          search: `?date=${date.format('YYYY-MM-DD')}`,
-        })
-      );
+      history.push({
+        pathname: `/day`,
+        search: `?date=${date.format('YYYY-MM-DD')}`,
+      });
 
       return dispatch(setDate(date));
     },

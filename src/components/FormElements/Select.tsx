@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import { useClickOutside, useQuery } from '../supports/hooks';
-import { push } from 'connected-react-router';
 
 interface SelectProps {
   defaultSelected: string;
@@ -16,23 +13,16 @@ const Select: React.FC<SelectProps> = ({
   onOptionClick,
   defaultSelected,
 }) => {
-  const dispatch = useDispatch();
-  const {
-    router: { location },
-  } = useSelector((state: RootState) => state);
   const [selectedOption, setSelectedOption] = useState<string>(defaultSelected);
   const [showOptionList, setShowOptionList] = useState<boolean>(false);
   const [optionsList, setOptionsList] = useState<string[]>(['']);
   const selectRef = useClickOutside(setShowOptionList);
   const active = showOptionList ? 'select_active' : '';
 
-  // const history = useHistory();
+  const history = useHistory();
   const query = useQuery();
   const num = query.get('num') || '';
   const interval = query.get('interval') || '';
-
-  // @ts-ignore
-  // const { num, interval } = location.query;
 
   useEffect(() => {
     setOptionsList(options);
@@ -46,15 +36,9 @@ const Select: React.FC<SelectProps> = ({
   const handleOptionClick = (e: React.MouseEvent<HTMLLIElement>) => {
     const optionName = e.currentTarget.getAttribute('data-name') || '';
 
-    // history.push({
-    //   search: `num=${num}&interval=${optionName}`,
-    // });
-    dispatch(
-      push({
-        search: `num=${num}&interval=${optionName}`,
-      })
-    );
-
+    history.push({
+      search: `num=${num}&interval=${optionName}`,
+    });
     setSelectedOption(optionName);
     setShowOptionList(false);
     onOptionClick(optionName);

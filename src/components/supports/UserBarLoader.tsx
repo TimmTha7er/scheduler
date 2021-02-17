@@ -2,7 +2,6 @@ import React from 'react';
 import ContentLoader from 'react-content-loader';
 
 const DayListLoader: React.FC = () => {
-  let y = 115;
   return (
     <div className='user-bar'>
       <ContentLoader

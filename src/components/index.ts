@@ -38,6 +38,7 @@ export { default as Popups } from './Popups/Popups';
 export { default as ErrorIndicator } from './supports/ErrorIndicator';
 export { default as DayListLoader } from './supports/DayListLoader';
 export { default as UserBarLoader } from './supports/UserBarLoader';
+export { default as ScheduleLoader } from './supports/ScheduleLoader';
 export { default as AppLoader } from './supports/AppLoader';
 export { default as NotFound } from './supports/NotFound';
 export { default as Message } from './supports/Message';

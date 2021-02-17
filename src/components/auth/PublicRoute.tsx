@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Route, Redirect, RouteProps } from 'react-router-dom';
+import { Route, Redirect, RouteProps, useLocation } from 'react-router-dom';
 import { RootState } from '../../redux/store';
 
 interface PublicRouteProps extends RouteProps {
@@ -14,9 +14,11 @@ const PublicRoute: React.FC<PublicRouteProps> = ({
   const {
     auth: { authenticated },
     datePicker: { date },
-    router: { location },
   } = useSelector((state: RootState) => state);
-  const { from, query }: any = location.state || {};
+  const { state: { from, query } = {} } = useLocation<{
+    from: string;
+    query: string;
+  }>();
 
   return (
     <Route

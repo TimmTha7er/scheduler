@@ -1,7 +1,7 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
-const AppLoader: React.FC = () => {
+const ScheduleLoader: React.FC = () => {
   let y = 115;
   return (
     <div className='container'>
@@ -45,4 +45,4 @@ const AppLoader: React.FC = () => {
   );
 };
 
-export default AppLoader;
+export default ScheduleLoader;

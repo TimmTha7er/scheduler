@@ -7,8 +7,7 @@ import 'moment/locale/ru';
 import { buildRange, RangeType } from './buildRange';
 import { setNextDaysNum, setSelectValue } from '../../redux/actions';
 import { DayList, Select } from '../../components';
-// import { useHistory } from 'react-router-dom';
-import { push } from 'connected-react-router';
+import { useHistory } from 'react-router';
 
 const NextDays: React.FC = () => {
   const dispatch = useDispatch();
@@ -19,7 +18,7 @@ const NextDays: React.FC = () => {
   const [range, setRange] = useState<RangeType | null>(null);
   const inputRef = useFocus();
 
-  // const history = useHistory();
+  const history = useHistory();
   const query = useQuery();
   const num = query.get('num') || '';
   const interval = query.get('interval') || '';
@@ -30,7 +29,7 @@ const NextDays: React.FC = () => {
   useEffect(() => {
     if (!numPattern.test(num) || !intervalPattern.test(interval)) {
       dispatch(
-        push({
+        history.push({
           search: `?num=${nextDaysNum}&interval=${selectValue}`,
         })
       );
@@ -63,11 +62,9 @@ const NextDays: React.FC = () => {
       input.onChange(inputValue);
       dispatch(setNextDaysNum(inputValue));
 
-      dispatch(
-        push({
-          search: `?num=${inputValue}&interval=${selectValue}`,
-        })
-      );
+      history.push({
+        search: `?num=${inputValue}&interval=${selectValue}`,
+      });
     }
   };
 
@@ -86,11 +83,9 @@ const NextDays: React.FC = () => {
       input.onChange(inputValue);
       dispatch(setNextDaysNum(input.value));
 
-      dispatch(
-        push({
-          search: `?num=${inputValue}&interval=${selectValue}`,
-        })
-      );
+      history.push({
+        search: `?num=${inputValue}&interval=${selectValue}`,
+      });
     }
   };
 
@@ -102,11 +97,9 @@ const NextDays: React.FC = () => {
       input.onChange(inputValue);
       dispatch(setNextDaysNum(input.value));
 
-      dispatch(
-        push({
-          search: `?num=${inputValue}&interval=${selectValue}`,
-        })
-      );
+      history.push({
+        search: `?num=${inputValue}&interval=${selectValue}`,
+      });
     }
   };
 

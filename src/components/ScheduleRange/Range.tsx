@@ -13,12 +13,10 @@ import 'moment/locale/ru';
 import { buildRange, RangeType } from './buildRange';
 import { DayList, RangeDatePicker } from '../../components';
 import { useQuery } from '../supports/hooks';
-import { push } from 'connected-react-router';
 
 const Range: React.FC = () => {
   const dispatch = useDispatch();
   const {
-    auth: { user },
     grid: { events },
     range: {
       startOfRange,
@@ -28,8 +26,8 @@ const Range: React.FC = () => {
     },
   } = useSelector((state: RootState) => state);
   const [range, setRange] = useState<RangeType | null>(null);
-  // const history = useHistory();
 
+  const history = useHistory();
   const query = useQuery();
   const startDate = query.get('start');
   const endDate = query.get('end');
@@ -39,13 +37,11 @@ const Range: React.FC = () => {
       !moment(startDate, 'YYYY-MM-DD', true).isValid() ||
       !moment(endDate, 'YYYY-MM-DD', true).isValid()
     ) {
-      dispatch(
-        push({
-          search: `?start=${startOfRange.format(
-            'YYYY-MM-DD'
-          )}&end=${endOfRange.format('YYYY-MM-DD')}`,
-        })
-      );
+      history.push({
+        search: `?start=${startOfRange.format(
+          'YYYY-MM-DD'
+        )}&end=${endOfRange.format('YYYY-MM-DD')}`,
+      });
     } else {
       dispatch(setStartOFRange(moment(startDate, 'YYYY-MM-DD')));
       dispatch(setEndOFRange(moment(endDate, 'YYYY-MM-DD')));
@@ -60,25 +56,21 @@ const Range: React.FC = () => {
   }, [events, startOfRange, endOfRange]);
 
   const setStart = (value: moment.Moment) => {
-    dispatch(
-      push({
-        search: `?start=${value.format('YYYY-MM-DD')}&end=${endOfRange.format(
-          'YYYY-MM-DD'
-        )}`,
-      })
-    );
+    history.push({
+      search: `?start=${value.format('YYYY-MM-DD')}&end=${endOfRange.format(
+        'YYYY-MM-DD'
+      )}`,
+    });
 
     return setStartOFRange(value);
   };
 
   const setEnd = (value: moment.Moment) => {
-    dispatch(
-      push({
-        search: `?start=${startOfRange.format('YYYY-MM-DD')}&end=${value.format(
-          'YYYY-MM-DD'
-        )}`,
-      })
-    );
+    history.push({
+      search: `?start=${startOfRange.format('YYYY-MM-DD')}&end=${value.format(
+        'YYYY-MM-DD'
+      )}`,
+    });
 
     return setEndOFRange(value);
   };

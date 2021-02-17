@@ -9,7 +9,7 @@ import {
   NextEvents,
   PrivateRoute,
   ControlPanel,
-  AppLoader,
+  ScheduleLoader,
 } from '../components';
 
 const SchedulePage: React.FC = () => {
@@ -32,7 +32,7 @@ const SchedulePage: React.FC = () => {
   };
 
   if (loading) {
-    return <AppLoader />;
+    return <ScheduleLoader />;
   }
 
   return (
