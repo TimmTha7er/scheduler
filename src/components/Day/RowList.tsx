@@ -7,7 +7,7 @@ import {
   setRowDate,
 } from '../../redux/actions';
 import { buildDayGrid } from './buildDayGrid';
-import { ErrorIndicator, DayListLoader } from '../../components';
+import { ErrorIndicator, DayGridLoader } from '../../components';
 
 const DayGrid: React.FC = () => {
   const dispatch = useDispatch();
@@ -37,11 +37,11 @@ const DayGrid: React.FC = () => {
   };
 
   if (error) {
-    return <ErrorIndicator></ErrorIndicator>;
+    return <ErrorIndicator />;
   }
 
   if (loading) {
-    return <DayListLoader />;
+    return <DayGridLoader />;
   }
 
   return (

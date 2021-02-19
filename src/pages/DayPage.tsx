@@ -6,18 +6,12 @@ import { useQuery } from '../components/supports/hooks';
 import { push } from 'connected-react-router';
 import moment from 'moment';
 import 'moment/locale/ru';
-import {
-  TimeRuler,
-  DayGrid,
-  Message,
-  ControlPanel,
-  AppLoader,
-} from '../components';
+import { Message, ControlPanel, Day } from '../components';
 
 const DayPage: React.FC = () => {
   const dispatch = useDispatch();
   const {
-    auth: { needVerification, success, loading },
+    auth: { needVerification, success },
     datePicker: { date },
   } = useSelector((state: RootState) => state);
 
@@ -36,15 +30,11 @@ const DayPage: React.FC = () => {
     }
   }, [showDate]);
 
-  useEffect(() => {
-    if (success) {
-      dispatch(setSuccess(''));
-    }
-  }, [success, dispatch]);
-
-  if (loading) {
-    return <AppLoader />;
-  }
+  // useEffect(() => {
+  //   if (success) {
+  //     dispatch(setSuccess(''));
+  //   }
+  // }, [success, dispatch]);
 
   return (
     <>
@@ -56,14 +46,7 @@ const DayPage: React.FC = () => {
         />
       )}
       <ControlPanel />
-      <div className='day'>
-        <div className='day__left-col'>
-          <TimeRuler />
-        </div>
-        <div className='day__right-col'>
-          <DayGrid />
-        </div>
-      </div>
+      <Day />
     </>
   );
 };

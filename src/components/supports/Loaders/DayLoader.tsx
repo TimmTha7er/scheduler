@@ -1,10 +1,10 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
-const ScheduleLoader: React.FC = () => {
-  let y = 115;
+const AppLoader: React.FC = () => {
+  let y = 65;
   return (
-    <div className='container'>
+    <div className='day-loader'>
       <ContentLoader
         speed={3}
         width={970}
@@ -14,14 +14,9 @@ const ScheduleLoader: React.FC = () => {
         backgroundColor='#f3f3f3'
         foregroundColor='#ecebeb'
       >
-        {/* control panel */}
-        <rect x='5' y='10' rx='10' ry='10' width='125' height='25' />
-        <rect x='170' y='10' rx='10' ry='10' width='220' height='25' />
-        <rect x='830' y='10' rx='10' ry='10' width='125' height='25' />
-
         {/* day grid header */}
-        <rect x='5' y='70' rx='10' ry='10' width='955' height='30' />
-        <rect x='5' y='125' rx='10' ry='10' width='955' height='25' />
+        <rect x='5' y='20' rx='10' ry='10' width='955' height='30' />
+        <rect x='5' y='75' rx='10' ry='10' width='955' height='25' />
 
         {/* day grid rows */}
         {Array(24)
@@ -45,4 +40,4 @@ const ScheduleLoader: React.FC = () => {
   );
 };
 
-export default ScheduleLoader;
+export default AppLoader;

@@ -7,29 +7,20 @@ import { Message } from '../components';
 
 const SignIn: React.FC = () => {
   const dispatch = useDispatch();
-  const { error } = useSelector((state: RootState) => state.auth);
+  const { loading, error } = useSelector((state: RootState) => state.auth);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
-    return () => {
-      if (error) {
-        dispatch(setError(''));
-      }
-    };
-  }, [error, dispatch]);
-
-  const onSubmitClick = (e: FormEvent) => {
-    e.preventDefault();
-
     if (error) {
       dispatch(setError(''));
     }
+  }, []);
 
-    setLoading(true);
-    dispatch(signin({ email, password }, () => setLoading(false)));
+  const onSubmitClick = (e: FormEvent) => {
+    e.preventDefault();
+    dispatch(signin({ email, password }));
   };
 
   const onSingUpBtnClick = () => {

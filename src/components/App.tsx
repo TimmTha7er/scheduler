@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
+import { useDispatch } from 'react-redux';
 import {
   setLoading,
   getUserById,
@@ -15,9 +14,9 @@ import {
   HomePage,
   DayPage,
   SchedulePage,
-  SignUp,
-  SignIn,
-  ForgotPassword,
+  SignUpPage,
+  SignInPage,
+  ForgotPasswordPage,
   AdminPage,
 } from '../pages';
 import {
@@ -26,27 +25,22 @@ import {
   PublicRoute,
   PrivateRoute,
   AdminRoute,
-  NotFound,
 } from '../components';
 import '../scss/index.scss';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const {
-    auth: { user: authUser},
-  } = useSelector((state: RootState) => state);
 
   // Check if user exists
   useEffect(() => {
-    dispatch(setLoading(true));
-
     const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
-        dispatch(setLoading(true));
         await dispatch(getUserById(user.uid));
 
         if (!user.emailVerified) {
-          dispatch(setNeedVerification());
+          dispatch(setNeedVerification(true));
+        } else {
+          dispatch(setNeedVerification(false));
         }
 
         // get events
@@ -75,9 +69,12 @@ const App: React.FC = () => {
               <PublicRoute exact path='/' component={HomePage} />
               <PrivateRoute path='/day' component={DayPage} />
               <PrivateRoute path='/schedule' component={SchedulePage} />
-              <PublicRoute path='/sign-up' component={SignUp} />
-              <PublicRoute path='/sign-in' component={SignIn} />
-              <PublicRoute path='/forgot-password' component={ForgotPassword} />
+              <PublicRoute path='/sign-up' component={SignUpPage} />
+              <PublicRoute path='/sign-in' component={SignInPage} />
+              <PublicRoute
+                path='/forgot-password'
+                component={ForgotPasswordPage}
+              />
 
               <AdminRoute path='/admin' component={AdminPage} />
 

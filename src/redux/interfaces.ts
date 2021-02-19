@@ -318,6 +318,7 @@ interface ISetError {
 
 interface INeedVerification {
   type: typeof NEED_VERIFICATION;
+  payload: boolean;
 }
 
 interface ISetSuccess {

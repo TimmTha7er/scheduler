@@ -1,47 +1,34 @@
-import React, { FC, useState, FormEvent, useEffect } from 'react';
+import React, { useState, FormEvent, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { sendPasswordResetEmail, setError, setSuccess } from '../redux/actions';
 import { RootState } from '../redux/store';
 import { Message } from '../components';
 
-const ForgotPassword: FC = () => {
-  const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(false);
+const ForgotPassword: React.FC = () => {
   const dispatch = useDispatch();
-  const { error, success } = useSelector((state: RootState) => state.auth);
+  const { error, success, loading } = useSelector(
+    (state: RootState) => state.auth
+  );
+  const [email, setEmail] = useState('');
 
   useEffect(() => {
-    return () => {
-      if (error) {
-        dispatch(setError(''));
-      }
-
-      if (success) {
-        dispatch(setSuccess(''));
-      }
-    };
-  }, [error, dispatch, success]);
-
-  const submitHandler = async (e: FormEvent) => {
-    e.preventDefault();
-
-    if (success) {
-      dispatch(setSuccess(''));
-    }
-
     if (error) {
       dispatch(setError(''));
     }
-    
-    setLoading(true);
-    await dispatch(
+    if (success) {
+      dispatch(setSuccess(''));
+    }
+  }, []);
+
+  const submitHandler = async (e: FormEvent) => {
+    e.preventDefault();
+    dispatch(
       sendPasswordResetEmail(
         email,
         'Письмо для сброса пароля отправлено на указанный email!'
       )
     );
-    setLoading(false);
   };
 
   return (
@@ -73,7 +60,7 @@ const ForgotPassword: FC = () => {
             name='email'
             value={email}
             onChange={(e) => setEmail(e.currentTarget.value)}
-            placeholder='Email address'
+            // placeholder='Email address'
             autoComplete='off'
           />
         </div>

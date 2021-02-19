@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { RangeType, DayOfRangeType } from './buildRange';
 import { setPreviewPopupVisible, setRowDate } from '../../redux/actions';
-import { EventList, EmptyDayList } from '../../components';
+import { EventList, EmptyDayList, EventListLoader } from '../../components';
 
 import AdminEventList from './AdminEventList';
 
@@ -16,7 +16,7 @@ const DayList: React.FC<DayListProps> = ({ range, msg }) => {
   const dispatch = useDispatch();
   const {
     auth: { user },
-    grid: { rowDate },
+    grid: { rowDate, loading },
     popups: { isPreviewPopupVisible },
   } = useSelector((state: RootState) => state);
 
@@ -27,6 +27,10 @@ const DayList: React.FC<DayListProps> = ({ range, msg }) => {
     },
     [dispatch]
   );
+
+  if (loading) {
+    return <EventListLoader />;
+  }
 
   if (range && range.length === 0) {
     return <EmptyDayList msg={msg} />;

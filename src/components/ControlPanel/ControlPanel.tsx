@@ -8,13 +8,19 @@ import {
 } from '../../redux/actions';
 import { RootState } from '../../redux/store';
 import { useClickOutside } from '../supports/hooks';
-import { GridNav, DatePicker, RangeBtn } from '../../components';
+import {
+  GridNav,
+  DatePicker,
+  RangeBtn,
+  ControlPanelLoader,
+} from '../../components';
 import { useHistory } from 'react-router';
 
 const ControlPanel: React.FC = () => {
   const dispatch = useDispatch();
   const {
     datePicker: { date, isVisible },
+    auth: { loading },
   } = useSelector((state: RootState) => state);
   const history = useHistory();
   const selectedMonth: string = date.format('MMMM');
@@ -50,6 +56,10 @@ const ControlPanel: React.FC = () => {
     [dispatch]
   );
   const datePickerRef = useClickOutside(setVisibleCallback);
+
+  if (loading) {
+    return <ControlPanelLoader />;
+  }
 
   return (
     <div className='control-panel'>

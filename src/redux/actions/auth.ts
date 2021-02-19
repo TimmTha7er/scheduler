@@ -3,6 +3,7 @@ import {
   ISignInData,
   IUser,
   AuthThunkActionType,
+  AuthActionsType,
 } from '../interfaces';
 import {
   SET_USER,
@@ -17,33 +18,22 @@ import AuthService from '../../services/AuthService';
 const authService = new AuthService();
 
 // Create user
-export const signup = (
-  data: ISignUpData,
-  onError: () => void
-): AuthThunkActionType => {
+export const signup = (data: ISignUpData): AuthThunkActionType => {
   return async (dispatch) => {
     try {
+      dispatch(setLoading(true));
+
       const userData: IUser = await authService.signUp(
         data.email,
         data.password,
         data.firstName
       );
-
-      dispatch({
-        type: NEED_VERIFICATION,
-      });
-      dispatch({
-        type: SET_USER,
-        payload: userData,
-      });
+      
+      dispatch(setNeedVerification(true));
+      dispatch(userLoaded(userData));
     } catch (err) {
       console.log(err);
-      onError();
-
-      dispatch({
-        type: SET_ERROR,
-        payload: err.message,
-      });
+      dispatch(setError(err.message));
     }
   };
 };
@@ -52,39 +42,26 @@ export const signup = (
 export const getUserById = (id: string): AuthThunkActionType => {
   return async (dispatch) => {
     try {
+      dispatch(setLoading(true));
       const userData: IUser = await authService.getUserById(id);
 
-      dispatch({
-        type: SET_USER,
-        payload: userData,
-      });
+      dispatch(userLoaded(userData));
     } catch (err) {
       console.log(err);
+      dispatch(setError(err.message));
     }
   };
 };
 
-// Set loading
-export const setLoading = (value: boolean): AuthThunkActionType => {
-  return (dispatch) => {
-    dispatch({
-      type: SET_LOADING,
-      payload: value,
-    });
-  };
-};
-
 // Log in
-export const signin = (
-  data: ISignInData,
-  onError: () => void
-): AuthThunkActionType => {
+export const signin = (data: ISignInData): AuthThunkActionType => {
   return async (dispatch) => {
     try {
+      dispatch(setLoading(true));
       await authService.signIn(data.email, data.password);
+      dispatch(setLoading(false));
     } catch (err) {
       console.log(err);
-      onError();
       dispatch(setError(err.message));
     }
   };
@@ -95,9 +72,7 @@ export const signout = (): AuthThunkActionType => {
   return async (dispatch) => {
     try {
       dispatch(setLoading(true));
-
       await authService.signOut();
-
       dispatch({
         type: SIGN_OUT,
       });
@@ -108,35 +83,6 @@ export const signout = (): AuthThunkActionType => {
   };
 };
 
-// Set error
-export const setError = (msg: string): AuthThunkActionType => {
-  return (dispatch) => {
-    dispatch({
-      type: SET_ERROR,
-      payload: msg,
-    });
-  };
-};
-
-// Set need verification
-export const setNeedVerification = (): AuthThunkActionType => {
-  return (dispatch) => {
-    dispatch({
-      type: NEED_VERIFICATION,
-    });
-  };
-};
-
-// Set success
-export const setSuccess = (msg: string): AuthThunkActionType => {
-  return (dispatch) => {
-    dispatch({
-      type: SET_SUCCESS,
-      payload: msg,
-    });
-  };
-};
-
 // Send password reset email
 export const sendPasswordResetEmail = (
   email: string,
@@ -144,12 +90,52 @@ export const sendPasswordResetEmail = (
 ): AuthThunkActionType => {
   return async (dispatch) => {
     try {
+      dispatch(setLoading(true));
       await authService.sendPasswordResetEmail(email);
-
       dispatch(setSuccess(successMsg));
     } catch (err) {
       console.log(err);
       dispatch(setError(err.message));
     }
+  };
+};
+
+// Set loading
+export const setLoading = (value: boolean): AuthActionsType => {
+  return {
+    type: SET_LOADING,
+    payload: value,
+  };
+};
+
+// Set error
+export const setError = (msg: string): AuthActionsType => {
+  return {
+    type: SET_ERROR,
+    payload: msg,
+  };
+};
+
+// Set need verification
+export const setNeedVerification = (value:boolean): AuthActionsType => {
+  return {
+    type: NEED_VERIFICATION,
+    payload: value,
+  };
+};
+
+// Set success
+export const setSuccess = (msg: string): AuthActionsType => {
+  return {
+    type: SET_SUCCESS,
+    payload: msg,
+  };
+};
+
+// Set user
+const userLoaded = (userData: IUser): AuthActionsType => {
+  return {
+    type: SET_USER,
+    payload: userData,
   };
 };

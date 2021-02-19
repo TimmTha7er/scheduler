@@ -7,29 +7,20 @@ import { Message } from '../components';
 
 const SignUp: React.FC = () => {
   const dispatch = useDispatch();
-  const { error } = useSelector((state: RootState) => state.auth);
+  const { loading, error } = useSelector((state: RootState) => state.auth);
   const [firstName, setFirstName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    return () => {
-      if (error) {
-        dispatch(setError(''));
-      }
-    };
-  }, [error, dispatch]);
-
-  const onSubmitClick = (e: FormEvent) => {
-    e.preventDefault();
-
     if (error) {
       dispatch(setError(''));
     }
+  }, []);
 
-    setLoading(true);
-    dispatch(signup({ email, password, firstName }, () => setLoading(false)));
+  const onSubmitClick = (e: FormEvent) => {
+    e.preventDefault();
+    dispatch(signup({ email, password, firstName }));
   };
 
   return (

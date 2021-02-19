@@ -1,7 +1,10 @@
 export { default as HomePage } from './HomePage';
 export { default as DayPage } from './DayPage';
+export { default as RangePage } from './RangePage';
+export { default as NextDaysPage } from './NextDaysPage';
+export { default as NextEventsPage } from './NextEventsPage';
 export { default as SchedulePage } from './SchedulePage';
-export { default as SignUp } from './SignUp';
-export { default as SignIn } from './SignIn';
-export { default as ForgotPassword } from './ForgotPassword';
+export { default as SignUpPage } from './SignUpPage';
+export { default as SignInPage } from './SignInPage';
+export { default as ForgotPasswordPage } from './ForgotPasswordPage';
 export { default as AdminPage } from './AdminPage';
