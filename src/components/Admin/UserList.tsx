@@ -4,12 +4,14 @@ import { setSelectedUser, setSortOrder } from '../../redux/actions';
 import { UserListBody } from '../../components';
 import { RootState } from '../../redux/store';
 import ErrorIndicator from '../supports/ErrorIndicator';
+import { useHistory } from 'react-router';
 
 const UserList: React.FC = () => {
   const dispatch = useDispatch();
   const {
     admin: { orderBy, error },
   } = useSelector((state: RootState) => state);
+  const history = useHistory();
   const orderByName: string =
     orderBy === 'firstName' ? 'user-list__head-text_order' : '';
   const orderByEmail: string =
@@ -23,6 +25,7 @@ const UserList: React.FC = () => {
 
   const onOrderClick = (sortOrder: string) => () => {
     dispatch(setSortOrder(sortOrder));
+    history.push({search: `orderBy=${sortOrder}`});
   };
 
   if (error) {
