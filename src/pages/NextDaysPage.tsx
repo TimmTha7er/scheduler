@@ -3,10 +3,16 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { useQuery } from '../components/supports/hooks';
 import { useHistory } from 'react-router';
-import { NextDays } from '../components';
+import {
+  ControlPanel,
+  ScheduleNav,
+  AdminControlPanel,
+  NextDays,
+} from '../components';
 
 const NextDaysPage: React.FC = () => {
   const {
+    auth: { user },
     range: { selectValue, nextDaysNum },
   } = useSelector((state: RootState) => state);
 
@@ -19,7 +25,7 @@ const NextDaysPage: React.FC = () => {
 
   useEffect(() => {
     if (!numPattern.test(num) || !intervalPattern.test(interval)) {
-      history.push({
+      history.replace({
         search: `?num=${nextDaysNum}&interval=${selectValue}`,
       });
     }
@@ -27,8 +33,11 @@ const NextDaysPage: React.FC = () => {
 
   return (
     <>
-      <NextDays />
-      {/* <DayList range={range} msg={`за ближайшие ${num} ${selectValue}`} /> */}
+      {user?.role === 'admin' ? <AdminControlPanel /> : <ControlPanel />}
+      <div className='schedule-range'>
+        <ScheduleNav />
+        <NextDays />
+      </div>
     </>
   );
 };

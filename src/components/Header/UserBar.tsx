@@ -1,6 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { signout } from '../../redux/actions';
+import {
+  setALLPopupsUnvisible,
+  setRowDate,
+  setSelectedUser,
+  signout,
+  usersLoaded,
+} from '../../redux/actions';
 import { RootState } from '../../redux/store';
 import { Link } from 'react-router-dom';
 import { UserBarLoader } from '../../components';
@@ -13,6 +19,10 @@ const UserBar: React.FC = () => {
 
   const onLogoutClick = () => {
     dispatch(signout());
+    dispatch(setALLPopupsUnvisible());
+    dispatch(setRowDate(null));
+    dispatch(setSelectedUser(null));
+    dispatch(usersLoaded([]));
   };
 
   if (loading) {

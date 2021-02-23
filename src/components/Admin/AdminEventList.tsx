@@ -1,5 +1,5 @@
 import React from 'react';
-import { EventType } from './buildRange';
+import { EventType } from '../ScheduleRange/buildRange';
 
 interface AdminEventListProps {
   day: EventType[];

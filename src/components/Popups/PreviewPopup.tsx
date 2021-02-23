@@ -65,12 +65,14 @@ const PreviewPopup: React.FC = () => {
             onClick={onBtnDeleteClick}
             // className='action-bar__btn icon icon-trash'
             className='action-bar__btn icon'
+            title='Удалить'
           >
             <img className='action-bar__btn-img' src={deleteBtnImg} alt='del' />
           </button>
           <button
             onClick={onBtnEditClick}
             className='action-bar__btn'
+            title='Редактировать'
             // className='action-bar__btn icon icon-pencil'
           >
             <img className='action-bar__btn-img' src={editBtnImg} alt='edit' />

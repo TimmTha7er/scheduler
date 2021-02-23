@@ -41,7 +41,7 @@ const CreatePopup: React.FC = () => {
       submitBtnName='Создать'
       onSubmitClick={onSubmitClick}
       onCancelClick={onCancelClick}
-    ></CreateEditPopupView>
+    />
   );
 };
 

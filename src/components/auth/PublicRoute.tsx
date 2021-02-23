@@ -12,7 +12,7 @@ const PublicRoute: React.FC<PublicRouteProps> = ({
   ...rest
 }) => {
   const {
-    auth: { authenticated },
+    auth: { authenticated, user },
     datePicker: { date },
   } = useSelector((state: RootState) => state);
   const { state: { from, query } = {} } = useLocation<{
@@ -20,21 +20,24 @@ const PublicRoute: React.FC<PublicRouteProps> = ({
     query: string;
   }>();
 
+  // console.log('user role', user?.role);
+
+  const redirect =
+    user?.role === 'admin' ? (
+      <Redirect to='/admin' />
+    ) : (
+      <Redirect
+        to={{
+          pathname: from || '/day',
+          search: query || `?date=${date.format('YYYY-MM-DD')}`,
+        }}
+      />
+    );
+
   return (
     <Route
       {...rest}
-      render={(props) =>
-        !authenticated ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{
-              pathname: from || '/day',
-              search: query || `?date=${date.format('YYYY-MM-DD')}`,
-            }}
-          />
-        )
-      }
+      render={(props) => (!authenticated ? <Component {...props} /> : redirect)}
     />
   );
 };

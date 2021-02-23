@@ -8,7 +8,7 @@ import {
 import { RootState } from '../../redux/store';
 import { CreateEditPopupView } from '../../components';
 
-const CreatePopup: React.FC = () => {
+const EditPopup: React.FC = () => {
   const dispatch = useDispatch();
   const { rowDate, events } = useSelector((state: RootState) => state.grid);
   const { title, descr } = events[rowDate!.toString()];
@@ -45,8 +45,8 @@ const CreatePopup: React.FC = () => {
       descr={descr}
       onSubmitClick={onSubmitClick}
       onCancelClick={onCancelClick}
-    ></CreateEditPopupView>
+    />
   );
 };
 
-export default CreatePopup;
+export default EditPopup;

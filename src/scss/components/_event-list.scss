@@ -72,29 +72,41 @@
 
   &__descr-item {
     display: block;
-    margin-bottom: 3px;
+    max-width: 550px;
+    // margin-bottom: 3px;
+  }
+
+  &__title-inner {
+    max-width: 550px;
+    white-space: normal;
   }
 }
 
 @media only screen and (max-width: 768px) {
-  .event-list,
-  .admin-event-list {
+  .event-list {
     &__title-inner {
       max-width: 220px;
+    }
+  }
+
+  .admin-event-list {
+    &__title-inner {
+      // max-width: 220px;
     }
   }
 }
 
 @media only screen and (max-width: 580px) {
+  .event-list {
+    &__title-inner {
+      max-width: 130px;
+    }
+  }
   .event-list,
   .admin-event-list {
     &__circle {
       margin-right: 15px;
       margin-left: 15px;
-    }
-
-    &__title-inner {
-      max-width: 130px;
     }
   }
 
@@ -106,8 +118,7 @@
 }
 
 @media only screen and (max-width: 480px) {
-  .event-list,
-  .admin-event-list {
+  .event-list {
     &__title-inner {
       max-width: 140px;
     }

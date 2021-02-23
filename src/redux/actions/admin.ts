@@ -2,20 +2,20 @@ import {
   FETCH_USERS_REQUESTED,
   FETCH_USERS_LOADED,
   FETCH_USERS_ERROR,
-	EDIT_USER
+  EDIT_USER,
+  SET_SELECTED_USER,
+  SET_SORT_ORDER,
 } from '../action-types';
 import { AdminActionsType, AdminThunkActionType, IUser } from '../interfaces';
 import AdminService from '../../services/AdminService';
 
 const adminService = new AdminService();
 
-export const fetchUsers = (): AdminThunkActionType => {
+export const fetchUsers = (orderBy: string): AdminThunkActionType => {
   return async (dispatch) => {
     try {
-      // console.log('fetch users');
-
       dispatch(usersRequested());
-      const events = await adminService.getUsers();
+      const events = await adminService.getUsers(orderBy);
       dispatch(usersLoaded(events));
     } catch (error) {
       dispatch(usersError(error));
@@ -23,20 +23,20 @@ export const fetchUsers = (): AdminThunkActionType => {
   };
 };
 
-// export const editUser = (): AdminActionsType => {
-//   return async (dispatch) => {
-//     try {
-//       const newUser = await adminService.editUser();
+export const editUser = (user: IUser): AdminThunkActionType => {
+  return async (dispatch) => {
+    try {
+      await adminService.editUser(user);
 
-//       dispatch({
-//         type: EDIT_USER,
-//         payload: newUser,
-//       });
-//     } catch (error) {
-//       dispatch(usersError(error));
-//     }
-//   };
-// };
+      dispatch({
+        type: EDIT_USER,
+        payload: user,
+      });
+    } catch (error) {
+      dispatch(usersError(error));
+    }
+  };
+};
 
 const usersRequested = (): AdminActionsType => {
   return {
@@ -44,7 +44,7 @@ const usersRequested = (): AdminActionsType => {
   };
 };
 
-const usersLoaded = (events: IUser[]): AdminActionsType => {
+export const usersLoaded = (events: IUser[]): AdminActionsType => {
   return {
     type: FETCH_USERS_LOADED,
     payload: events,
@@ -55,5 +55,19 @@ const usersError = (error: {}): AdminActionsType => {
   return {
     type: FETCH_USERS_ERROR,
     payload: error,
+  };
+};
+
+export const setSelectedUser = (user: IUser | null): AdminActionsType => {
+  return {
+    type: SET_SELECTED_USER,
+    payload: user,
+  };
+};
+
+export const setSortOrder = (order: string): AdminActionsType => {
+  return {
+    type: SET_SORT_ORDER,
+    payload: order,
   };
 };

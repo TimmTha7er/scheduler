@@ -1,7 +1,8 @@
 // ----------------------------------------------
 //		header
 // ----------------------------------------------
-.control-panel {
+.control-panel,
+.admin-control-panel {
   display: flex;
   align-items: flex-end;
   position: relative;
@@ -79,8 +80,25 @@
   }
 }
 
-@media only screen and (max-width: 580px) {
+.admin-control-panel {
+  &__selected-user {
+    font-size: 20px;
+    padding-left: 5px;
+    margin: 1px 0 10px 0;
+  }
+}
+
+@media only screen and (max-width: 768px) {
   .control-panel {
+    &__gridnav {
+      margin-left: 25px;
+    }
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  .control-panel,
+  .admin-control-panel {
     flex-direction: column-reverse;
     align-items: flex-start;
 
@@ -88,6 +106,8 @@
       margin-left: 0;
       margin-bottom: 10px;
       box-shadow: none !important;
+
+      // margin-left: 25px;
     }
 
     &__wrap {
@@ -113,6 +133,12 @@
       width: 100%;
     }
   }
+
+  // .admin-control-panel {
+  //   &__gridnav {
+  //     margin-left: 25px;
+  //   }
+  // }
 }
 
 @media only screen and (max-width: 480px) {

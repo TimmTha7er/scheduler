@@ -1,0 +1,26 @@
+.not-found {
+	text-align: center;
+
+	&__error {
+		font-size: 55px;
+		color: #c00;
+		margin-top: 50px;
+	}
+
+	&__title {
+		font-size: 30px;
+		margin-bottom: 5px;
+	}
+
+	&__img {
+		max-width: 100%;
+		margin-bottom: 50px;
+	}
+
+	&__link {
+		display: block;
+		font-size: 17px;
+		margin-bottom: 15px;
+		color: #4887e1;
+	}
+}

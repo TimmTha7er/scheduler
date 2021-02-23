@@ -1,11 +1,16 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setNextEventsNum } from '../../redux/actions';
 import { useInput, useFocus, useQuery } from '../supports/hooks';
 import { useHistory } from 'react-router';
+import { RootState } from '../../redux/store';
 
 const NextEvents: React.FC = () => {
   const dispatch = useDispatch();
+  const {
+    admin: { selectedUser },
+    auth: { user },
+  } = useSelector((state: RootState) => state);
   const inputRef = useFocus();
 
   const history = useHistory();
@@ -13,6 +18,7 @@ const NextEvents: React.FC = () => {
   const num = query.get('num') || '';
   const pattern = /^(?:\d{1}|\d{2})$/;
   const input = useInput(num, 2, pattern);
+  const uidQuery = user?.role === 'admin' ? `&uid=${selectedUser?.id}` : '';
 
   useEffect(() => {
     input.onChange(num);
@@ -27,7 +33,7 @@ const NextEvents: React.FC = () => {
       dispatch(setNextEventsNum(inputValue));
 
       history.push({
-        search: `?num=${inputValue}`,
+        search: `?num=${inputValue}${uidQuery}`,
       });
     }
   };
@@ -42,7 +48,7 @@ const NextEvents: React.FC = () => {
       dispatch(setNextEventsNum(input.value));
 
       history.push({
-        search: `?num=${inputValue}`,
+        search: `?num=${inputValue}${uidQuery}`,
       });
     }
   };
@@ -57,7 +63,7 @@ const NextEvents: React.FC = () => {
       dispatch(setNextEventsNum(input.value));
 
       history.push({
-        search: `?num=${inputValue}`,
+        search: `?num=${inputValue}${uidQuery}`,
       });
     }
   };

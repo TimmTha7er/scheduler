@@ -3,9 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { RangeType, DayOfRangeType } from './buildRange';
 import { setPreviewPopupVisible, setRowDate } from '../../redux/actions';
-import { EventList, EmptyDayList, EventListLoader } from '../../components';
-
-import AdminEventList from './AdminEventList';
+import {
+  EventList,
+  EmptyDayList,
+  EventListLoader,
+  AdminEventList,
+  ErrorIndicator,
+} from '../../components';
 
 interface DayListProps {
   range: RangeType | null;
@@ -16,7 +20,7 @@ const DayList: React.FC<DayListProps> = ({ range, msg }) => {
   const dispatch = useDispatch();
   const {
     auth: { user },
-    grid: { rowDate, loading },
+    grid: { rowDate, loading, error },
     popups: { isPreviewPopupVisible },
   } = useSelector((state: RootState) => state);
 
@@ -27,6 +31,10 @@ const DayList: React.FC<DayListProps> = ({ range, msg }) => {
     },
     [dispatch]
   );
+
+  if (error) {
+    return <ErrorIndicator />;
+  }
 
   if (loading) {
     return <EventListLoader />;
@@ -44,9 +52,11 @@ const DayList: React.FC<DayListProps> = ({ range, msg }) => {
           const month: string = time.clone().format('LL').split(' ')[1];
           const year: string = time.clone().format('YYYY');
           const dayOfWeek: string = time.clone().format('dddd');
+          const className =
+            user?.role === 'admin' ? 'schedule-range__day_admin' : '';
 
           return (
-            <div key={idx} className='schedule-range__day'>
+            <div key={idx} className={`schedule-range__day ${className}`}>
               <div className='schedule-range__date'>
                 <span className='schedule-range__dayOfMonth'>{dayOfMonth}</span>
                 <span className='schedule-range__month'>{month}</span>
@@ -54,13 +64,7 @@ const DayList: React.FC<DayListProps> = ({ range, msg }) => {
                 <div className='schedule-range__dayOfWeek'>{dayOfWeek}</div>
               </div>
 
-              {/* <EventList
-                day={day}
-                rowDate={rowDate}
-                isPreviewPopupVisible={isPreviewPopupVisible}
-                onEventClick={onEventClick}
-              /> */}
-              {user && user.role === 'admin' ? (
+              {user?.role === 'admin' ? (
                 <AdminEventList day={day} />
               ) : (
                 <EventList

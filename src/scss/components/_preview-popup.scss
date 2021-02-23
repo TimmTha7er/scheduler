@@ -1,4 +1,5 @@
-.preview-popup {
+.preview-popup,
+.admin-preview-popup {
   position: fixed;
   left: 50%;
   top: 50%;
@@ -56,6 +57,25 @@
   }
 }
 
+.admin-preview-popup {
+  &__descr-item {
+    display: flex;
+    margin-bottom: 7px;
+  }
+
+  &__descr-name {
+    display: inline-block;
+    margin-right: 5px;
+    min-width: 80px;
+  }
+
+  &__descr-prop {
+    display: inline-block;
+    max-width: 220px;
+    overflow: hidden;
+  }
+}
+
 .action-bar {
   user-select: none;
   transition: opacity 0.15s ease-out;
@@ -90,7 +110,7 @@
     }
   }
 
-  &__btn-img{
+  &__btn-img {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -107,15 +127,16 @@
 }
 
 @media only screen and (max-width: 480px) {
-  .preview-popup {
+  .preview-popup,
+  .admin-preview-popup {
     width: 97%;
 
-		&__header {
-			padding-bottom: 20px;
-		}
+    &__header {
+      padding-bottom: 20px;
+    }
 
-		&__footer {
-			padding: 20px 0 5px 0px;
-		}
+    &__footer {
+      padding: 20px 0 5px 0px;
+    }
   }
 }

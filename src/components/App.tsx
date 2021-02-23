@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   setLoading,
   getUserById,
@@ -8,7 +8,7 @@ import {
   fetchEvents,
   fetchUsers,
 } from '../redux/actions';
-import { Switch } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import firebase from '../services/firebase/config';
 import {
   HomePage,
@@ -25,11 +25,17 @@ import {
   PublicRoute,
   PrivateRoute,
   AdminRoute,
+  NotFound,
 } from '../components';
 import '../scss/index.scss';
+import { RootState } from '../redux/store';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
+  const {
+    auth: { user },
+    admin: { orderBy },
+  } = useSelector((state: RootState) => state);
 
   // Check if user exists
   useEffect(() => {
@@ -42,13 +48,6 @@ const App: React.FC = () => {
         } else {
           dispatch(setNeedVerification(false));
         }
-
-        // get events
-        dispatch(fetchEvents());
-
-        // ??? временно
-        // get users
-        dispatch(fetchUsers());
       }
 
       dispatch(setLoading(false));
@@ -59,6 +58,16 @@ const App: React.FC = () => {
     };
   }, [dispatch]);
 
+  useEffect(() => {
+    if (user && user.role === 'admin') {
+      dispatch(fetchUsers(orderBy));
+    }
+
+    if (user && user.role === 'user') {
+      dispatch(fetchEvents());
+    }
+  }, [user, orderBy]);
+
   return (
     <>
       <PerfectScrollbar>
@@ -67,18 +76,17 @@ const App: React.FC = () => {
           <main className='main'>
             <Switch>
               <PublicRoute exact path='/' component={HomePage} />
-              <PrivateRoute path='/day' component={DayPage} />
+              <PrivateRoute exact path='/day' component={DayPage} />
+              <AdminRoute exact path='/admin' component={AdminPage} />
               <PrivateRoute path='/schedule' component={SchedulePage} />
-              <PublicRoute path='/sign-up' component={SignUpPage} />
-              <PublicRoute path='/sign-in' component={SignInPage} />
+              <PublicRoute exact path='/sign-up' component={SignUpPage} />
+              <PublicRoute exact path='/sign-in' component={SignInPage} />
               <PublicRoute
+                exact
                 path='/forgot-password'
                 component={ForgotPasswordPage}
               />
-
-              <AdminRoute path='/admin' component={AdminPage} />
-
-              {/* <Route exact path='*' component={NotFound} /> */}
+              <Route exact path='*' component={NotFound} />
             </Switch>
           </main>
         </div>

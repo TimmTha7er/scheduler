@@ -21,7 +21,7 @@ const DayGrid: React.FC = () => {
         </div>
       </div>
 
-      <RowList></RowList>
+      <RowList />
     </div>
   );
 };

@@ -1,28 +1,16 @@
 import firebase from './firebase/config';
-import { IUser, IEvent, ICreatedEvent } from '../redux/interfaces';
+import { IUser } from '../redux/interfaces';
+import moment from 'moment';
+import 'moment/locale/ru';
 
 export default class AdminService {
-  public editUser = async () => {
-    // const cityRef = firebase.firestore().collection('cities').doc('DC');
-    // // Set the 'capital' field of the city
-    // const res = await cityRef.update({capital: true});
+  public editUser = async (user: IUser) => {
+    await firebase
+      .firestore()
+      .collection('users')
+      .doc(user.id)
+      .update(this._transformUser(user));
   };
-
-  // getEvents = async (uid: string) => {
-  //   const snapshot = await firebase
-  //     .database()
-  //     .ref(`calendar/users/${uid}/events`)
-  //     .once('value');
-
-  //   // ??
-  //   if (!snapshot.exists) {
-  //     throw new Error(`Не удалось получить ${snapshot.ref} }`);
-  //   }
-
-  //   const events: IEvent = this._transformEvents(snapshot);
-
-  //   return events;
-  // };
 
   public getUserById = async (id: string) => {
     const user = await firebase.firestore().collection('users').doc(id).get();
@@ -38,11 +26,12 @@ export default class AdminService {
     return userData;
   };
 
-  public getUsers = async () => {
+  public getUsers = async (orderBy: string) => {
     const snapshot = await firebase
       .firestore()
       .collection('users')
       .where('role', '==', 'user')
+      .orderBy(orderBy)
       .get();
 
     if (snapshot.empty) {
@@ -51,27 +40,30 @@ export default class AdminService {
       );
     }
 
+    const users: IUser[] = this._transformUsers(snapshot);
+
+    return users;
+  };
+
+  _transformUsers = (snapshot: firebase.firestore.QuerySnapshot) => {
     const users: IUser[] = [];
+
     snapshot.forEach((doc) => {
-      users.push(doc.data() as IUser);
+      const { id, role, createdAt, firstName, email } = doc.data();
+      const date = moment(new Date(1970, 0, 1).setSeconds(createdAt.seconds))
+        .clone()
+        .format('DD MM YYYY, HH:mm');
+
+      users.push({ id, firstName, email, role, createdAt: date });
     });
 
     return users;
   };
 
-  // _transformEvents = (snapshot: firebase.database.DataSnapshot) => {
-  //   const events: IEvent = {};
+  _transformUser = (user: IUser) => {
+    const newUser = { ...user };
+    delete newUser.createdAt;
 
-  //   snapshot.forEach((childSnapshot) => {
-  //     const { descr, time, title } = childSnapshot.val();
-
-  //     events[time] = {
-  //       descr,
-  //       title,
-  //       id: childSnapshot.key || '',
-  //     };
-  //   });
-
-  //   return events;
-  // };
+    return newUser;
+  };
 }

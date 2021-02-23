@@ -3,10 +3,16 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { useQuery } from '../components/supports/hooks';
 import { useHistory } from 'react-router';
-import { NextEvents } from '../components';
+import {
+  NextEvents,
+  ScheduleNav,
+  ControlPanel,
+  AdminControlPanel,
+} from '../components';
 
 const NextEventsPage: React.FC = () => {
   const {
+    auth: { user },
     range: { nextEventsNum },
   } = useSelector((state: RootState) => state);
 
@@ -17,7 +23,7 @@ const NextEventsPage: React.FC = () => {
 
   useEffect(() => {
     if (!pattern.test(num)) {
-      history.push({
+      history.replace({
         search: `?num=${nextEventsNum}`,
       });
     }
@@ -25,8 +31,11 @@ const NextEventsPage: React.FC = () => {
 
   return (
     <>
-      <NextEvents />
-      {/* <DayList range={range} msg={`за ближайшие ${num} ${selectValue}`} /> */}
+      {user?.role === 'admin' ? <AdminControlPanel /> : <ControlPanel />}
+      <div className='schedule-range'>
+        <ScheduleNav />
+        <NextEvents />
+      </div>
     </>
   );
 };

@@ -10,6 +10,8 @@ const NextDays: React.FC = () => {
   const dispatch = useDispatch();
   const {
     range: { selectValue },
+    admin: { selectedUser },
+    auth: { user },
   } = useSelector((state: RootState) => state);
   const inputRef = useFocus();
 
@@ -19,6 +21,7 @@ const NextDays: React.FC = () => {
   const interval = query.get('interval') || '';
   const numPattern = /^(?:\d{1}|\d{2})$/;
   const input = useInput(num, 2, numPattern);
+  const uidQuery = user?.role === 'admin' ? `&uid=${selectedUser?.id}` : '';
 
   useEffect(() => {
     input.onChange(num);
@@ -35,7 +38,7 @@ const NextDays: React.FC = () => {
       dispatch(setNextDaysNum(inputValue));
 
       history.push({
-        search: `?num=${inputValue}&interval=${selectValue}`,
+        search: `?num=${inputValue}&interval=${selectValue}${uidQuery}`,
       });
     }
   };
@@ -57,7 +60,7 @@ const NextDays: React.FC = () => {
       dispatch(setNextDaysNum(input.value));
 
       history.push({
-        search: `?num=${inputValue}&interval=${selectValue}`,
+        search: `?num=${inputValue}&interval=${selectValue}${uidQuery}`,
       });
     }
   };
@@ -72,7 +75,7 @@ const NextDays: React.FC = () => {
       dispatch(setNextDaysNum(input.value));
 
       history.push({
-        search: `?num=${inputValue}&interval=${selectValue}`,
+        search: `?num=${inputValue}&interval=${selectValue}${uidQuery}`,
       });
     }
   };

@@ -31,6 +31,9 @@ import {
   FETCH_USERS_REQUESTED,
   FETCH_USERS_LOADED,
   FETCH_USERS_ERROR,
+  SET_SELECTED_USER,
+  EDIT_USER,
+  SET_SORT_ORDER,
 } from './action-types';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from './store';
@@ -272,7 +275,7 @@ export interface IUser {
   firstName: string;
   email: string;
   id: string;
-  createdAt: any;
+  createdAt?: string | {};
   role: 'user' | 'admin';
 }
 
@@ -349,6 +352,8 @@ export interface IAdminState {
   users: IUser[];
   loading: boolean;
   error: null | {};
+  selectedUser: null | IUser;
+  orderBy: string;
 }
 
 // actions
@@ -366,7 +371,29 @@ interface IUsersEror {
   payload: {};
 }
 
-export type AdminActionsType = IUsersRequested | IUsersLoaded | IUsersEror;
+interface ISetSelectedUser {
+  type: typeof SET_SELECTED_USER;
+  payload: IUser | null;
+}
+
+interface IEditUser {
+  type: typeof EDIT_USER;
+  payload: IUser;
+}
+
+interface ISetSortOrder {
+  type: typeof SET_SORT_ORDER;
+  payload: string;
+}
+
+export type AdminActionsType =
+  | IUsersRequested
+  | IUsersLoaded
+  | IUsersEror
+  | ISetSelectedUser
+  | IEditUser
+  | ISetSortOrder;
+
 export type AdminThunkActionType = ThunkAction<
   void,
   RootState,

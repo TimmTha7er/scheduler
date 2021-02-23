@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { setALLPopupsUnvisible, setRowDate } from '../../redux/actions';
-import { useRouteMatch, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { ScheduleNavLoader } from '../../components';
 
 const ScheduleNav: React.FC = () => {
@@ -15,9 +15,11 @@ const ScheduleNav: React.FC = () => {
       endOfRange,
       selectValue,
     },
-    auth: { loading },
+    auth: { user, loading },
+    admin: { selectedUser },
   } = useSelector((state: RootState) => state);
-  const match = useRouteMatch();
+
+  const uidQuery = user?.role === 'admin' ? `&uid=${selectedUser?.id}` : '';
 
   const onLinkClick = () => {
     dispatch(setALLPopupsUnvisible());
@@ -35,10 +37,10 @@ const ScheduleNav: React.FC = () => {
         activeClassName='schedule-range__link_active'
         className='link schedule-range__link'
         to={{
-          pathname: `${match.url}/range`,
+          pathname: `/schedule/range`,
           search: `?start=${startOfRange.format(
             'YYYY-MM-DD'
-          )}&end=${endOfRange.format('YYYY-MM-DD')}`,
+          )}&end=${endOfRange.format('YYYY-MM-DD')}${uidQuery}`,
         }}
       >
         Промежуток
@@ -48,8 +50,8 @@ const ScheduleNav: React.FC = () => {
         activeClassName='schedule-range__link_active'
         className='link schedule-range__link'
         to={{
-          pathname: `${match.url}/n-days`,
-          search: `?num=${nextDaysNum}&interval=${selectValue}`,
+          pathname: `/schedule/n-days`,
+          search: `?num=${nextDaysNum}&interval=${selectValue}${uidQuery}`,
         }}
       >
         В ближайшее время
@@ -59,8 +61,8 @@ const ScheduleNav: React.FC = () => {
         activeClassName='schedule-range__link_active'
         className='link schedule-range__link'
         to={{
-          pathname: `${match.url}/n-events`,
-          search: `?num=${nextEventsNum}`,
+          pathname: `/schedule/n-events`,
+          search: `?num=${nextEventsNum}${uidQuery}`,
         }}
       >
         Ближайшие события
