@@ -5,17 +5,21 @@ import {
   EDIT_USER,
   SET_SELECTED_USER,
   SET_SORT_ORDER,
+  SET_ORDER,
 } from '../action-types';
 import { AdminActionsType, AdminThunkActionType, IUser } from '../interfaces';
 import AdminService from '../../services/AdminService';
 
 const adminService = new AdminService();
 
-export const fetchUsers = (orderBy: string): AdminThunkActionType => {
+export const fetchUsers = (
+  orderBy: string,
+  order: 'asc' | 'desc'
+): AdminThunkActionType => {
   return async (dispatch) => {
     try {
       dispatch(usersRequested());
-      const events = await adminService.getUsers(orderBy);
+      const events = await adminService.getUsers(orderBy, order);
       dispatch(usersLoaded(events));
     } catch (error) {
       dispatch(usersError(error));
@@ -65,9 +69,16 @@ export const setSelectedUser = (user: IUser | null): AdminActionsType => {
   };
 };
 
-export const setSortOrder = (order: string): AdminActionsType => {
+export const setSortOrder = (orderBy: string): AdminActionsType => {
   return {
     type: SET_SORT_ORDER,
+    payload: orderBy,
+  };
+};
+
+export const setOrder = (order: 'asc' | 'desc'): AdminActionsType => {
+  return {
+    type: SET_ORDER,
     payload: order,
   };
 };

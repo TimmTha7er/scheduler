@@ -26,12 +26,12 @@ export default class AdminService {
     return userData;
   };
 
-  public getUsers = async (orderBy: string) => {
+  public getUsers = async (orderBy: string, order: 'asc' | 'desc') => {
     const snapshot = await firebase
       .firestore()
       .collection('users')
       .where('role', '==', 'user')
-      .orderBy(orderBy)
+      .orderBy(orderBy, order)
       .get();
 
     if (snapshot.empty) {

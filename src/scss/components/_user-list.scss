@@ -90,7 +90,8 @@
       background-repeat: no-repeat;
       background-position: 50%;
       opacity: 0;
-      transition: color 0.15s ease-out, opacity 0.15s ease-out;
+      transition: color 0.15s ease-out, opacity 0.15s ease-out,
+        transform 0.15s ease-out;
     }
 
     &:hover {
@@ -105,9 +106,17 @@
       color: #c00;
     }
 
-    &_order {
+    &_order-asc,
+    &_order-desc {
       &::before {
         opacity: 1;
+      }
+    }
+
+    &_order-asc {
+      &::before {
+        top: 0px;
+        transform: rotate(180deg);
       }
     }
   }

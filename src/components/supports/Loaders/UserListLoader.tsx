@@ -11,7 +11,7 @@ const UserListLoader: React.FC = () => {
         <td>
           <ContentLoader
             speed={3}
-            width={150}
+            width={165}
             height={900}
             // viewBox="0 0 100 100"
             style={{ width: '99.5%' }}
@@ -23,7 +23,7 @@ const UserListLoader: React.FC = () => {
               .map((_, idx) => {
                 y += 56.3;
                 return (
-                  <rect key={idx} x='5' y={y} rx='3' ry='3' width='140' height='25' />
+                  <rect key={idx} x='5' y={y} rx='3' ry='3' width='155' height='25' />
                 );
               })}
           </ContentLoader>
@@ -31,7 +31,7 @@ const UserListLoader: React.FC = () => {
         <td>
         <ContentLoader
             speed={3}
-            width={350}
+            width={395}
             height={900}
             // viewBox="0 0 100 100"
             style={{ width: '99.5%' }}
@@ -43,7 +43,7 @@ const UserListLoader: React.FC = () => {
               .map((_, idx) => {
                 y1 += 56.3;
                 return (
-                  <rect key={idx} x='5' y={y1} rx='3' ry='3' width='350' height='25' />
+                  <rect key={idx} x='5' y={y1} rx='3' ry='3' width='375' height='25' />
                 );
               })}
           </ContentLoader>

@@ -34,6 +34,7 @@ import {
   SET_SELECTED_USER,
   EDIT_USER,
   SET_SORT_ORDER,
+  SET_ORDER,
 } from './action-types';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from './store';
@@ -354,6 +355,7 @@ export interface IAdminState {
   error: null | {};
   selectedUser: null | IUser;
   orderBy: string;
+  order: 'asc' | 'desc';
 }
 
 // actions
@@ -386,13 +388,19 @@ interface ISetSortOrder {
   payload: string;
 }
 
+interface ISetOrder {
+  type: typeof SET_ORDER;
+  payload: 'asc' | 'desc';
+}
+
 export type AdminActionsType =
   | IUsersRequested
   | IUsersLoaded
   | IUsersEror
   | ISetSelectedUser
   | IEditUser
-  | ISetSortOrder;
+  | ISetSortOrder
+  | ISetOrder;
 
 export type AdminThunkActionType = ThunkAction<
   void,

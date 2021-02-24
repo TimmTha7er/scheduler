@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedUser, setSortOrder } from '../../redux/actions';
+import { setSelectedUser, setSortOrder, setOrder } from '../../redux/actions';
 import { UserListBody } from '../../components';
 import { RootState } from '../../redux/store';
 import ErrorIndicator from '../supports/ErrorIndicator';
@@ -9,23 +9,31 @@ import { useHistory } from 'react-router';
 const UserList: React.FC = () => {
   const dispatch = useDispatch();
   const {
-    admin: { orderBy, error },
+    admin: { orderBy, error, order },
   } = useSelector((state: RootState) => state);
   const history = useHistory();
-  const orderByName: string =
-    orderBy === 'firstName' ? 'user-list__head-text_order' : '';
-  const orderByEmail: string =
-    orderBy === 'email' ? 'user-list__head-text_order' : '';
-  const orderByCreatedAt: string =
-    orderBy === 'createdAt' ? 'user-list__head-text_order' : '';
+
+  const className = `user-list__head-text_order-${order}`;
+  const orderByName = orderBy === 'firstName' ? className : '';
+  const orderByEmail = orderBy === 'email' ? className : '';
+  const orderByCreatedAt = orderBy === 'createdAt' ? className : '';
 
   useEffect(() => {
     dispatch(setSelectedUser(null));
   }, []);
 
-  const onOrderClick = (sortOrder: string) => () => {
-    dispatch(setSortOrder(sortOrder));
-    history.push({search: `orderBy=${sortOrder}`});
+  const onOrderClick = (sortOrderBy: string) => () => {
+    if (sortOrderBy === orderBy) {
+      history.push({
+        search: `orderBy=${sortOrderBy}&order=${
+          order === 'asc' ? 'desc' : 'asc'
+        }`,
+      });
+    } else {
+      dispatch(setSortOrder(sortOrderBy));
+      dispatch(setOrder('desc'));
+      history.push({ search: `orderBy=${sortOrderBy}&order=desc` });
+    }
   };
 
   if (error) {

@@ -5,6 +5,7 @@ import {
   EDIT_USER,
   SET_SELECTED_USER,
   SET_SORT_ORDER,
+  SET_ORDER,
 } from '../action-types';
 import { IAdminState, AdminActionsType, IUser } from '../interfaces';
 
@@ -14,6 +15,7 @@ const initialState: IAdminState = {
   error: null,
   selectedUser: null,
   orderBy: 'firstName',
+  order: 'desc',
 };
 
 const adminReducer = (
@@ -73,6 +75,13 @@ const adminReducer = (
     return {
       ...state,
       orderBy: action.payload,
+    };
+  }
+
+  if (action.type === SET_ORDER) {
+    return {
+      ...state,
+      order: action.payload,
     };
   }
 

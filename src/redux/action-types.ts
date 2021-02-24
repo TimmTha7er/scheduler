@@ -56,3 +56,4 @@ export const FETCH_USERS_ERROR = 'FETCH_USERS_ERROR';
 export const EDIT_USER = 'EDIT_USER';
 export const SET_SELECTED_USER = 'SET_SELECTED_USER';
 export const SET_SORT_ORDER = 'SET_SORT_ORDER';
+export const SET_ORDER = 'SET_ORDER';

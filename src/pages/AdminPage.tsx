@@ -4,27 +4,29 @@ import { RootState } from '../redux/store';
 import { UserList, AdminPageLoader } from '../components';
 import { useQuery } from '../components/supports/hooks';
 import { useHistory } from 'react-router';
-import { setSortOrder } from '../redux/actions';
+import { setSortOrder, setOrder } from '../redux/actions';
 
 const AdminPage: React.FC = () => {
   const dispatch = useDispatch();
   const {
     auth: { loading },
-    admin: { orderBy },
+    admin: { orderBy, order },
   } = useSelector((state: RootState) => state);
   const history = useHistory();
   const query = useQuery();
-  const sortOrder = query.get('orderBy') || '';
+  const sortOrderBy = query.get('orderBy') || '';
+  const sortOrder = query.get('order') || '';
 
   useEffect(() => {
-    if (!sortOrder) {
+    if (!sortOrderBy || (sortOrder !== 'asc' && sortOrder !== 'desc')) {
       history.replace({
-        search: `?orderBy=${orderBy}`,
+        search: `?orderBy=${orderBy}&order=${order}`,
       });
     } else {
-      dispatch(setSortOrder(sortOrder));
+      dispatch(setSortOrder(sortOrderBy));
+      dispatch(setOrder(sortOrder));
     }
-  }, [sortOrder]);
+  }, [sortOrderBy, sortOrder]);
 
   if (loading) {
     return <AdminPageLoader />;
