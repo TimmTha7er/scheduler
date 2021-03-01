@@ -45,7 +45,7 @@ export default class AdminService {
     return users;
   };
 
-  _transformUsers = (snapshot: firebase.firestore.QuerySnapshot) => {
+  private _transformUsers = (snapshot: firebase.firestore.QuerySnapshot) => {
     const users: IUser[] = [];
 
     snapshot.forEach((doc) => {
@@ -60,7 +60,7 @@ export default class AdminService {
     return users;
   };
 
-  _transformUser = (user: IUser) => {
+  private _transformUser = (user: IUser) => {
     const newUser = { ...user };
     delete newUser.createdAt;
 

@@ -15,7 +15,7 @@ const AdminPageLoader: React.FC = () => {
         foregroundColor='#ecebeb'
       >
 				{/* title */}
-				<rect x='5' y='0' rx='10' ry='10' width='125' height='25' />
+				<rect x='5' y='0' rx='10' ry='10' width='525' height='25' />
 
 				{/* table head */}
 				<rect x='5' y='50' rx='10' ry='10' width='945' height='45' />

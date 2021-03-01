@@ -11,7 +11,7 @@ const UserListLoader: React.FC = () => {
         <td>
           <ContentLoader
             speed={3}
-            width={165}
+            width={175}
             height={900}
             // viewBox="0 0 100 100"
             style={{ width: '99.5%' }}
@@ -23,7 +23,7 @@ const UserListLoader: React.FC = () => {
               .map((_, idx) => {
                 y += 56.3;
                 return (
-                  <rect key={idx} x='5' y={y} rx='3' ry='3' width='155' height='25' />
+                  <rect key={idx} x='5' y={y} rx='3' ry='3' width='165' height='25' />
                 );
               })}
           </ContentLoader>

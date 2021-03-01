@@ -35,6 +35,7 @@ import {
   EDIT_USER,
   SET_SORT_ORDER,
   SET_ORDER,
+  SET_FILTER,
 } from './action-types';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from './store';
@@ -354,8 +355,9 @@ export interface IAdminState {
   loading: boolean;
   error: null | {};
   selectedUser: null | IUser;
-  orderBy: string;
+  sortBy: string;
   order: 'asc' | 'desc';
+  filterBy: string;
 }
 
 // actions
@@ -393,6 +395,11 @@ interface ISetOrder {
   payload: 'asc' | 'desc';
 }
 
+interface ISetFilter {
+  type: typeof SET_FILTER;
+  payload: string;
+}
+
 export type AdminActionsType =
   | IUsersRequested
   | IUsersLoaded
@@ -400,7 +407,8 @@ export type AdminActionsType =
   | ISetSelectedUser
   | IEditUser
   | ISetSortOrder
-  | ISetOrder;
+  | ISetOrder
+  | ISetFilter;
 
 export type AdminThunkActionType = ThunkAction<
   void,

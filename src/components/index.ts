@@ -62,5 +62,6 @@ export { default as AdminEditPopup } from './Admin/AdminEditPopup';
 export { default as AdminControlPanel } from './Admin/AdminControlPanel';
 export { default as AdminRangeBtn } from './Admin/AdminRangeBtn';
 export { default as AdminEventList } from './Admin/AdminEventList';
+export { default as AdminUsersFilter } from './Admin/AdminUsersFilter';
 
 export { default as App } from './App';

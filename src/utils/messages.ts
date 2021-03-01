@@ -17,6 +17,8 @@ const messages: IMessages = {
     'Пожалуйста, подтвердите свой адрес электронной почты.',
   'Password should be at least 6 characters':
     'Пароль должен состоять минимум из 6 символов.',
+  'Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.':
+    'Доступ к этой учетной записи был временно отключен из-за множества неудачных попыток входа в систему. Вы можете немедленно восстановить его, сбросив пароль, или можете повторить попытку позже.',
 };
 
 export default messages;

@@ -73,11 +73,11 @@ const CreateEditPopupView: React.FC<CreateEditPopupViewProps> = ({
             <textarea
               value={textareaValue}
               onChange={onTextareaChange}
-              className='form__textarea'
+              className='form__textarea scroll-bar'
               cols={30}
               rows={10}
               maxLength={4000}
-            ></textarea>
+            />
           </div>
         </div>
         <div className='create-popup__footer'>

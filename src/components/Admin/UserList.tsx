@@ -9,30 +9,26 @@ import { useHistory } from 'react-router';
 const UserList: React.FC = () => {
   const dispatch = useDispatch();
   const {
-    admin: { orderBy, error, order },
+    admin: { sortBy, error, order },
   } = useSelector((state: RootState) => state);
   const history = useHistory();
-
-  const className = `user-list__head-text_order-${order}`;
-  const orderByName = orderBy === 'firstName' ? className : '';
-  const orderByEmail = orderBy === 'email' ? className : '';
-  const orderByCreatedAt = orderBy === 'createdAt' ? className : '';
+  const sortByClass = `user-list__head-text_order-${order}`;
 
   useEffect(() => {
     dispatch(setSelectedUser(null));
   }, []);
 
   const onOrderClick = (sortOrderBy: string) => () => {
-    if (sortOrderBy === orderBy) {
+    if (sortOrderBy === sortBy) {
       history.push({
-        search: `orderBy=${sortOrderBy}&order=${
+        search: `sortBy=${sortOrderBy}&order=${
           order === 'asc' ? 'desc' : 'asc'
         }`,
       });
     } else {
       dispatch(setSortOrder(sortOrderBy));
       dispatch(setOrder('desc'));
-      history.push({ search: `orderBy=${sortOrderBy}&order=desc` });
+      history.push({ search: `sortBy=${sortOrderBy}&order=desc` });
     }
   };
 
@@ -52,7 +48,9 @@ const UserList: React.FC = () => {
             <th className='user-list__head-cell'>
               <div
                 onClick={onOrderClick('firstName')}
-                className={`user-list__head-text ${orderByName}`}
+                className={`user-list__head-text ${
+                  sortBy === 'firstName' && sortByClass
+                }`}
               >
                 Имя
               </div>
@@ -60,7 +58,9 @@ const UserList: React.FC = () => {
             <th className='user-list__head-cell'>
               <div
                 onClick={onOrderClick('email')}
-                className={`user-list__head-text ${orderByEmail}`}
+                className={`user-list__head-text ${
+                  sortBy === 'email' && sortByClass
+                }`}
               >
                 Почта
               </div>
@@ -68,7 +68,9 @@ const UserList: React.FC = () => {
             <th className='user-list__head-cell'>
               <div
                 onClick={onOrderClick('createdAt')}
-                className={`user-list__head-text ${orderByCreatedAt}`}
+                className={`user-list__head-text ${
+                  sortBy === 'createdAt' && sortByClass
+                }`}
               >
                 Дата регистрации
               </div>

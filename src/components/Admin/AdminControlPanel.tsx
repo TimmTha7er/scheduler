@@ -2,13 +2,12 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDate } from '../../redux/actions';
 import { RootState } from '../../redux/store';
-
 import { GridNav, ControlPanelLoader, AdminRangeBtn } from '../../components';
 
 const ControlPanel: React.FC = () => {
   const dispatch = useDispatch();
   const {
-    auth: { loading, user },
+    auth: { loading },
     admin: { selectedUser },
   } = useSelector((state: RootState) => state);
 
@@ -26,7 +25,9 @@ const ControlPanel: React.FC = () => {
   return (
     <div className='admin-control-panel'>
       <div className='admin-control-panel__selected-user'>
-        <div className='admin-control-panel__title'>События пользователя</div>
+        <div className='admin-control-panel__schedule-title'>
+          События пользователя
+        </div>
         <div className='admin-control-panel__user-name'>
           {selectedUser?.email}
         </div>

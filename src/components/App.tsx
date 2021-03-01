@@ -34,7 +34,7 @@ const App: React.FC = () => {
   const dispatch = useDispatch();
   const {
     auth: { user },
-    admin: { orderBy, order },
+    admin: { sortBy, order },
   } = useSelector((state: RootState) => state);
 
   // Check if user exists
@@ -60,13 +60,13 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (user && user.role === 'admin') {
-      dispatch(fetchUsers(orderBy, order));
+      dispatch(fetchUsers(sortBy, order));
     }
 
     if (user && user.role === 'user') {
       dispatch(fetchEvents());
     }
-  }, [user, orderBy, order]);
+  }, [user, sortBy, order]);
 
   return (
     <>
