@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
-import {
-  setCreatePopupVisible,
-  setPreviewPopupVisible,
-  setRowDate,
-} from '../../redux/actions';
 import { buildDayGrid } from './buildDayGrid';
 import { ErrorIndicator, DayGridLoader } from '../../components';
+import { useActions, useTypedSelector } from '../supports/Hooks';
 
 const DayGrid: React.FC = () => {
-  const dispatch = useDispatch();
+  const {
+    setCreatePopupVisible,
+    setPreviewPopupVisible,
+    setRowDate,
+  } = useActions();
   const {
     datePicker: { date },
     popups: { isCreatePopupVisible, isPreviewPopupVisible },
     grid: { rowDate, events, loading, error },
-  } = useSelector((state: RootState) => state);
+  } = useTypedSelector((state) => state);
   const [dayGrid, setDayGrid] = useState<moment.Moment[]>([]);
 
   useEffect(() => {
@@ -24,15 +22,15 @@ const DayGrid: React.FC = () => {
 
   const onRowClick = (time: moment.Moment) => (): void => {
     if (!isCreatePopupVisible && !isPreviewPopupVisible) {
-      dispatch(setRowDate(time));
-      dispatch(setCreatePopupVisible(true));
+      setRowDate(time);
+      setCreatePopupVisible(true);
     }
   };
 
   const onEventClick = (time: moment.Moment) => (): void => {
     if (!isCreatePopupVisible) {
-      dispatch(setRowDate(time));
-      dispatch(setPreviewPopupVisible(true));
+      setRowDate(time);
+      setPreviewPopupVisible(true);
     }
   };
 

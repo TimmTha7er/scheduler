@@ -1,22 +1,16 @@
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  editEvent,
-  setRowDate,
-  setEditPopupVisible,
-} from '../../redux/actions';
-import { RootState } from '../../redux/store';
 import { CreateEditPopupView } from '../../components';
+import { useActions, useTypedSelector } from '../supports/Hooks';
 
 const EditPopup: React.FC = () => {
-  const dispatch = useDispatch();
-  const { rowDate, events } = useSelector((state: RootState) => state.grid);
+  const { editEvent, setRowDate, setEditPopupVisible } = useActions();
+  const { rowDate, events } = useTypedSelector((state) => state.grid);
   const { title, descr } = events[rowDate!.toString()];
 
   const onCancelClick = useCallback(() => {
-    dispatch(setRowDate(null));
-    dispatch(setEditPopupVisible(false));
-  }, [dispatch]);
+    setRowDate(null);
+    setEditPopupVisible(false);
+  }, []);
 
   const onSubmitClick = useCallback(
     (title: string, descr: string) => (
@@ -31,10 +25,10 @@ const EditPopup: React.FC = () => {
         descr: descr,
       };
 
-      dispatch(editEvent({ date, id, updates }));
-      dispatch(setEditPopupVisible(false));
+      editEvent({ date, id, updates });
+      setEditPopupVisible(false);
     },
-    [dispatch, rowDate, events]
+    [rowDate, events]
   );
 
   return (

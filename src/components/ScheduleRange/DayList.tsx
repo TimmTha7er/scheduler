@@ -1,8 +1,5 @@
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
 import { RangeType, DayOfRangeType } from './buildRange';
-import { setPreviewPopupVisible, setRowDate } from '../../redux/actions';
 import {
   EventList,
   EmptyDayList,
@@ -10,6 +7,7 @@ import {
   AdminEventList,
   ErrorIndicator,
 } from '../../components';
+import { useActions, useTypedSelector } from '../supports/Hooks';
 
 interface DayListProps {
   range: RangeType | null;
@@ -17,19 +15,19 @@ interface DayListProps {
 }
 
 const DayList: React.FC<DayListProps> = ({ range, msg }) => {
-  const dispatch = useDispatch();
+  const { setPreviewPopupVisible, setRowDate } = useActions();
   const {
     auth: { user },
     grid: { rowDate, loading, error },
     popups: { isPreviewPopupVisible },
-  } = useSelector((state: RootState) => state);
+  } = useTypedSelector((state) => state);
 
   const onEventClick = useCallback(
     (time: moment.Moment) => () => {
-      dispatch(setRowDate(time));
-      dispatch(setPreviewPopupVisible(true));
+      setRowDate(time);
+      setPreviewPopupVisible(true);
     },
-    [dispatch]
+    []
   );
 
   if (error) {

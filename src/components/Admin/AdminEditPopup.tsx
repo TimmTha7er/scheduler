@@ -1,52 +1,46 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import {
-  setEditPopupVisible,
-  setSelectedUser,
-  editUser,
-} from '../../redux/actions';
-import { RootState } from '../../redux/store';
+  useActions,
+  useFocus,
+  useInput,
+  useTypedSelector,
+} from '../supports/Hooks';
 import closeBtnImg from '../../img/close.svg';
-import { useFocus, useInput } from '../supports/hooks';
 
 const AdminEditPopup: React.FC = () => {
-  const dispatch = useDispatch();
+  const { setEditPopupVisible, setSelectedUser, editUser } = useActions();
   const {
     admin: { selectedUser },
-  } = useSelector((state: RootState) => state);
+  } = useTypedSelector((state) => state);
+  const inputRef = useFocus();
   const { value: inputValue, onChange: inputOnChange } = useInput(
     selectedUser?.firstName || ''
   );
-  const inputRef = useFocus();
 
   const onInputChange = (event: React.FormEvent<HTMLInputElement>) => {
     inputOnChange(event.currentTarget.value);
   };
 
   const onCancelClick = () => {
-    dispatch(setSelectedUser(null));
-    dispatch(setEditPopupVisible(false));
+    setSelectedUser(null);
+    setEditPopupVisible(false);
   };
 
   const onSubmitClick = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
     if (selectedUser) {
-      dispatch(editUser({ ...selectedUser, firstName: inputValue }));
+      editUser({ ...selectedUser, firstName: inputValue });
     }
 
-    dispatch(setEditPopupVisible(false));
+    setEditPopupVisible(false);
   };
 
   return (
     <div className='create-popup'>
       <div className='create-popup__header'>
         <h2 className='create-popup__title'>{selectedUser?.firstName}</h2>
-        <div
-          onClick={onCancelClick}
-          // className='create-popup__close icon icon-cancel-1'
-          className='create-popup__close'
-        >
+        <div onClick={onCancelClick} className='create-popup__close'>
           <img className='create-popup__btn-img' src={closeBtnImg} alt='X' />
         </div>
       </div>

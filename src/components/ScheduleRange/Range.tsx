@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
 import { buildRange, RangeType } from './buildRange';
-import { DayList } from '../../components';
-import RangeForm from './RangeForm';
-import ScheduleFormLoader from '../supports/Loaders/ScheduleFormLoader';
+import { DayList, RangeForm, ScheduleFormLoader } from '../../components';
+import { useTypedSelector } from '../supports/Hooks';
 
 const Range: React.FC = () => {
   const {
     grid: { events },
     range: { startOfRange, endOfRange },
     auth: { loading },
-  } = useSelector((state: RootState) => state);
+  } = useTypedSelector((state) => state);
   const [range, setRange] = useState<RangeType | null>(null);
 
   useEffect(() => {

@@ -1,31 +1,25 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
-import { useHistory } from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/ru';
-import { useQuery } from '../components/supports/hooks';
 import {
   ControlPanel,
   ScheduleNav,
   AdminControlPanel,
   Range,
 } from '../components';
+import { useRouter, useTypedSelector } from '../components/supports/Hooks/';
 
 const RangePage: React.FC = () => {
   const {
     auth: { user },
     range: { startOfRange, endOfRange },
-  } = useSelector((state: RootState) => state);
-  const history = useHistory();
-  const query = useQuery();
-  const startDate = query.get('start');
-  const endDate = query.get('end');
+  } = useTypedSelector((state) => state);
+  const { history, query } = useRouter();
 
   useEffect(() => {
     if (
-      !moment(startDate, 'YYYY-MM-DD', true).isValid() ||
-      !moment(endDate, 'YYYY-MM-DD', true).isValid()
+      !moment(query.start, 'YYYY-MM-DD', true).isValid() ||
+      !moment(query.end, 'YYYY-MM-DD', true).isValid()
     ) {
       history.replace({
         search: `?start=${startOfRange.format(
@@ -46,4 +40,4 @@ const RangePage: React.FC = () => {
   );
 };
 
-export default RangePage;
+export default React.memo(RangePage);

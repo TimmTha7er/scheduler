@@ -1,28 +1,24 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
-import { useQuery } from '../components/supports/hooks';
-import { useHistory } from 'react-router';
 import {
   NextEvents,
   ScheduleNav,
   ControlPanel,
   AdminControlPanel,
 } from '../components';
+import { useRouter, useTypedSelector } from '../components/supports/Hooks/';
 
 const NextEventsPage: React.FC = () => {
   const {
     auth: { user },
     range: { nextEventsNum },
-  } = useSelector((state: RootState) => state);
+  } = useTypedSelector((state) => state);
 
-  const history = useHistory();
-  const query = useQuery();
-  const num = query.get('num') || '';
+  const { history, query } = useRouter();
+  const numQuery = query.num || '';
   const pattern = /^(?:\d{1}|\d{2})$/;
 
   useEffect(() => {
-    if (!pattern.test(num)) {
+    if (!pattern.test(numQuery)) {
       history.replace({
         search: `?num=${nextEventsNum}`,
       });

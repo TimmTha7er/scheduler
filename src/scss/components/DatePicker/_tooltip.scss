@@ -1,0 +1,91 @@
+.tooltip {
+  flex: 1;
+  font-weight: 400;
+  color: rgb(0, 0, 0);
+  background-color: #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 10px 20px -5px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+  cursor: initial;
+
+  &__event {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 15px;
+    padding: 6px 13px;
+    line-height: 20px;
+  }
+
+  &__event-title {
+    flex: 1;
+  }
+
+  &__title-inner {
+    max-width: 250px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: horizontal;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &__time {
+    white-space: nowrap;
+    color: #999;
+  }
+
+  &__circle {
+    flex-shrink: 0;
+    width: 10px;
+    height: 10px;
+    color: rgb(72, 135, 225);
+    border-radius: 50%;
+    background-color: currentColor;
+    margin-top: 5px;
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+
+  &__more {
+    display: block;
+    font-size: 15px;
+    max-width: 70px;
+    color: rgb(45, 106, 192);
+    margin: 5px 0 10px 7px;
+    cursor: pointer;
+    transition: color 0.15s ease-out;
+
+    &:hover {
+      color: #f33;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .tooltip {
+    &__title-inner {
+      max-width: 240px;
+    }
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  .tooltip {
+    &__title-inner {
+      max-width: 150px;
+    }
+
+    &__circle {
+      margin-right: 15px;
+      margin-left: 15px;
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .tooltip {
+    &__title-inner {
+      max-width: 140px;
+    }
+  }
+}

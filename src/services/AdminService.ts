@@ -1,10 +1,10 @@
-import firebase from './firebase/config';
-import { IUser } from '../redux/interfaces';
 import moment from 'moment';
 import 'moment/locale/ru';
+import firebase from './firebase/config';
+import { AdminState, User } from '../redux/types';
 
 export default class AdminService {
-  public editUser = async (user: IUser) => {
+  public editUser = async (user: User) => {
     await firebase
       .firestore()
       .collection('users')
@@ -12,7 +12,7 @@ export default class AdminService {
       .update(this._transformUser(user));
   };
 
-  public getUserById = async (id: string) => {
+  public getUserById = async (id: User['id']) => {
     const user = await firebase.firestore().collection('users').doc(id).get();
 
     if (!user.exists) {
@@ -21,12 +21,15 @@ export default class AdminService {
       );
     }
 
-    const userData = user.data() as IUser;
+    const userData = user.data() as User;
 
     return userData;
   };
 
-  public getUsers = async (orderBy: string, order: 'asc' | 'desc') => {
+  public getUsers = async (
+    orderBy: AdminState['sortBy'],
+    order: AdminState['order']
+  ) => {
     const snapshot = await firebase
       .firestore()
       .collection('users')
@@ -40,13 +43,13 @@ export default class AdminService {
       );
     }
 
-    const users: IUser[] = this._transformUsers(snapshot);
+    const users: User[] = this._transformUsers(snapshot);
 
     return users;
   };
 
   private _transformUsers = (snapshot: firebase.firestore.QuerySnapshot) => {
-    const users: IUser[] = [];
+    const users: User[] = [];
 
     snapshot.forEach((doc) => {
       const { id, role, createdAt, firstName, email } = doc.data();
@@ -60,7 +63,7 @@ export default class AdminService {
     return users;
   };
 
-  private _transformUser = (user: IUser) => {
+  private _transformUser = (user: User) => {
     const newUser = { ...user };
     delete newUser.createdAt;
 

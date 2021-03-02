@@ -19,6 +19,7 @@ export { default as Range } from './ScheduleRange/Range';
 export { default as NextDays } from './ScheduleRange/NextDays';
 export { default as NextDaysForm } from './ScheduleRange/NextDaysForm';
 export { default as NextEventsForm } from './ScheduleRange/NextEventsForm';
+export { default as RangeForm } from './ScheduleRange/RangeForm';
 export { default as NextEvents } from './ScheduleRange/NextEvents';
 export { default as RangeDatePicker } from './ScheduleRange/RangeDatePicker';
 export { default as ScheduleNav } from './ScheduleRange/ScheduleNav';

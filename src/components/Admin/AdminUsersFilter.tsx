@@ -1,15 +1,16 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
 import { AdminPageLoader } from '../../components';
-import { useInput } from '../../components/supports/hooks';
-import { setFilter } from '../../redux/actions';
+import {
+  useActions,
+  useInput,
+  useTypedSelector,
+} from '../../components/supports/Hooks/';
 
 const AdminUsersFilter: React.FC = () => {
-  const dispatch = useDispatch();
+  const { setFilter } = useActions();
   const {
     auth: { loading },
-  } = useSelector((state: RootState) => state);
+  } = useTypedSelector((state) => state);
   const input = useInput('');
 
   if (loading) {
@@ -18,9 +19,8 @@ const AdminUsersFilter: React.FC = () => {
 
   const searchChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
     const inputValue = e.currentTarget.value;
-
     input.onChange(inputValue);
-    dispatch(setFilter(inputValue));
+    setFilter(inputValue);
   };
 
   return (
@@ -35,7 +35,6 @@ const AdminUsersFilter: React.FC = () => {
           autoComplete='off'
           maxLength={120}
           placeholder='имя, почта'
-          // ref={inputRef}
         />
       </div>
     </div>

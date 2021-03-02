@@ -1,26 +1,24 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  setPreviewPopupVisible,
-  setDeletePopupVisible,
-  deleteEvent,
-} from '../../redux/actions';
-import { RootState } from '../../redux/store';
+import { useActions, useTypedSelector } from '../supports/Hooks';
 
 const DeletePopup: React.FC = () => {
-  const dispatch = useDispatch();
-  const { rowDate, events } = useSelector((state: RootState) => state.grid);
+  const {
+    setPreviewPopupVisible,
+    setDeletePopupVisible,
+    deleteEvent,
+  } = useActions();
+  const { rowDate, events } = useTypedSelector((state) => state.grid);
 
   const onBtnСonfirmClick = (): void => {
-    dispatch(setPreviewPopupVisible(false));
+    setPreviewPopupVisible(false);
 
     const id = events[rowDate!.toString()].id;
-    dispatch(deleteEvent(rowDate!, id));
-    dispatch(setDeletePopupVisible(false));
+    deleteEvent(rowDate!, id);
+    setDeletePopupVisible(false);
   };
 
   const onBtnCancelClick = (): void => {
-    dispatch(setDeletePopupVisible(false));
+    setDeletePopupVisible(false);
   };
 
   return (

@@ -1,33 +1,34 @@
 import React, { useCallback, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useInput, useFocus, useQuery } from '../supports/hooks';
-import { RootState } from '../../redux/store';
-import { setNextDaysNum, setSelectValue } from '../../redux/actions';
+import {
+  useInput,
+  useFocus,
+  useTypedSelector,
+  useActions,
+  useRouter,
+} from '../supports/Hooks/';
 import { Select } from '../../components';
-import { useHistory } from 'react-router';
 
 const NextDays: React.FC = () => {
-  const dispatch = useDispatch();
+  const { setNextDaysNum, setSelectValue } = useActions();
   const {
     range: { selectValue },
     admin: { selectedUser },
     auth: { user },
-  } = useSelector((state: RootState) => state);
+  } = useTypedSelector((state) => state);
   const inputRef = useFocus();
 
-  const history = useHistory();
-  const query = useQuery();
-  const num = query.get('num') || '';
-  const interval = query.get('interval') || '';
+  const { history, query } = useRouter();
+  const numQuery = query.num || '';
+  const intervalQuery = query.interval || '';
   const numPattern = /^(?:\d{1}|\d{2})$/;
-  const input = useInput(num, 2, numPattern);
   const uidQuery = user?.role === 'admin' ? `&uid=${selectedUser?.id}` : '';
+  const input = useInput(numQuery, 2, numPattern);
 
   useEffect(() => {
-    input.onChange(num);
-    dispatch(setNextDaysNum(num));
-    dispatch(setSelectValue(interval));
-  }, [num, interval]);
+    input.onChange(numQuery);
+    setNextDaysNum(numQuery);
+    setSelectValue(intervalQuery);
+  }, [numQuery, intervalQuery]);
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     const inputValue = event.currentTarget.value;
@@ -35,7 +36,7 @@ const NextDays: React.FC = () => {
 
     if (pattern.test(inputValue) || inputValue === '') {
       input.onChange(inputValue);
-      dispatch(setNextDaysNum(inputValue));
+      setNextDaysNum(inputValue);
 
       history.push({
         search: `?num=${inputValue}&interval=${selectValue}${uidQuery}`,
@@ -43,12 +44,9 @@ const NextDays: React.FC = () => {
     }
   };
 
-  const onOptionClick = useCallback(
-    (value) => {
-      dispatch(setSelectValue(value));
-    },
-    [dispatch]
-  );
+  const onOptionClick = useCallback((value) => {
+    setSelectValue(value);
+  }, []);
 
   const onAddBtnClick = (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -57,7 +55,7 @@ const NextDays: React.FC = () => {
 
     if (numPattern.test(inputValue)) {
       input.onChange(inputValue);
-      dispatch(setNextDaysNum(input.value));
+      setNextDaysNum(input.value);
 
       history.push({
         search: `?num=${inputValue}&interval=${selectValue}${uidQuery}`,
@@ -72,7 +70,7 @@ const NextDays: React.FC = () => {
 
     if (numPattern.test(inputValue)) {
       input.onChange(inputValue);
-      dispatch(setNextDaysNum(input.value));
+      setNextDaysNum(input.value);
 
       history.push({
         search: `?num=${inputValue}&interval=${selectValue}${uidQuery}`,

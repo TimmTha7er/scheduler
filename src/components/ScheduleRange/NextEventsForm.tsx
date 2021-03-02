@@ -1,36 +1,37 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setNextEventsNum } from '../../redux/actions';
-import { useInput, useFocus, useQuery } from '../supports/hooks';
-import { useHistory } from 'react-router';
-import { RootState } from '../../redux/store';
+import {
+  useInput,
+  useFocus,
+  useTypedSelector,
+  useActions,
+  useRouter,
+} from '../supports/Hooks/';
 
 const NextEvents: React.FC = () => {
-  const dispatch = useDispatch();
+  const { setNextEventsNum } = useActions();
   const {
     admin: { selectedUser },
     auth: { user },
-  } = useSelector((state: RootState) => state);
+  } = useTypedSelector((state) => state);
   const inputRef = useFocus();
 
-  const history = useHistory();
-  const query = useQuery();
-  const num = query.get('num') || '';
+  const { history, query } = useRouter();
+  const numQuery = query.num || '';
   const pattern = /^(?:\d{1}|\d{2})$/;
-  const input = useInput(num, 2, pattern);
   const uidQuery = user?.role === 'admin' ? `&uid=${selectedUser?.id}` : '';
+  const input = useInput(numQuery, 2, pattern);
 
   useEffect(() => {
-    input.onChange(num);
-    dispatch(setNextEventsNum(num));
-  }, [num]);
+    input.onChange(numQuery);
+    setNextEventsNum(numQuery);
+  }, [numQuery]);
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     const inputValue = event.currentTarget.value;
 
     if (pattern.test(inputValue) || inputValue === '') {
       input.onChange(inputValue);
-      dispatch(setNextEventsNum(inputValue));
+      setNextEventsNum(inputValue);
 
       history.push({
         search: `?num=${inputValue}${uidQuery}`,
@@ -45,7 +46,7 @@ const NextEvents: React.FC = () => {
 
     if (pattern.test(inputValue)) {
       input.onChange(inputValue);
-      dispatch(setNextEventsNum(input.value));
+      setNextEventsNum(input.value);
 
       history.push({
         search: `?num=${inputValue}${uidQuery}`,
@@ -60,7 +61,7 @@ const NextEvents: React.FC = () => {
 
     if (pattern.test(inputValue)) {
       input.onChange(inputValue);
-      dispatch(setNextEventsNum(input.value));
+      setNextEventsNum(input.value);
 
       history.push({
         search: `?num=${inputValue}${uidQuery}`,

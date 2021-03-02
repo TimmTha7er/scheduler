@@ -1,32 +1,33 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
-import { setDate } from '../redux/actions';
-import { useQuery } from '../components/supports/hooks';
+import { Redirect } from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/ru';
+import {
+  useActions,
+  useRouter,
+  useTypedSelector,
+} from '../components/supports/Hooks/';
 import { Message, ControlPanel, Day } from '../components';
-import { useHistory, Redirect } from 'react-router-dom';
 
 const DayPage: React.FC = () => {
-  const dispatch = useDispatch();
+  const { setDate } = useActions();
   const {
     auth: { needVerification, user },
     datePicker: { date },
-  } = useSelector((state: RootState) => state);
-  const history = useHistory();
-  const query = useQuery();
-  const showDate = query.get('date') || '';
+  } = useTypedSelector((state) => state);
+
+  const { history, query } = useRouter();
+  const showDateQuery = query.date || '';
 
   useEffect(() => {
-    if (!moment(showDate, 'YYYY-MM-DD', true).isValid()) {
+    if (!moment(showDateQuery, 'YYYY-MM-DD', true).isValid()) {
       history.replace({
         search: `?date=${date.format('YYYY-MM-DD')}`,
       });
     } else {
-      dispatch(setDate(moment(showDate, 'YYYY-MM-DD')));
+      setDate(moment(showDateQuery, 'YYYY-MM-DD'));
     }
-  }, [showDate]);
+  }, [showDateQuery]);
 
   if (user?.role === 'admin') {
     return <Redirect to='/admin' />;

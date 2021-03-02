@@ -1,14 +1,13 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setALLPopupsUnvisible, setSelectedUser } from '../../redux/actions';
+import { useActions } from '../supports/Hooks';
 
 const AdminRangeBtn: React.FC = () => {
-  const dispatch = useDispatch();
+  const { setALLPopupsUnvisible, setSelectedUser } = useActions();
 
   const onRangeBtnClick = (): void => {
-    dispatch(setALLPopupsUnvisible());
-    dispatch(setSelectedUser(null));
+    setALLPopupsUnvisible();
+    setSelectedUser(null);
   };
 
   return (

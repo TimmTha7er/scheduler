@@ -1,25 +1,28 @@
 import moment from 'moment';
 import 'moment/locale/ru';
-import { SET_DATE, SET_VISIBLE } from '../action-types';
-import { DatePickerActionTypes, IDatePickerState } from '../interfaces';
+import {
+  DatePickerState,
+  DatePickerAction,
+  DatePickerActionTypes,
+} from '../types';
 
-const initialState: IDatePickerState = {
+const initialState: DatePickerState = {
   date: moment(),
   isVisible: false,
 };
 
 const datePickerReducer = (
   state = initialState,
-  action: DatePickerActionTypes
-): IDatePickerState => {
-  if (action.type === SET_DATE) {
+  action: DatePickerAction
+): DatePickerState => {
+  if (action.type === DatePickerActionTypes.SET_DATE) {
     return {
       ...state,
       date: action.payload,
     };
   }
 
-  if (action.type === SET_VISIBLE) {
+  if (action.type === DatePickerActionTypes.SET_VISIBLE) {
     return {
       ...state,
       isVisible: action.payload,

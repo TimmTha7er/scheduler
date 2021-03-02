@@ -1,59 +1,54 @@
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import {
-  setVisible,
-  setDate,
-  setALLPopupsUnvisible,
-  setRowDate,
-} from '../../redux/actions';
-import { RootState } from '../../redux/store';
-import { useClickOutside } from '../supports/hooks';
+  useActions,
+  useClickOutside,
+  useRouter,
+  useTypedSelector,
+} from '../supports/Hooks/';
 import {
   GridNav,
   DatePicker,
   RangeBtn,
   ControlPanelLoader,
 } from '../../components';
-import { useHistory } from 'react-router';
 
 const ControlPanel: React.FC = () => {
-  const dispatch = useDispatch();
+  const {
+    setVisible,
+    setDate,
+    setALLPopupsUnvisible,
+    setRowDate,
+  } = useActions();
   const {
     datePicker: { date, isVisible },
     auth: { loading },
-  } = useSelector((state: RootState) => state);
-  const history = useHistory();
+  } = useTypedSelector((state) => state);
+  const { history } = useRouter();
   const selectedMonth: string = date.format('MMMM');
   const selectedYear: string = date.format('YYYY');
 
   const onSelectedDateClick = (): void => {
-    dispatch(setVisible(!isVisible));
-    dispatch(setALLPopupsUnvisible());
-    dispatch(setRowDate(null));
+    setVisible(!isVisible);
+    setALLPopupsUnvisible();
+    setRowDate(null);
   };
 
-  const setDatePickerDate = useCallback(
-    (date: moment.Moment) => {
-      history.push({
-        pathname: `/day`,
-        search: `?date=${date.format('YYYY-MM-DD')}`,
-      });
+  const setDatePickerDate = useCallback((date: moment.Moment) => {
+    history.push({
+      pathname: `/day`,
+      search: `?date=${date.format('YYYY-MM-DD')}`,
+    });
 
-      return dispatch(setDate(date));
-    },
-    [dispatch]
-  );
+    return setDate(date);
+  }, []);
 
-  const setGridDate = useCallback(
-    (date: moment.Moment) => {
-      return dispatch(setDate(date));
-    },
-    [dispatch]
-  );
+  const setGridDate = useCallback((date: moment.Moment) => {
+    return setDate(date);
+  }, []);
 
   const setVisibleCallback = useCallback(
-    (value: boolean) => dispatch(setVisible(value)),
-    [dispatch]
+    (value: boolean) => setVisible(value),
+    []
   );
   const datePickerRef = useClickOutside(setVisibleCallback);
 

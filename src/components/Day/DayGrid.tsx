@@ -1,10 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
 import { RowList } from '../../components';
+import { useTypedSelector } from '../supports/Hooks';
 
 const DayGrid: React.FC = () => {
-  const { date } = useSelector((state: RootState) => state.datePicker);
+  const { date } = useTypedSelector((state) => state.datePicker);
   const selectedMonthDay: string = date.format('D');
   const selectedWeedDay: string = date.format('ddd');
 

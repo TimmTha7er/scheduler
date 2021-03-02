@@ -1,8 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { RootState } from '../../redux/store';
 import { EventType, buildRange } from '../ScheduleRange/buildRange';
+import { useTypedSelector } from '../supports/Hooks';
 
 interface TooltipProps {
   day: moment.Moment;
@@ -13,7 +12,7 @@ const Tooltip: React.FC<TooltipProps> = ({ day, maxLength }) => {
   const {
     grid: { events },
     datePicker: { date },
-  } = useSelector((state: RootState) => state);
+  } = useTypedSelector((state) => state);
 
   const startOfRange = day.clone().startOf('day');
   const endOfRange = day.clone().add(1, 'day').startOf('day');

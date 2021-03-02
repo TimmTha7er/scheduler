@@ -1,26 +1,24 @@
 import React, { useState, FormEvent, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
-import { signup, setError } from '../redux/actions';
 import { Link } from 'react-router-dom';
 import { Message } from '../components';
+import { useActions, useTypedSelector } from '../components/supports/Hooks';
 
 const SignUp: React.FC = () => {
-  const dispatch = useDispatch();
-  const { loading, error } = useSelector((state: RootState) => state.auth);
+  const { signup, setError } = useActions();
+  const { loading, error } = useTypedSelector((state) => state.auth);
   const [firstName, setFirstName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   useEffect(() => {
     if (error) {
-      dispatch(setError(''));
+      setError('');
     }
   }, []);
 
   const onSubmitClick = (e: FormEvent) => {
     e.preventDefault();
-    dispatch(signup({ email, password, firstName }));
+    signup({ email, password, firstName });
   };
 
   return (
@@ -40,7 +38,6 @@ const SignUp: React.FC = () => {
             type='input'
             name='first-name'
             value={firstName}
-            // placeholder='ваше имя'
             onChange={(e) => setFirstName(e.currentTarget.value)}
             autoComplete='off'
           />
@@ -54,7 +51,6 @@ const SignUp: React.FC = () => {
             type='email'
             name='email'
             value={email}
-            // placeholder='адрес электронной почты'
             onChange={(e) => setEmail(e.currentTarget.value)}
           />
         </div>
@@ -67,7 +63,6 @@ const SignUp: React.FC = () => {
             type='password'
             name='password'
             value={password}
-            // placeholder='не менее 7 символов'
             onChange={(e) => setPassword(e.currentTarget.value)}
             autoComplete='off'
           />

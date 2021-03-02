@@ -1,4 +1,4 @@
-import { IEvent } from '../../redux/interfaces';
+import { Event } from '../../redux/types';
 
 export type EventType = {
   title: string;
@@ -14,7 +14,7 @@ export type DayOfRangeType = {
 export type RangeType = DayOfRangeType[];
 
 export const buildRange = (
-  events: IEvent,
+  events: Event,
   startDay: moment.Moment,
   endDay: moment.Moment,
   n?: number

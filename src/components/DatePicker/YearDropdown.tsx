@@ -60,7 +60,6 @@ const YearDwopdown: React.FC<CalendarProps> = ({
         onClick={onBtnUpClick}
         className='datepicker__year-option datepicker__year-option_btn'
       >
-        {/* <span className='datepicker__navigation datepicker__navigation_years-upcoming icon icon-up-open-big'> */}
         <div className='datepicker__navigation datepicker__navigation_years-upcoming'>
           <img className='datepicker__btn-img' src={upBtnImg} alt='^' />
         </div>
@@ -84,7 +83,6 @@ const YearDwopdown: React.FC<CalendarProps> = ({
         onClick={onBtnDownClick}
         className='datepicker__year-option datepicker__year-option_btn'
       >
-        {/* <span className='datepicker__navigation datepicker__navigation_years-previous icon icon-down-open-big'> */}
         <div className='datepicker__navigation datepicker__navigation_years-previous'>
           <img className='datepicker__btn-img' src={downBtnImg} alt='v' />
         </div>

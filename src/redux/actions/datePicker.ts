@@ -1,16 +1,21 @@
-import { SET_DATE, SET_VISIBLE } from '../action-types';
-import { DatePickerActionTypes } from '../interfaces';
+import {
+  DatePickerActionTypes,
+  DatePickerAction,
+  DatePickerState,
+} from '../types';
 
-export const setDate = (date: moment.Moment): DatePickerActionTypes => {
+export const setDate = (date: DatePickerState['date']): DatePickerAction => {
   return {
-    type: SET_DATE,
+    type: DatePickerActionTypes.SET_DATE,
     payload: date,
   };
 };
 
-export const setVisible = (value: boolean): DatePickerActionTypes => {
+export const setVisible = (
+  value: DatePickerState['isVisible']
+): DatePickerAction => {
   return {
-    type: SET_VISIBLE,
+    type: DatePickerActionTypes.SET_VISIBLE,
     payload: value,
   };
 };

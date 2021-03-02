@@ -1,8 +1,8 @@
 import firebase from './firebase/config';
-import { IEvent, ICreatedEvent } from '../redux/interfaces';
+import { Event, CreatedEvent, EditedEvent, User } from '../redux/types';
 
 export default class SchedulerService {
-  private _apiBase = (uid?: string) => {
+  private _apiBase = (uid?: User['id']) => {
     return uid
       ? `calendar/users/${uid}/events`
       : `calendar/users/${this._getUid()}/events`;
@@ -17,22 +17,21 @@ export default class SchedulerService {
     return user ? user.uid : undefined;
   }
 
-  public getEvents = async (uid?: string) => {
+  public getEvents = async (uid?: User['id']) => {
     const snapshot = await this._getResource(this._apiBase(uid)).once('value');
 
-    // ??
     if (!snapshot.exists) {
       throw new Error(`Не удалось получить ${snapshot.ref} }`);
     }
 
-    const events: IEvent = this._transformEvents(snapshot);
+    const events: Event = this._transformEvents(snapshot);
 
     return events;
   };
 
-  public addEvent = async (newEvent: ICreatedEvent) => {
+  public addEvent = async (newEvent: CreatedEvent) => {
     const res = await this._getResource(this._apiBase()).push(newEvent);
-    const event: IEvent = this._transformEvent(newEvent, res.key!.toString());
+    const event: Event = this._transformEvent(newEvent, res.key!.toString());
 
     return event;
   };
@@ -42,14 +41,14 @@ export default class SchedulerService {
   };
 
   public editEvent = async (
-    id: string,
-    date: string,
-    updates: { title: string; descr: string }
+    id: EditedEvent['id'],
+    date: EditedEvent['date'],
+    updates: EditedEvent['updates']
   ) => {
     await this._getResource(`${this._apiBase()}/${id}`).update(updates);
 
     const { title, descr } = updates;
-    const newEvent: IEvent = {
+    const newEvent: Event = {
       [date]: {
         title,
         descr,
@@ -60,7 +59,7 @@ export default class SchedulerService {
     return newEvent;
   };
 
-  private _transformEvent = (newEvent: ICreatedEvent, id: string) => {
+  private _transformEvent = (newEvent: CreatedEvent, id: string) => {
     return {
       [newEvent.time.toString()]: {
         title: newEvent.title,
@@ -70,7 +69,7 @@ export default class SchedulerService {
     };
   };
   private _transformEvents = (snapshot: firebase.database.DataSnapshot) => {
-    const events: IEvent = {};
+    const events: Event = {};
 
     snapshot.forEach((childSnapshot) => {
       const { descr, time, title } = childSnapshot.val();

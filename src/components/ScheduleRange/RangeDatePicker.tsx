@@ -1,8 +1,6 @@
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { setALLPopupsUnvisible } from '../../redux/actions';
-import { useClickOutside } from '../supports/hooks';
-import { DatePicker } from '..';
+import { useActions, useClickOutside } from '../supports/Hooks/';
+import { DatePicker } from '../../components';
 
 interface RangeDatePickerProps {
   setDateOfRange: (day: moment.Moment) => object;
@@ -19,31 +17,26 @@ const RangeDatePicker: React.FC<RangeDatePickerProps> = ({
   setVisible,
   position,
 }) => {
-  const dispatch = useDispatch();
-
+  const { setALLPopupsUnvisible } = useActions();
   const onDateClick = (): void => {
-    dispatch(setVisible(!isVisible));
-    dispatch(setALLPopupsUnvisible());
+    setVisible(!isVisible);
+    setALLPopupsUnvisible();
   };
 
   const setRangeDate = useCallback(
-    (date: moment.Moment) => dispatch(setDateOfRange(date)),
-    [dispatch, setDateOfRange]
+    (date: moment.Moment) => setDateOfRange(date),
+    [setDateOfRange]
   );
 
-  const setRabgeVisible = useCallback(
-    (value: boolean) => dispatch(setVisible(value)),
-    [dispatch, setVisible]
-  );
+  const setRabgeVisible = useCallback((value: boolean) => setVisible(value), [
+    setVisible,
+  ]);
 
   const datePickerRef = useClickOutside(setRabgeVisible);
 
   return (
     <div ref={datePickerRef} className='schedule-range__date-wrap'>
-      <div
-        onClick={onDateClick}
-        className={`schedule-range__${position}-date`}
-      >
+      <div onClick={onDateClick} className={`schedule-range__${position}-date`}>
         {date.format('DD-MM-YYYY')}
       </div>
       {isVisible && (

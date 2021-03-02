@@ -1,7 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
+import { useTypedSelector } from '../supports/Hooks';
 
 interface PrivateRouteProps extends RouteProps {
   component: React.ComponentType<RouteProps>;
@@ -14,7 +13,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({
   const {
     auth: { authenticated, loading },
     router: { location },
-  } = useSelector((state: RootState) => state);
+  } = useTypedSelector((state) => state);
 
   return (
     <Route

@@ -1,12 +1,10 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
-import { setALLPopupsUnvisible, setRowDate } from '../../redux/actions';
 import { NavLink } from 'react-router-dom';
 import { ScheduleNavLoader } from '../../components';
+import { useActions, useTypedSelector } from '../supports/Hooks';
 
 const ScheduleNav: React.FC = () => {
-  const dispatch = useDispatch();
+  const { setALLPopupsUnvisible, setRowDate } = useActions();
   const {
     range: {
       nextEventsNum,
@@ -17,13 +15,12 @@ const ScheduleNav: React.FC = () => {
     },
     auth: { user, loading },
     admin: { selectedUser },
-  } = useSelector((state: RootState) => state);
-
+  } = useTypedSelector((state) => state);
   const uidQuery = user?.role === 'admin' ? `&uid=${selectedUser?.id}` : '';
 
   const onLinkClick = () => {
-    dispatch(setALLPopupsUnvisible());
-    dispatch(setRowDate(null));
+    setALLPopupsUnvisible();
+    setRowDate(null);
   };
 
   if (loading) {

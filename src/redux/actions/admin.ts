@@ -1,22 +1,18 @@
 import {
-  FETCH_USERS_REQUESTED,
-  FETCH_USERS_LOADED,
-  FETCH_USERS_ERROR,
-  EDIT_USER,
-  SET_SELECTED_USER,
-  SET_SORT_ORDER,
-  SET_ORDER,
-  SET_FILTER,
-} from '../action-types';
-import { AdminActionsType, AdminThunkActionType, IUser } from '../interfaces';
+  AdminAction,
+  AdminActionTypes,
+  AdminThunkAction,
+  AdminState,
+  User,
+} from '../types';
 import AdminService from '../../services/AdminService';
 
 const adminService = new AdminService();
 
 export const fetchUsers = (
-  sortBy: string,
-  order: 'asc' | 'desc'
-): AdminThunkActionType => {
+  sortBy: AdminState['sortBy'],
+  order: AdminState['order']
+): AdminThunkAction => {
   return async (dispatch) => {
     try {
       dispatch(usersRequested());
@@ -28,13 +24,13 @@ export const fetchUsers = (
   };
 };
 
-export const editUser = (user: IUser): AdminThunkActionType => {
+export const editUser = (user: User): AdminThunkAction => {
   return async (dispatch) => {
     try {
       await adminService.editUser(user);
 
       dispatch({
-        type: EDIT_USER,
+        type: AdminActionTypes.EDIT_USER,
         payload: user,
       });
     } catch (error) {
@@ -43,50 +39,52 @@ export const editUser = (user: IUser): AdminThunkActionType => {
   };
 };
 
-const usersRequested = (): AdminActionsType => {
+const usersRequested = (): AdminAction => {
   return {
-    type: FETCH_USERS_REQUESTED,
+    type: AdminActionTypes.FETCH_USERS_REQUESTED,
   };
 };
 
-export const usersLoaded = (events: IUser[]): AdminActionsType => {
+export const usersLoaded = (events: AdminState['users']): AdminAction => {
   return {
-    type: FETCH_USERS_LOADED,
+    type: AdminActionTypes.FETCH_USERS_LOADED,
     payload: events,
   };
 };
 
-const usersError = (error: {}): AdminActionsType => {
+const usersError = (error: AdminState['error']): AdminAction => {
   return {
-    type: FETCH_USERS_ERROR,
+    type: AdminActionTypes.FETCH_USERS_ERROR,
     payload: error,
   };
 };
 
-export const setSelectedUser = (user: IUser | null): AdminActionsType => {
+export const setSelectedUser = (
+  user: AdminState['selectedUser']
+): AdminAction => {
   return {
-    type: SET_SELECTED_USER,
+    type: AdminActionTypes.SET_SELECTED_USER,
     payload: user,
   };
 };
 
-export const setSortOrder = (sortBy: string): AdminActionsType => {
+export const setSortOrder = (sortBy: AdminState['sortBy']): AdminAction => {
   return {
-    type: SET_SORT_ORDER,
+    type: AdminActionTypes.SET_SORT_ORDER,
     payload: sortBy,
   };
 };
 
-export const setOrder = (order: 'asc' | 'desc'): AdminActionsType => {
+export const setOrder = (order: AdminState['order']): AdminAction => {
   return {
-    type: SET_ORDER,
+    type: AdminActionTypes.SET_ORDER,
     payload: order,
   };
-
 };
-export const setFilter = (filter: string): AdminActionsType => {
+
+export const setFilter = (filter: AdminState['filterBy']): AdminAction => {
   return {
-    type: SET_FILTER,
+    type: AdminActionTypes.SET_FILTER,
     payload: filter,
   };
 };

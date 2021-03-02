@@ -1,20 +1,18 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setALLPopupsUnvisible, setRowDate } from '../../redux/actions';
-import { RootState } from '../../redux/store';
+import { useActions, useTypedSelector } from '../supports/Hooks';
 
 const RangeBtn: React.FC = () => {
-  const dispatch = useDispatch();
+  const { setALLPopupsUnvisible, setRowDate } = useActions();
   const {
     datePicker: { date },
     range: { startOfRange, endOfRange },
     router: { location },
-  } = useSelector((state: RootState) => state);
+  } = useTypedSelector((state) => state);
 
   const onRangeBtnClick = (): void => {
-    dispatch(setALLPopupsUnvisible());
-    dispatch(setRowDate(null));
+    setALLPopupsUnvisible();
+    setRowDate(null);
   };
 
   return (

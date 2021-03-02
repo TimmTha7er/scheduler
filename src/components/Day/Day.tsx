@@ -1,13 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
-
 import { TimeRuler, DayGrid, DayLoader } from '../../components';
+import { useTypedSelector } from '../supports/Hooks';
 
 const Day: React.FC = () => {
   const {
     auth: { loading },
-  } = useSelector((state: RootState) => state);
+  } = useTypedSelector((state) => state);
 
   if (loading) {
     return <DayLoader />;

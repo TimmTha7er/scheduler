@@ -1,5 +1,5 @@
 import React from 'react';
-import { useInput, useFocus } from '../supports/hooks';
+import { useInput, useFocus } from '../supports/Hooks/';
 import closeBtnImg from '../../img/close.svg';
 
 interface CreateEditPopupViewProps {

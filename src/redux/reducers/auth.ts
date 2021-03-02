@@ -1,14 +1,6 @@
-import {
-  SET_USER,
-  SET_LOADING,
-  SIGN_OUT,
-  SET_ERROR,
-  NEED_VERIFICATION,
-  SET_SUCCESS,
-} from '../action-types';
-import { AuthActionsType, IAuthState } from '../interfaces';
+import { AuthState, AuthAction, AuthActionTypes } from '../types';
 
-const initialState: IAuthState = {
+const initialState: AuthState = {
   user: null,
   authenticated: false,
   loading: true,
@@ -17,11 +9,8 @@ const initialState: IAuthState = {
   success: '',
 };
 
-const authReducer = (
-  state = initialState,
-  action: AuthActionsType
-): IAuthState => {
-  if (action.type === SET_LOADING) {
+const authReducer = (state = initialState, action: AuthAction): AuthState => {
+  if (action.type === AuthActionTypes.SET_LOADING) {
     return {
       ...state,
       loading: action.payload,
@@ -30,7 +19,7 @@ const authReducer = (
     };
   }
 
-  if (action.type === SET_SUCCESS) {
+  if (action.type === AuthActionTypes.SET_SUCCESS) {
     return {
       ...state,
       success: action.payload,
@@ -39,7 +28,7 @@ const authReducer = (
     };
   }
 
-  if (action.type === SET_ERROR) {
+  if (action.type === AuthActionTypes.SET_ERROR) {
     return {
       ...state,
       error: action.payload,
@@ -48,7 +37,7 @@ const authReducer = (
     };
   }
 
-  if (action.type === SET_USER) {
+  if (action.type === AuthActionTypes.SET_USER) {
     return {
       ...state,
       user: action.payload,
@@ -59,7 +48,7 @@ const authReducer = (
     };
   }
 
-  if (action.type === SIGN_OUT) {
+  if (action.type === AuthActionTypes.SIGN_OUT) {
     return {
       ...state,
       user: null,
@@ -70,7 +59,7 @@ const authReducer = (
     };
   }
 
-  if (action.type === NEED_VERIFICATION) {
+  if (action.type === AuthActionTypes.NEED_VERIFICATION) {
     return {
       ...state,
       needVerification: action.payload,

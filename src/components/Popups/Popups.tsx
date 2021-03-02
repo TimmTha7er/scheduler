@@ -1,6 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
 import {
   CreatePopup,
   EditPopup,
@@ -9,6 +7,7 @@ import {
   AdminPreviewPopup,
   AdminEditPopup,
 } from '../../components';
+import { useTypedSelector } from '../supports/Hooks';
 
 const Popups: React.FC = () => {
   const {
@@ -19,7 +18,7 @@ const Popups: React.FC = () => {
       isPreviewPopupVisible,
       isDeletePopupVisible,
     },
-  } = useSelector((state: RootState) => state);
+  } = useTypedSelector((state) => state);
 
   if (user?.role === 'admin') {
     return (

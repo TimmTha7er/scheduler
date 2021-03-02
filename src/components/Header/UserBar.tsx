@@ -1,28 +1,26 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  setALLPopupsUnvisible,
-  setRowDate,
-  setSelectedUser,
-  signout,
-  usersLoaded,
-} from '../../redux/actions';
-import { RootState } from '../../redux/store';
 import { Link } from 'react-router-dom';
 import { UserBarLoader } from '../../components';
+import { useActions, useTypedSelector } from '../supports/Hooks';
 
 const UserBar: React.FC = () => {
-  const dispatch = useDispatch();
+  const {
+    setALLPopupsUnvisible,
+    setRowDate,
+    setSelectedUser,
+    signout,
+    usersLoaded,
+  } = useActions();
   const {
     auth: { authenticated, loading },
-  } = useSelector((state: RootState) => state);
+  } = useTypedSelector((state) => state);
 
   const onLogoutClick = () => {
-    dispatch(signout());
-    dispatch(setALLPopupsUnvisible());
-    dispatch(setRowDate(null));
-    dispatch(setSelectedUser(null));
-    dispatch(usersLoaded([]));
+    signout();
+    setALLPopupsUnvisible();
+    setRowDate(null);
+    setSelectedUser(null);
+    usersLoaded([]);
   };
 
   if (loading) {

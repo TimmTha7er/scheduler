@@ -6,31 +6,39 @@
 @import 'vars';
 @import 'common';
 
-@import './components/header';
-@import './components/control-panel';
-@import './components/datapicker';
-@import './components/timeruler';
-@import './components/daygrid';
-@import './components/day';
-@import './components/create-popup';
-@import './components/delete-popup';
-@import './components/preview-popup';
-@import './components/gridnav';
-@import './components/schedule-range';
-@import './components/event-list';
-@import './components/next-day-events';
-@import './components/empty-day-list';
-@import './components/select';
-@import './components/radio-group';
+@import './components/Header/header';
+@import './components/Header/user-bar';
 
+@import './components/ControlPanel/control-panel';
+@import './components/ControlPanel/gridnav';
 
-@import './components/sign-in';
-@import './components/sign-up';
-@import './components/forgot-password';
-@import './components/home';
-@import './components/message';
-@import './components/user-list';
-@import './components/not-found';
-@import './components/error-indicator';
+@import './components/DatePicker/datepicker';
+@import './components/DatePicker/tooltip';
 
+@import './components/Day/timeruler';
+@import './components/Day/daygrid';
+@import './components/Day/day';
 
+@import './components/Popups/create-popup';
+@import './components/Popups/delete-popup';
+@import './components/Popups/preview-popup';
+
+@import './components/ScheduleRange/schedule-range';
+@import './components/ScheduleRange/event-list';
+@import './components/ScheduleRange/next-day-events';
+@import './components/ScheduleRange/empty-day-list';
+
+@import './components/FormElements/select';
+@import './components/FormElements/radio-group';
+@import './components/FormElements/common';
+
+@import './components/Pages/sign-in';
+@import './components/Pages/sign-up';
+@import './components/Pages/forgot-password';
+@import './components/Pages/home';
+
+@import './components/supports/message';
+@import './components/supports/not-found';
+@import './components/supports/error-indicator';
+
+@import './components/Admin/user-list';

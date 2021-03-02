@@ -1,6 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { useInput } from '../supports/hooks';
+import { useInput, useRouter } from '../supports/Hooks/';
 
 interface RadioBtnProps {
   defaultChecked: string;
@@ -20,7 +19,7 @@ const RadioBtn: React.FC<RadioBtnProps> = ({
   name,
 }) => {
   const input = useInput(defaultChecked);
-  const history = useHistory();
+  const { history } = useRouter();
 
   const handleChange = (href: { pathname: string; search?: string }) => (
     event: React.FormEvent<HTMLInputElement>

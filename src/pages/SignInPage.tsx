@@ -1,26 +1,28 @@
 import React, { useState, FormEvent, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
-import { signin, setError } from '../redux/actions';
-import { RootState } from '../redux/store';
+import { Link } from 'react-router-dom';
 import { Message } from '../components';
+import {
+  useActions,
+  useRouter,
+  useTypedSelector,
+} from '../components/supports/Hooks';
 
 const SignIn: React.FC = () => {
-  const dispatch = useDispatch();
-  const { loading, error } = useSelector((state: RootState) => state.auth);
+  const { signin, setError } = useActions();
+  const { loading, error } = useTypedSelector((state) => state.auth);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const history = useHistory();
+  const { history } = useRouter();
 
   useEffect(() => {
     if (error) {
-      dispatch(setError(''));
+      setError('');
     }
   }, []);
 
   const onSubmitClick = (e: FormEvent) => {
     e.preventDefault();
-    dispatch(signin({ email, password }));
+    signin({ email, password });
   };
 
   const onSingUpBtnClick = () => {
@@ -44,7 +46,6 @@ const SignIn: React.FC = () => {
             type='email'
             name='email'
             value={email}
-            // placeholder='адрес электронной почты'
             onChange={(e) => setEmail(e.currentTarget.value)}
           />
         </div>
@@ -57,7 +58,6 @@ const SignIn: React.FC = () => {
             type='password'
             name='password'
             value={password}
-            // placeholder='ваш пароль'
             onChange={(e) => setPassword(e.currentTarget.value)}
             autoComplete='off'
           />

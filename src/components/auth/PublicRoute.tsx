@@ -1,7 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Route, Redirect, RouteProps, useLocation } from 'react-router-dom';
-import { RootState } from '../../redux/store';
+import { useTypedSelector } from '../supports/Hooks';
 
 interface PublicRouteProps extends RouteProps {
   component: React.ComponentType<RouteProps>;
@@ -14,13 +13,11 @@ const PublicRoute: React.FC<PublicRouteProps> = ({
   const {
     auth: { authenticated, user },
     datePicker: { date },
-  } = useSelector((state: RootState) => state);
+  } = useTypedSelector((state) => state);
   const { state: { from, query } = {} } = useLocation<{
     from: string;
     query: string;
   }>();
-
-  // console.log('user role', user?.role);
 
   const redirect =
     user?.role === 'admin' ? (

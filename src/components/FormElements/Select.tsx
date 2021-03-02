@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
-import { useClickOutside, useQuery } from '../supports/hooks';
+import { useClickOutside, useRouter } from '../supports/Hooks/';
 
 interface SelectProps {
   defaultSelected: string;
@@ -16,18 +15,14 @@ const Select: React.FC<SelectProps> = ({
   const [selectedOption, setSelectedOption] = useState<string>(defaultSelected);
   const [showOptionList, setShowOptionList] = useState<boolean>(false);
   const [optionsList, setOptionsList] = useState<string[]>(['']);
+  const { history, query } = useRouter();
   const selectRef = useClickOutside(setShowOptionList);
   const active = showOptionList ? 'select_active' : '';
 
-  const history = useHistory();
-  const query = useQuery();
-  const num = query.get('num') || '';
-  const interval = query.get('interval') || '';
-
   useEffect(() => {
     setOptionsList(options);
-    setSelectedOption(interval);
-  }, [defaultSelected, interval, options]);
+    setSelectedOption(query.interval || '');
+  }, [defaultSelected, query.interval, options]);
 
   const handleListDisplay = () => {
     setShowOptionList((prevState) => !prevState);
@@ -37,7 +32,7 @@ const Select: React.FC<SelectProps> = ({
     const optionName = e.currentTarget.getAttribute('data-name') || '';
 
     history.push({
-      search: `num=${num}&interval=${optionName}`,
+      search: `num=${query.num}&interval=${optionName}`,
     });
     setSelectedOption(optionName);
     setShowOptionList(false);

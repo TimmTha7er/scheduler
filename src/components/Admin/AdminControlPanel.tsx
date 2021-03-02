@@ -1,22 +1,17 @@
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setDate } from '../../redux/actions';
-import { RootState } from '../../redux/store';
 import { GridNav, ControlPanelLoader, AdminRangeBtn } from '../../components';
+import { useActions, useTypedSelector } from '../supports/Hooks';
 
 const ControlPanel: React.FC = () => {
-  const dispatch = useDispatch();
+  const { setDate } = useActions();
   const {
     auth: { loading },
     admin: { selectedUser },
-  } = useSelector((state: RootState) => state);
+  } = useTypedSelector((state) => state);
 
-  const setGridDate = useCallback(
-    (date: moment.Moment) => {
-      return dispatch(setDate(date));
-    },
-    [dispatch]
-  );
+  const setGridDate = useCallback((date: moment.Moment) => {
+    return setDate(date);
+  }, []);
 
   if (loading) {
     return <ControlPanelLoader />;

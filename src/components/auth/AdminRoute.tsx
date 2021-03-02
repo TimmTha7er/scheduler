@@ -1,7 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
+import { useTypedSelector } from '../supports/Hooks';
 
 interface AdminRouteProps extends RouteProps {
   component: React.ComponentType<RouteProps>;
@@ -11,9 +10,9 @@ const AdminRoute: React.FC<AdminRouteProps> = ({
   component: Component,
   ...rest
 }) => {
-  const { authenticated, user, loading } = useSelector(
-    (state: RootState) => state.auth
-  );
+  const {
+    auth: { authenticated, user, loading },
+  } = useTypedSelector((state) => state);
 
   return (
     <Route

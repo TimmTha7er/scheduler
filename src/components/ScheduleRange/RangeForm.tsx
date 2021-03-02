@@ -1,20 +1,16 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
-import {
-  setStartOFRange,
-  setEndOFRange,
-  setLeftDatePickerVisible,
-  setRightDatePickerVisible,
-} from '../../redux/actions';
-import { useHistory } from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/ru';
 import { RangeDatePicker } from '../../components';
-import { useQuery } from '../supports/hooks';
+import { useActions, useRouter, useTypedSelector } from '../supports/Hooks/';
 
 const RangeForm: React.FC = () => {
-  const dispatch = useDispatch();
+  const {
+    setStartOFRange,
+    setEndOFRange,
+    setLeftDatePickerVisible,
+    setRightDatePickerVisible,
+  } = useActions();
   const {
     range: {
       startOfRange,
@@ -22,17 +18,16 @@ const RangeForm: React.FC = () => {
       isLeftDatePickerVisible,
       isRightDatePickerVisible,
     },
-  } = useSelector((state: RootState) => state);
+  } = useTypedSelector((state) => state);
 
-  const history = useHistory();
-  const query = useQuery();
-  const startDate = query.get('start');
-  const endDate = query.get('end');
+  const { history, query } = useRouter();
+  const startDateQuery = query.start;
+  const endDateQuery = query.end;
 
   useEffect(() => {
-    dispatch(setStartOFRange(moment(startDate, 'YYYY-MM-DD')));
-    dispatch(setEndOFRange(moment(endDate, 'YYYY-MM-DD')));
-  }, [startDate, endDate]);
+    setStartOFRange(moment(startDateQuery, 'YYYY-MM-DD'));
+    setEndOFRange(moment(endDateQuery, 'YYYY-MM-DD'));
+  }, [startDateQuery, endDateQuery]);
 
   const setStart = (value: moment.Moment) => {
     history.push({

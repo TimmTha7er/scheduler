@@ -1,6 +1,6 @@
-import { IEvent } from '../../redux/interfaces';
+import { Event } from '../../redux/types';
 
-export const isDayHasEvents = (value: moment.Moment, events: IEvent) => {
+export const isDayHasEvents = (value: moment.Moment, events: Event) => {
   const startOfDay: moment.Moment = value.clone().startOf('day');
   const endOfDay: moment.Moment = value.clone().add(1, 'day').startOf('day');
 

@@ -1,28 +1,20 @@
 import {
-  CREATE_EVENT,
-  DELETE_EVENT,
-  EDIT_EVENT,
-  SET_ROW_DATE,
-  FETCH_EVENTS_REQUESTED,
-  FETCH_EVENTS_LOADED,
-  FETCH_EVENTS_ERROR,
-} from '../action-types';
-import {
-  IEvent,
-  IEditedEvent,
-  ICreatedEvent,
-  GridActionsType,
-  GridThunkActionType,
-} from '../interfaces';
+  GridAction,
+  GridThunkAction,
+  GridActionTypes,
+  GridState,
+  Event,
+  EditedEvent,
+  CreatedEvent,
+  User,
+} from '../types';
 import SchedulerService from '../../services/SchedulerService';
 
 const schedulerService = new SchedulerService();
 
-export const fetchEvents = (uid?: string): GridThunkActionType => {
+export const fetchEvents = (uid?: User['id']): GridThunkAction => {
   return async (dispatch) => {
     try {
-      // console.log('fetch events');
-      
       dispatch(eventsRequested());
       const events = await schedulerService.getEvents(uid);
       dispatch(eventsLoaded(events));
@@ -32,13 +24,13 @@ export const fetchEvents = (uid?: string): GridThunkActionType => {
   };
 };
 
-export const createEvent = (value: ICreatedEvent): GridThunkActionType => {
+export const createEvent = (value: CreatedEvent): GridThunkAction => {
   return async (dispatch) => {
     try {
-      const event: IEvent = await schedulerService.addEvent(value);
+      const event: Event = await schedulerService.addEvent(value);
 
       dispatch({
-        type: CREATE_EVENT,
+        type: GridActionTypes.CREATE_EVENT,
         payload: event,
       });
     } catch (error) {
@@ -51,13 +43,13 @@ export const editEvent = ({
   date,
   id,
   updates,
-}: IEditedEvent): GridThunkActionType => {
+}: EditedEvent): GridThunkAction => {
   return async (dispatch) => {
     try {
       const newEvent = await schedulerService.editEvent(id, date, updates);
 
       dispatch({
-        type: EDIT_EVENT,
+        type: GridActionTypes.EDIT_EVENT,
         payload: newEvent,
       });
     } catch (error) {
@@ -68,14 +60,14 @@ export const editEvent = ({
 
 export const deleteEvent = (
   date: moment.Moment,
-  id: string
-): GridThunkActionType => {
+  id: User['id']
+): GridThunkAction => {
   return async (dispatch) => {
     try {
       await schedulerService.removeEvent(id);
 
       dispatch({
-        type: DELETE_EVENT,
+        type: GridActionTypes.DELETE_EVENT,
         payload: date,
       });
     } catch (error) {
@@ -84,29 +76,29 @@ export const deleteEvent = (
   };
 };
 
-export const setRowDate = (date: moment.Moment | null): GridActionsType => {
+export const setRowDate = (date: GridState['rowDate']): GridAction => {
   return {
-    type: SET_ROW_DATE,
+    type: GridActionTypes.SET_ROW_DATE,
     payload: date,
   };
 };
 
-const eventsRequested = (): GridActionsType => {
+const eventsRequested = (): GridAction => {
   return {
-    type: FETCH_EVENTS_REQUESTED,
+    type: GridActionTypes.FETCH_EVENTS_REQUESTED,
   };
 };
 
-const eventsLoaded = (events: IEvent): GridActionsType => {
+const eventsLoaded = (events: Event): GridAction => {
   return {
-    type: FETCH_EVENTS_LOADED,
+    type: GridActionTypes.FETCH_EVENTS_LOADED,
     payload: events,
   };
 };
 
-const eventsError = (error: {}): GridActionsType => {
+const eventsError = (error: GridState['error']): GridAction => {
   return {
-    type: FETCH_EVENTS_ERROR,
+    type: GridActionTypes.FETCH_EVENTS_ERROR,
     payload: error,
   };
 };

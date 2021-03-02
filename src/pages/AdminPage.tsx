@@ -1,21 +1,21 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
 import { UserList, AdminPageLoader, AdminUsersFilter } from '../components';
-import { useQuery } from '../components/supports/hooks';
-import { useHistory } from 'react-router';
-import { setSortOrder, setOrder } from '../redux/actions';
+import {
+  useActions,
+  useRouter,
+  useTypedSelector,
+} from '../components/supports/Hooks/';
 
 const AdminPage: React.FC = () => {
-  const dispatch = useDispatch();
+  const { setSortOrder, setOrder } = useActions();
   const {
     auth: { loading },
     admin: { sortBy, order },
-  } = useSelector((state: RootState) => state);
-  const history = useHistory();
-  const query = useQuery();
-  const querySortBy = query.get('sortBy') || '';
-  const querySortOrder = query.get('order') || '';
+  } = useTypedSelector((state) => state);
+
+  const { history, query } = useRouter();
+  const querySortBy = query.sortBy || '';
+  const querySortOrder = query.order || '';
 
   useEffect(() => {
     if (
@@ -26,8 +26,8 @@ const AdminPage: React.FC = () => {
         search: `?sortBy=${sortBy}&order=${order}`,
       });
     } else {
-      dispatch(setSortOrder(querySortBy));
-      dispatch(setOrder(querySortOrder));
+      setSortOrder(querySortBy);
+      setOrder(querySortOrder);
     }
   }, [querySortBy, querySortOrder]);
 

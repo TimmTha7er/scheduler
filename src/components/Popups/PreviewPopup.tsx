@@ -1,44 +1,38 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  setPreviewPopupVisible,
-  setDeletePopupVisible,
-  setEditPopupVisible,
-} from '../../redux/actions';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { RootState } from '../../redux/store';
+import { useActions, useTypedSelector } from '../supports/Hooks';
 import closeBtnImg from '../../img/close.svg';
 import deleteBtnImg from '../../img/trash-o.svg';
 import editBtnImg from '../../img/pencil.svg';
 
 const PreviewPopup: React.FC = () => {
-  const dispatch = useDispatch();
-  const { rowDate, events } = useSelector((state: RootState) => state.grid);
+  const {
+    setPreviewPopupVisible,
+    setDeletePopupVisible,
+    setEditPopupVisible,
+  } = useActions();
+  const { rowDate, events } = useTypedSelector((state) => state.grid);
   const { title: eventTitle, descr: eventDescr } =
     events[rowDate!.toString()] || {};
 
   const onBtnCancelClick = (): void => {
-    dispatch(setPreviewPopupVisible(false));
+    setPreviewPopupVisible(false);
   };
 
   const onBtnDeleteClick = (): void => {
-    dispatch(setDeletePopupVisible(true));
+    setDeletePopupVisible(true);
   };
 
   const onBtnEditClick = (): void => {
-    dispatch(setPreviewPopupVisible(false));
-    dispatch(setEditPopupVisible(true));
+    setPreviewPopupVisible(false);
+    setEditPopupVisible(true);
   };
 
   return (
     <div className='preview-popup'>
       <div className='preview-popup__header'>
         <h2 className='preview-popup__title'>{eventTitle}</h2>
-        <div
-          onClick={onBtnCancelClick}
-          // className='preview-popup__close icon icon-cancel-1'
-          className='preview-popup__close'
-        >
+        <div onClick={onBtnCancelClick} className='preview-popup__close'>
           <img
             className='action-bar__btn-img action-bar__btn-img_close'
             src={closeBtnImg}
@@ -63,7 +57,6 @@ const PreviewPopup: React.FC = () => {
         <div className='action-bar'>
           <button
             onClick={onBtnDeleteClick}
-            // className='action-bar__btn icon icon-trash'
             className='action-bar__btn icon'
             title='Удалить'
           >
@@ -73,7 +66,6 @@ const PreviewPopup: React.FC = () => {
             onClick={onBtnEditClick}
             className='action-bar__btn'
             title='Редактировать'
-            // className='action-bar__btn icon icon-pencil'
           >
             <img className='action-bar__btn-img' src={editBtnImg} alt='edit' />
           </button>

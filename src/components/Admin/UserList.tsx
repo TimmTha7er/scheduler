@@ -1,21 +1,17 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedUser, setSortOrder, setOrder } from '../../redux/actions';
-import { UserListBody } from '../../components';
-import { RootState } from '../../redux/store';
-import ErrorIndicator from '../supports/ErrorIndicator';
-import { useHistory } from 'react-router';
+import { UserListBody, ErrorIndicator } from '../../components';
+import { useActions, useRouter, useTypedSelector } from '../supports/Hooks';
 
 const UserList: React.FC = () => {
-  const dispatch = useDispatch();
+  const { setSelectedUser, setSortOrder, setOrder } = useActions();
   const {
     admin: { sortBy, error, order },
-  } = useSelector((state: RootState) => state);
-  const history = useHistory();
+  } = useTypedSelector((state) => state);
+  const { history } = useRouter();
   const sortByClass = `user-list__head-text_order-${order}`;
 
   useEffect(() => {
-    dispatch(setSelectedUser(null));
+    setSelectedUser(null);
   }, []);
 
   const onOrderClick = (sortOrderBy: string) => () => {
@@ -26,8 +22,8 @@ const UserList: React.FC = () => {
         }`,
       });
     } else {
-      dispatch(setSortOrder(sortOrderBy));
-      dispatch(setOrder('desc'));
+      setSortOrder(sortOrderBy);
+      setOrder('desc');
       history.push({ search: `sortBy=${sortOrderBy}&order=desc` });
     }
   };

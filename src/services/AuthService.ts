@@ -1,8 +1,12 @@
 import firebase from './firebase/config';
-import { IUser } from '../redux/interfaces';
+import { User } from '../redux/types';
 
 export default class AuthService {
-  public signUp = async (email: string, password: string, firstName: string) => {
+  public signUp = async (
+    email: User['email'],
+    password: string,
+    firstName: User['firstName']
+  ) => {
     const res = await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password);
@@ -13,7 +17,7 @@ export default class AuthService {
       );
     }
 
-    const userData: IUser = {
+    const userData: User = {
       email: email,
       firstName: firstName,
       id: res.user.uid,
@@ -31,7 +35,7 @@ export default class AuthService {
     return userData;
   };
 
-  public signIn = async (email: string, password: string) => {
+  public signIn = async (email: User['email'], password: string) => {
     await firebase.auth().signInWithEmailAndPassword(email, password);
   };
 
@@ -39,11 +43,11 @@ export default class AuthService {
     await firebase.auth().signOut();
   };
 
-  public sendPasswordResetEmail = async (email: string) => {
+  public sendPasswordResetEmail = async (email: User['email']) => {
     await firebase.auth().sendPasswordResetEmail(email);
   };
 
-  public getUserById = async (id: string) => {
+  public getUserById = async (id: User['id']) => {
     const user = await firebase.firestore().collection('users').doc(id).get();
 
     if (!user.exists) {
@@ -52,7 +56,7 @@ export default class AuthService {
       );
     }
 
-    const userData = user.data() as IUser;
+    const userData = user.data() as User;
 
     return userData;
   };

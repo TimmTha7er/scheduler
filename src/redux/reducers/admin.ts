@@ -1,16 +1,6 @@
-import {
-  FETCH_USERS_REQUESTED,
-  FETCH_USERS_LOADED,
-  FETCH_USERS_ERROR,
-  EDIT_USER,
-  SET_SELECTED_USER,
-  SET_SORT_ORDER,
-  SET_ORDER,
-  SET_FILTER
-} from '../action-types';
-import { IAdminState, AdminActionsType, IUser } from '../interfaces';
+import { AdminState, AdminActionTypes, AdminAction, User } from '../types';
 
-const initialState: IAdminState = {
+const initialState: AdminState = {
   users: [],
   loading: true,
   error: null,
@@ -22,9 +12,9 @@ const initialState: IAdminState = {
 
 const adminReducer = (
   state = initialState,
-  action: AdminActionsType
-): IAdminState => {
-  if (action.type === FETCH_USERS_REQUESTED) {
+  action: AdminAction
+): AdminState => {
+  if (action.type === AdminActionTypes.FETCH_USERS_REQUESTED) {
     return {
       ...state,
       loading: true,
@@ -32,7 +22,7 @@ const adminReducer = (
     };
   }
 
-  if (action.type === FETCH_USERS_LOADED) {
+  if (action.type === AdminActionTypes.FETCH_USERS_LOADED) {
     return {
       ...state,
       users: action.payload,
@@ -41,7 +31,7 @@ const adminReducer = (
     };
   }
 
-  if (action.type === FETCH_USERS_ERROR) {
+  if (action.type === AdminActionTypes.FETCH_USERS_ERROR) {
     return {
       ...state,
       users: [],
@@ -50,16 +40,16 @@ const adminReducer = (
     };
   }
 
-  if (action.type === SET_SELECTED_USER) {
+  if (action.type === AdminActionTypes.SET_SELECTED_USER) {
     return {
       ...state,
       selectedUser: action.payload,
     };
   }
 
-  if (action.type === EDIT_USER) {
+  if (action.type === AdminActionTypes.EDIT_USER) {
     const newUser = action.payload;
-    const idx = state.users.findIndex((user: IUser) => user.id === newUser.id);
+    const idx = state.users.findIndex((user: User) => user.id === newUser.id);
 
     const newUsers = [
       ...state.users.slice(0, idx),
@@ -73,21 +63,21 @@ const adminReducer = (
     };
   }
 
-  if (action.type === SET_SORT_ORDER) {
+  if (action.type === AdminActionTypes.SET_SORT_ORDER) {
     return {
       ...state,
       sortBy: action.payload,
     };
   }
 
-  if (action.type === SET_ORDER) {
+  if (action.type === AdminActionTypes.SET_ORDER) {
     return {
       ...state,
       order: action.payload,
     };
   }
 
-  if (action.type === SET_FILTER) {
+  if (action.type === AdminActionTypes.SET_FILTER) {
     return {
       ...state,
       filterBy: action.payload,

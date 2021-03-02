@@ -1,32 +1,29 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  setPreviewPopupVisible,
-  setEditPopupVisible,
-  setSelectedUser,
-} from '../../redux/actions';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { RootState } from '../../redux/store';
+import { useActions, useRouter, useTypedSelector } from '../supports/Hooks';
 import closeBtnImg from '../../img/close.svg';
 import moreBtnImg from '../../img/more.svg';
 import editBtnImg from '../../img/pencil.svg';
-import { useHistory } from 'react-router';
 
 const AdminPreviewPopup: React.FC = () => {
-  const dispatch = useDispatch();
+  const {
+    setPreviewPopupVisible,
+    setEditPopupVisible,
+    setSelectedUser,
+  } = useActions();
   const {
     admin: { selectedUser },
     range: { startOfRange, endOfRange },
-  } = useSelector((state: RootState) => state);
-  const history = useHistory();
+  } = useTypedSelector((state) => state);
+  const { history } = useRouter();
 
   const onBtnCancelClick = (): void => {
-    dispatch(setPreviewPopupVisible(false));
-    dispatch(setSelectedUser(null));
+    setPreviewPopupVisible(false);
+    setSelectedUser(null);
   };
 
   const onBtnShowEventsClick = (): void => {
-    dispatch(setPreviewPopupVisible(false));
+    setPreviewPopupVisible(false);
     const start = startOfRange.clone().startOf('day');
     const end = endOfRange.clone().add(1, 'day').startOf('day');
 
@@ -39,8 +36,8 @@ const AdminPreviewPopup: React.FC = () => {
   };
 
   const onBtnEditClick = (): void => {
-    dispatch(setPreviewPopupVisible(false));
-    dispatch(setEditPopupVisible(true));
+    setPreviewPopupVisible(false);
+    setEditPopupVisible(true);
   };
 
   return (

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
 import classNames from 'classnames';
 import moment from 'moment';
 import 'moment/locale/ru';
 import { Tooltip } from '../../components';
 import { buildCalendar } from './buildCalendar';
 import { isDayHasEvents } from './isDayHasEvents';
+import { useTypedSelector } from '../supports/Hooks';
 
 interface CalendarProps {
   value: moment.Moment;
@@ -14,7 +13,7 @@ interface CalendarProps {
 }
 
 const Calendar: React.FC<CalendarProps> = ({ value, onDayClick }) => {
-  const { events } = useSelector((state: RootState) => state.grid);
+  const { events } = useTypedSelector((state) => state.grid);
   const [calendar, setCalendar] = useState<moment.Moment[][]>([]);
   const today: moment.Moment = moment();
 
@@ -29,9 +28,9 @@ const Calendar: React.FC<CalendarProps> = ({ value, onDayClick }) => {
           {week.map((day: moment.Moment, idx: number) => {
             const dayHasEvents = isDayHasEvents(day, events);
             const className: string = classNames({
-              'datepicker__day_selected': value.isSame(day, 'day'),
-              'datepicker__day_today': day.isSame(today, 'day'),
-              'datepicker__day_weekend':
+              datepicker__day_selected: value.isSame(day, 'day'),
+              datepicker__day_today: day.isSame(today, 'day'),
+              datepicker__day_weekend:
                 day.format('dd') === 'вс' || day.format('dd') === 'сб',
               'datepicker__day_outside-month':
                 day.isAfter(value, 'month') || day.isBefore(value, 'month'),

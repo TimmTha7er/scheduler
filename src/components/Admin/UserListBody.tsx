@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
-import { setPreviewPopupVisible, setSelectedUser } from '../../redux/actions';
 import { UserListLoader } from '../../components';
-import { IUser } from '../../redux/interfaces';
+import { User } from '../../redux/types';
+import { useActions, useTypedSelector } from '../supports/Hooks';
 
 const UserListBody: React.FC = () => {
-  const dispatch = useDispatch();
+  const { setPreviewPopupVisible, setSelectedUser } = useActions();
   const {
     admin: { loading, selectedUser, filterBy, users },
-  } = useSelector((state: RootState) => state);
-  const [filteredUsers, setFilteredUsers] = useState<IUser[]>([]);
+  } = useTypedSelector((state) => state);
+  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
 
   useEffect(() => {
-    dispatch(setSelectedUser(null));
+    setSelectedUser(null);
   }, []);
 
   useEffect(() => {
@@ -34,8 +32,8 @@ const UserListBody: React.FC = () => {
   const onUserClick = (id: string) => async () => {
     const [user] = users.filter((user) => user.id === id);
 
-    dispatch(setSelectedUser(user));
-    dispatch(setPreviewPopupVisible(true));
+    setSelectedUser(user);
+    setPreviewPopupVisible(true);
   };
 
   return (

@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
 import moment from 'moment';
 import 'moment/locale/ru';
 import { buildRange, RangeType } from './buildRange';
 import { DayList, ScheduleFormLoader, NextEventsForm } from '../../components';
+import { useTypedSelector } from '../supports/Hooks';
 
 const NextEvents: React.FC = () => {
-  const dispatch = useDispatch();
   const {
     grid: { events },
     range: { nextEventsNum },
     auth: { loading },
-  } = useSelector((state: RootState) => state);
+  } = useTypedSelector((state) => state);
   const [range, setRange] = useState<RangeType | null>(null);
 
   useEffect(() => {
@@ -33,7 +31,7 @@ const NextEvents: React.FC = () => {
         +nextEventsNum
       )
     );
-  }, [dispatch, events, nextEventsNum]);
+  }, [events, nextEventsNum]);
 
   return (
     <>

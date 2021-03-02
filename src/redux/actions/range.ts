@@ -1,91 +1,69 @@
-import { push } from 'connected-react-router';
 import {
-  // TOGGLE_RANGE_VISIBLE,
-  SET_START_OF_RANGE,
-  SET_END_OF_RANGE,
-  SET_LEFT_DATEPICKER_VISIBLE,
-  SET_RIGHT_DATEPICKER_VISIBLE,
-  // SET_RADIO_BTN_VALUE,
-  SET_NEXT_DAYS_NUM,
-  SET_NEXT_EVENTS_NUM,
-  SET_SELECT_VALUE,
-} from '../action-types';
-import { RangeActionsType, RangeThunkActionType } from '../interfaces';
+  RangeAction,
+  RangeActionTypes,
+  RangeThunkAction,
+  RangeState,
+} from '../types';
 
-// export const toggleRangeVisible = (): RangeActionsType => {
-//   return {
-//     type: TOGGLE_RANGE_VISIBLE,
-//   };
-// };
-
-export const setStartOFRange = (date: moment.Moment): RangeActionsType => {
+export const setStartOFRange = (
+  date: RangeState['startOfRange']
+): RangeAction => {
   return {
-    type: SET_START_OF_RANGE,
+    type: RangeActionTypes.SET_START_OF_RANGE,
     payload: date,
   };
 };
 
-export const setEndOFRange = (date: moment.Moment): RangeActionsType => {
+export const setEndOFRange = (date: RangeState['endOfRange']): RangeAction => {
   return {
-    type: SET_END_OF_RANGE,
+    type: RangeActionTypes.SET_END_OF_RANGE,
     payload: date,
   };
 };
 
-export const setLeftDatePickerVisible = (value: boolean): RangeActionsType => {
+export const setLeftDatePickerVisible = (
+  value: RangeState['isLeftDatePickerVisible']
+): RangeAction => {
   return {
-    type: SET_LEFT_DATEPICKER_VISIBLE,
+    type: RangeActionTypes.SET_LEFT_DATEPICKER_VISIBLE,
     payload: value,
   };
 };
 
-export const setRightDatePickerVisible = (value: boolean): RangeActionsType => {
+export const setRightDatePickerVisible = (
+  value: RangeState['isRightDatePickerVisible']
+): RangeAction => {
   return {
-    type: SET_RIGHT_DATEPICKER_VISIBLE,
+    type: RangeActionTypes.SET_RIGHT_DATEPICKER_VISIBLE,
     payload: value,
   };
 };
 
-// export const setRadioBtnValue = (value: string): RangeActionsType => {
-//   return {
-//     type: SET_RADIO_BTN_VALUE,
-//     payload: value,
-//   };
-// };
-
-export const setNextEventsNum = (value: string): RangeThunkActionType => {
+export const setNextEventsNum = (
+  value: RangeState['nextDaysNum']
+): RangeThunkAction => {
   return async (dispatch) => {
-    // dispatch(
-    //   // @ts-ignore
-    //   push({
-    //     search: `?num=${value}`,
-    //   })
-    // );
-
     dispatch({
-      type: SET_NEXT_EVENTS_NUM,
+      type: RangeActionTypes.SET_NEXT_EVENTS_NUM,
       payload: value,
     });
   };
 };
 
-// export const setNextEventsNum = (value: string): RangeActionsType => {
-//   return {
-//     type: SET_NEXT_EVENTS_NUM,
-//     payload: value,
-//   };
-// };
-
-export const setNextDaysNum = (value: string): RangeActionsType => {
+export const setNextDaysNum = (
+  value: RangeState['nextEventsNum']
+): RangeAction => {
   return {
-    type: SET_NEXT_DAYS_NUM,
+    type: RangeActionTypes.SET_NEXT_DAYS_NUM,
     payload: value,
   };
 };
 
-export const setSelectValue = (value: string): RangeActionsType => {
+export const setSelectValue = (
+  value: RangeState['selectValue']
+): RangeAction => {
   return {
-    type: SET_SELECT_VALUE,
+    type: RangeActionTypes.SET_SELECT_VALUE,
     payload: value,
   };
 };

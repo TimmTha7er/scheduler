@@ -1,13 +1,5 @@
 import React, { useEffect } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  setLoading,
-  getUserById,
-  setNeedVerification,
-  fetchEvents,
-  fetchUsers,
-} from '../redux/actions';
 import { Switch, Route } from 'react-router-dom';
 import firebase from '../services/firebase/config';
 import {
@@ -28,43 +20,49 @@ import {
   NotFound,
 } from '../components';
 import '../scss/index.scss';
-import { RootState } from '../redux/store';
+import { useActions, useTypedSelector } from './supports/Hooks';
 
 const App: React.FC = () => {
-  const dispatch = useDispatch();
+  const {
+    setLoading,
+    getUserById,
+    setNeedVerification,
+    fetchEvents,
+    fetchUsers,
+  } = useActions();
   const {
     auth: { user },
     admin: { sortBy, order },
-  } = useSelector((state: RootState) => state);
+  } = useTypedSelector((state) => state);
 
   // Check if user exists
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
-        await dispatch(getUserById(user.uid));
+        await getUserById(user.uid);
 
         if (!user.emailVerified) {
-          dispatch(setNeedVerification(true));
+          setNeedVerification(true);
         } else {
-          dispatch(setNeedVerification(false));
+          setNeedVerification(false);
         }
       }
 
-      dispatch(setLoading(false));
+      setLoading(false);
     });
 
     return () => {
       unsubscribe();
     };
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     if (user && user.role === 'admin') {
-      dispatch(fetchUsers(sortBy, order));
+      fetchUsers(sortBy, order);
     }
 
     if (user && user.role === 'user') {
-      dispatch(fetchEvents());
+      fetchEvents();
     }
   }, [user, sortBy, order]);
 
@@ -72,7 +70,7 @@ const App: React.FC = () => {
     <>
       <PerfectScrollbar>
         <div className='container'>
-          <Header></Header>
+          <Header />
           <main className='main'>
             <Switch>
               <PublicRoute exact path='/' component={HomePage} />

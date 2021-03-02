@@ -1,34 +1,28 @@
 import {
-  ISignUpData,
-  ISignInData,
-  IUser,
-  AuthThunkActionType,
-  AuthActionsType,
-} from '../interfaces';
-import {
-  SET_USER,
-  SET_LOADING,
-  SIGN_OUT,
-  SET_ERROR,
-  NEED_VERIFICATION,
-  SET_SUCCESS,
-} from '../action-types';
+  AuthAction,
+  AuthThunkAction,
+  AuthActionTypes,
+  AuthState,
+  SignUpData,
+  SignInData,
+  User,
+} from '../types';
 import AuthService from '../../services/AuthService';
 
 const authService = new AuthService();
 
 // Create user
-export const signup = (data: ISignUpData): AuthThunkActionType => {
+export const signup = (data: SignUpData): AuthThunkAction => {
   return async (dispatch) => {
     try {
       dispatch(setLoading(true));
 
-      const userData: IUser = await authService.signUp(
+      const userData: User = await authService.signUp(
         data.email,
         data.password,
         data.firstName
       );
-      
+
       dispatch(setNeedVerification(true));
       dispatch(userLoaded(userData));
     } catch (err) {
@@ -39,11 +33,11 @@ export const signup = (data: ISignUpData): AuthThunkActionType => {
 };
 
 // Get user by id
-export const getUserById = (id: string): AuthThunkActionType => {
+export const getUserById = (id: User['id']): AuthThunkAction => {
   return async (dispatch) => {
     try {
       dispatch(setLoading(true));
-      const userData: IUser = await authService.getUserById(id);
+      const userData: User = await authService.getUserById(id);
 
       dispatch(userLoaded(userData));
     } catch (err) {
@@ -54,7 +48,7 @@ export const getUserById = (id: string): AuthThunkActionType => {
 };
 
 // Log in
-export const signin = (data: ISignInData): AuthThunkActionType => {
+export const signin = (data: SignInData): AuthThunkAction => {
   return async (dispatch) => {
     try {
       dispatch(setLoading(true));
@@ -68,13 +62,13 @@ export const signin = (data: ISignInData): AuthThunkActionType => {
 };
 
 // Log out
-export const signout = (): AuthThunkActionType => {
+export const signout = (): AuthThunkAction => {
   return async (dispatch) => {
     try {
       dispatch(setLoading(true));
       await authService.signOut();
       dispatch({
-        type: SIGN_OUT,
+        type: AuthActionTypes.SIGN_OUT,
       });
     } catch (err) {
       console.log(err);
@@ -85,9 +79,9 @@ export const signout = (): AuthThunkActionType => {
 
 // Send password reset email
 export const sendPasswordResetEmail = (
-  email: string,
-  successMsg: string
-): AuthThunkActionType => {
+  email: User['email'],
+  successMsg: AuthState['success']
+): AuthThunkAction => {
   return async (dispatch) => {
     try {
       dispatch(setLoading(true));
@@ -101,41 +95,43 @@ export const sendPasswordResetEmail = (
 };
 
 // Set loading
-export const setLoading = (value: boolean): AuthActionsType => {
+export const setLoading = (value: AuthState['loading']): AuthAction => {
   return {
-    type: SET_LOADING,
+    type: AuthActionTypes.SET_LOADING,
     payload: value,
   };
 };
 
 // Set error
-export const setError = (msg: string): AuthActionsType => {
+export const setError = (msg: AuthState['error']): AuthAction => {
   return {
-    type: SET_ERROR,
+    type: AuthActionTypes.SET_ERROR,
     payload: msg,
   };
 };
 
 // Set need verification
-export const setNeedVerification = (value:boolean): AuthActionsType => {
+export const setNeedVerification = (
+  value: AuthState['needVerification']
+): AuthAction => {
   return {
-    type: NEED_VERIFICATION,
+    type: AuthActionTypes.NEED_VERIFICATION,
     payload: value,
   };
 };
 
 // Set success
-export const setSuccess = (msg: string): AuthActionsType => {
+export const setSuccess = (msg: AuthState['success']): AuthAction => {
   return {
-    type: SET_SUCCESS,
+    type: AuthActionTypes.SET_SUCCESS,
     payload: msg,
   };
 };
 
 // Set user
-const userLoaded = (userData: IUser): AuthActionsType => {
+const userLoaded = (userData: User): AuthAction => {
   return {
-    type: SET_USER,
+    type: AuthActionTypes.SET_USER,
     payload: userData,
   };
 };
