@@ -7,7 +7,7 @@ import {
 } from '../../components/supports/Hooks/';
 
 const AdminUsersFilter: React.FC = () => {
-  const { setFilter } = useActions();
+  const { setFilter, setALLPopupsUnvisible, setSelectedUser } = useActions();
   const {
     auth: { loading },
   } = useTypedSelector((state) => state);
@@ -23,10 +23,15 @@ const AdminUsersFilter: React.FC = () => {
     setFilter(inputValue);
   };
 
+  const onSearchClick = () => {
+    setALLPopupsUnvisible();
+    setSelectedUser(null);
+  };
+
   return (
     <div className='admin-control-panel'>
       <div className='admin-control-panel__title'>Пользователи</div>
-      <div className='admin-control-panel__input-wrap'>
+      <div onClick={onSearchClick} className='admin-control-panel__input-wrap'>
         <input
           value={input.value}
           onChange={searchChangeHandler}

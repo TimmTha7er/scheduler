@@ -113,8 +113,8 @@
 
   &__filter {
     width: 100%;
-    padding: 10px 10px 10px 35px;
-    font-size: 16px;
+    padding: 10px 10px 10px 35px !important;
+    font-size: 16px !important;
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
   }
 }
