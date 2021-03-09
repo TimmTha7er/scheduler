@@ -38,14 +38,14 @@ const UserListBody: React.FC = () => {
 
   return (
     <tbody className='user-list__body'>
-      {filteredUsers.map(({ firstName, email, createdAt, id }, idx: number) => {
+      {filteredUsers.map(({ firstName, email, createdAt, id }) => {
         const selected: string =
           id === selectedUser?.id ? 'user-list__row_selected' : '';
 
         return (
           <tr
             onClick={onUserClick(id)}
-            key={idx}
+            key={id}
             className={`user-list__row ${selected}`}
           >
             <td className='user-list__body-cell' data-label='Имя'>

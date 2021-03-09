@@ -8,12 +8,12 @@ interface AdminEventListProps {
 const AdminEventList: React.FC<AdminEventListProps> = ({ day }) => {
   return (
     <div className='admin-event-list'>
-      {day.map(({ time, title, descr }: EventType, idx: number) => {
+      {day.map(({ time, title, descr }) => {
         const start: string = time.clone().format('HH:mm');
         const end: string = time.clone().add(1, 'hour').format('HH:mm');
 
         return (
-          <div key={idx} className={`admin-event-list__event`}>
+          <div key={`${start}-${end}`} className={`admin-event-list__event`}>
             <div className='admin-event-list__head'>
               <div className='admin-event-list__time'>
                 {start}

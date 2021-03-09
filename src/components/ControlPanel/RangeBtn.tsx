@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useActions, useTypedSelector } from '../supports/Hooks';
+import { useActions, useRouter, useTypedSelector } from '../supports/Hooks';
 
 const RangeBtn: React.FC = () => {
   const { setALLPopupsUnvisible, setRowDate } = useActions();
   const {
     datePicker: { date },
     range: { startOfRange, endOfRange },
-    router: { location },
   } = useTypedSelector((state) => state);
+  const location = useRouter();
 
   const onRangeBtnClick = (): void => {
     setALLPopupsUnvisible();

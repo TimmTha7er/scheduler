@@ -20,9 +20,8 @@ const GridNav: React.FC<GridNavProps> = ({ setDate }) => {
   const {
     datePicker: { date },
     range: { startOfRange, endOfRange },
-    router: { location },
   } = useTypedSelector((state) => state);
-  const { history } = useRouter();
+  const { history, location } = useRouter();
 
   const onPrevBtnClick = (): void => {
     setALLPopupsUnvisible();

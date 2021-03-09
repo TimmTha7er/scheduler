@@ -16,7 +16,7 @@ const EventList: React.FC<EventListProps> = ({
 }) => {
   return (
     <div className='event-list'>
-      {day.map(({ time, title }: EventType, idx: number) => {
+      {day.map(({ time, title }) => {
         const start: string = time.clone().format('HH:mm');
         const end: string = time.clone().add(1, 'hour').format('HH:mm');
 
@@ -28,7 +28,7 @@ const EventList: React.FC<EventListProps> = ({
         return (
           <div
             onClick={onEventClick(time)}
-            key={idx}
+            key={`${start}-${end}`}
             className={`event-list__event ${selectedEvent}`}
           >
             <div className='event-list__time'>

@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { ConnectedRouter as Router } from 'connected-react-router';
-import { store, history } from './redux/store';
+import store from './redux/store';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { App } from './components';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router history={history}>
+      <Router>
         <App />
       </Router>
     </Provider>
