@@ -19,7 +19,7 @@ export const fetchUsers = (
       const events = await adminService.getUsers(sortBy, order);
       dispatch(usersLoaded(events));
     } catch (error) {
-      dispatch(usersError(error));
+      dispatch(usersError(error as AdminState['error']));
     }
   };
 };
@@ -34,7 +34,7 @@ export const editUser = (user: User): AdminThunkAction => {
         payload: user,
       });
     } catch (error) {
-      dispatch(usersError(error));
+      dispatch(usersError(error as AdminState['error']));
     }
   };
 };

@@ -24,7 +24,7 @@ export interface AuthState {
   user: User | null;
   authenticated: boolean;
   loading: boolean;
-  error: string;
+  error: null | { message: string; };
   needVerification: boolean;
   success: string;
 }

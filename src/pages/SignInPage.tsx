@@ -16,7 +16,7 @@ const SignIn: React.FC = () => {
 
   useEffect(() => {
     if (error) {
-      setError('');
+      setError({ message: '' });
     }
   }, []);
 
@@ -33,8 +33,8 @@ const SignIn: React.FC = () => {
     <div className='sign-in'>
       <h2 className='sign-in__title'>Войдите, чтобы продолжить</h2>
       <form className='sign-in__form' onSubmit={onSubmitClick}>
-        {error && (
-          <Message className='sign-in__message' type='danger' msg={error} />
+        {error?.message && (
+          <Message className='sign-in__message' type='danger' msg={error.message} />
         )}
 
         <div className='sign-in__field'>

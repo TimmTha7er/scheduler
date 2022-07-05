@@ -8,8 +8,8 @@ const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState('');
 
   useEffect(() => {
-    if (error) {
-      setError('');
+    if (error?.message) {
+      setError({message: ''});
     }
     if (success) {
       setSuccess('');
@@ -28,11 +28,11 @@ const ForgotPassword: React.FC = () => {
     <div className='forgot-password'>
       <h2 className='forgot-password__title'>Сбросить пароль</h2>
       <form className='forgot-password__form' onSubmit={submitHandler}>
-        {error && (
+        {error?.message && (
           <Message
             className='forgot-password__message'
             type='danger'
-            msg={error}
+            msg={error.message}
           />
         )}
         {success && (

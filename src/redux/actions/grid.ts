@@ -19,7 +19,7 @@ export const fetchEvents = (uid?: User['id']): GridThunkAction => {
       const events = await schedulerService.getEvents(uid);
       dispatch(eventsLoaded(events));
     } catch (error) {
-      dispatch(eventsError(error));
+      dispatch(eventsError(error as GridState['error']));
     }
   };
 };
@@ -34,7 +34,7 @@ export const createEvent = (value: CreatedEvent): GridThunkAction => {
         payload: event,
       });
     } catch (error) {
-      dispatch(eventsError(error));
+      dispatch(eventsError(error as GridState['error']));
     }
   };
 };
@@ -53,7 +53,7 @@ export const editEvent = ({
         payload: newEvent,
       });
     } catch (error) {
-      dispatch(eventsError(error));
+      dispatch(eventsError(error as GridState['error']));
     }
   };
 };
@@ -71,7 +71,7 @@ export const deleteEvent = (
         payload: date,
       });
     } catch (error) {
-      dispatch(eventsError(error));
+      dispatch(eventsError(error as GridState['error']));
     }
   };
 };

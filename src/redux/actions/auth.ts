@@ -27,7 +27,7 @@ export const signup = (data: SignUpData): AuthThunkAction => {
       dispatch(userLoaded(userData));
     } catch (err) {
       console.log(err);
-      dispatch(setError(err.message));
+      dispatch(setError(err as AuthState['error']));
     }
   };
 };
@@ -42,7 +42,7 @@ export const getUserById = (id: User['id']): AuthThunkAction => {
       dispatch(userLoaded(userData));
     } catch (err) {
       console.log(err);
-      dispatch(setError(err.message));
+      dispatch(setError(err as AuthState['error']));
     }
   };
 };
@@ -56,7 +56,7 @@ export const signin = (data: SignInData): AuthThunkAction => {
       dispatch(setLoading(false));
     } catch (err) {
       console.log(err);
-      dispatch(setError(err.message));
+      dispatch(setError(err as AuthState['error']));
     }
   };
 };
@@ -89,7 +89,7 @@ export const sendPasswordResetEmail = (
       dispatch(setSuccess(successMsg));
     } catch (err) {
       console.log(err);
-      dispatch(setError(err.message));
+      dispatch(setError(err as AuthState['error']));
     }
   };
 };

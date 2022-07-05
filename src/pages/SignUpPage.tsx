@@ -11,8 +11,8 @@ const SignUp: React.FC = () => {
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    if (error) {
-      setError('');
+    if (error?.message) {
+      setError({message: ''});
     }
   }, []);
 
@@ -25,8 +25,8 @@ const SignUp: React.FC = () => {
     <div className='sign-up'>
       <h2 className='sign-up__title'>Регистрация</h2>
       <form className='sign-up__form' onSubmit={onSubmitClick}>
-        {error && (
-          <Message className='sign-up__message' type='danger' msg={error} />
+        {error?.message && (
+          <Message className='sign-up__message' type='danger' msg={error.message} />
         )}
 
         <div className='sign-up__field'>

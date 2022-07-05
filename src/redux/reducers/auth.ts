@@ -4,7 +4,7 @@ const initialState: AuthState = {
   user: null,
   authenticated: false,
   loading: true,
-  error: '',
+  error: { message: '' },
   needVerification: false,
   success: '',
 };
@@ -14,7 +14,7 @@ const authReducer = (state = initialState, action: AuthAction): AuthState => {
     return {
       ...state,
       loading: action.payload,
-      error: '',
+      error: { message: '' },
       success: '',
     };
   }
@@ -24,7 +24,7 @@ const authReducer = (state = initialState, action: AuthAction): AuthState => {
       ...state,
       success: action.payload,
       loading: false,
-      error: '',
+      error: { message: '' },
     };
   }
 
@@ -43,7 +43,7 @@ const authReducer = (state = initialState, action: AuthAction): AuthState => {
       user: action.payload,
       authenticated: true,
       loading: false,
-      error: '',
+      error: { message: '' },
       success: '',
     };
   }
@@ -54,7 +54,7 @@ const authReducer = (state = initialState, action: AuthAction): AuthState => {
       user: null,
       authenticated: false,
       loading: false,
-      error: '',
+      error: { message: '' },
       success: '',
     };
   }
